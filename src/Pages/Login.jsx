@@ -1,7 +1,14 @@
+import React, { useEffect, useState } from "react";
+
 // 로그인 페이지
 import styled from "styled-components";
 import CyLogo from '../Public/Images/CyLogo.png';
+import Ad from '../Public/Images/ad.png';
+
+/* Router setup */
 import { useNavigate } from "react-router-dom";
+
+
 const Login = () => {
 
   const navigate = useNavigate();
@@ -24,25 +31,39 @@ const Login = () => {
           <span>비밀번호 재설정</span>
           <span onClick = {()=> navigate('/signup')} style = {{cursor : 'pointer'}}>회원가입</span>
         </LoginOptions>
+        <Advertisement>
+        <img src = {Ad} style = {{ width : '311px', marginRight : '3px'}} alt = ""/>
+        </Advertisement>
+        <LoginFooter>
+          <div style = {{ width : '100%', display : 'flex', justifyContent : 'space-between'}}>
+            <span>이용약관</span>
+            <span>개인정보처리방침</span>
+            <span>고객센터</span>
+          </div>
+          <div style = {{ marginTop : '5px', width : '100%', display : 'flex', justifyContent : 'center', fontSize : '10px'}}>
+            <span>Copyright Cyworld Z Corp. All rights reserved</span>
+          </div>
+        </LoginFooter>
       </LoginWrap>
     </BodyBox>
   );
 }
 
+/* 전역 Main-body */
 export const BodyBox = styled.div`
   width : 100%;
   height : 100%;
-
   display : flex;
   justify-content: center;
 `;
-const LoginWrap = styled.div`
+
+export const LoginWrap = styled.div`
   width : 360px;
   height : 844px;
-  background-color : black;
   display : flex;
   flex-direction: column;
   align-items: center;
+  /* background-color: #e9e9e9; */
 `
 const LoginLogo = styled.div`
   width : 100%;
@@ -59,11 +80,10 @@ const UserInputBox = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  background-color: yellow;
   margin-bottom: 25px;
 `
 
-const InputStyle = styled.input`
+export const InputStyle = styled.input`
   background-color: var(--input-grey);
   border : none;
   height : 52px;
@@ -83,16 +103,15 @@ width : 390px;
 height : 70px;
 `
 
-const ButtonBox = styled.div`
+export const ButtonBox = styled.div`
   width : 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  background-color: yellow;
 `
 
-const UserButton = styled.button`
+export const UserButton = styled.button`
   background-color: #E5E5E5;
   border : none;
   height : 52px;
@@ -113,5 +132,17 @@ const LoginOptions = styled.div`
   padding-top : 15px;
   font-size: 15px;
   box-sizing: border-box;
+`
+
+const Advertisement = styled.div`
+  height : 225px;
+  background-color: white;
+`
+
+const LoginFooter = styled.div`
+  width : 311px;
+  display : flex;
+  flex-direction: column;
+  font-size : 14px;
 `
 export default Login;
