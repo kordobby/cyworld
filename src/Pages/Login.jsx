@@ -63,7 +63,6 @@ export const LoginWrap = styled.div`
   display : flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: #e9e9e9; */
 `
 const LoginLogo = styled.div`
   width : 100%;

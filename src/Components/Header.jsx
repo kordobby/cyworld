@@ -15,8 +15,8 @@ const Header = () => {
 }
 
 export const HeaderBox = styled.div`
-  width : 360px;
-  height : 90px;
+  width : 390px;  // 100%
+  height : 93px;
   background-color: var(--blue);
 
   display : flex;

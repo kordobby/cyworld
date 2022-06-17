@@ -18,11 +18,12 @@ const Join = () => {
   const [ pw2, setPw2 ] = useState('');
   const [ userName, setUserName ] = useState('');
   const [ checkPw, setCheckPw ] = useState('');
+  // console.log( id + pw + pw2 + userName );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUpReq = useSelector((state) => state.userReducer);
-  console.log(signUpReq.error);
+  // console.log(signUpReq.error);
 
   const num = pw.search(/[0-9]/g);
   const eng = pw.search(/[a-z]/ig);
@@ -92,7 +93,7 @@ const Join = () => {
               onChange = {(event) => { setId(event.target.value); }}
               />
             <CheckNotice>사용할 수 있는 ID 입니다.</CheckNotice>
-            <IdCheckBtn><FontAwesomeIcon icon = {faCheck}/></IdCheckBtn>
+            <IdCheckBtn onclick = {checkIdHandler}><FontAwesomeIcon icon = {faCheck}/></IdCheckBtn>
           </IdBox>
           <IdBox style = {{height : '205px'}}>
             <SignUpTitles>비밀번호 입력</SignUpTitles>
@@ -125,7 +126,7 @@ const Join = () => {
   );
 }
 
-const JoinWrap = styled.div`
+export const JoinWrap = styled.div`
   width : 311px;
   height : 100%;
   flex-direction: column;

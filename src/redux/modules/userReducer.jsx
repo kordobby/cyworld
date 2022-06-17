@@ -35,13 +35,14 @@ const checkId = (payload) => ({ type : CHECK_ID, payload });
 
 /* THUNK */
 export const checkIdDB = (payload) => {
+  console.log(payload);
   // payload : { email : #### }
   return async function(dispatch) {
     dispatch(serverReqUser(true));
     try {
       const idCheck = await axios({
         method : 'get',
-        url : `..../api/duplicatesemail/${payload.email}`,
+        url : `/api/duplicatesemail/${payload.email}`,
         data : {
           email : payload.email
         }
