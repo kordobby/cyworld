@@ -12,6 +12,8 @@ import { signUpDB, checkIdDB } from '../redux/modules/userReducer';
 import { useNavigate } from "react-router-dom";
 
 import useInput from "../Hooks/useInput";
+import Greetings from "../Components/UserComponents/Greetings";
+import Error from "../Components/Commom/Error";
 
 const Join = () => {
 
@@ -64,67 +66,71 @@ const Join = () => {
   }
   
   return (
-    <BodyBox>
-      <LoginWrap>
-        <JoinWrap>
-          <JoinTitle>
-            <span>회원가입</span>
-          </JoinTitle>
-          <IdBox>
-            <SignUpTitles>이메일 아이디 입력</SignUpTitles>
-            <SignUpNotice>아이디로 사용할 이메일 주소를 입력해주세요.</SignUpNotice>
-            <InputStyle
-              placeholder="이메일 아이디"
-              type = "email"
-              onChange = {setId}
-              />
-              { (signUpReq.idCheck === true) ?
-                <CheckNotice>사용할 수 있는 ID 입니다.</CheckNotice>
-                :
-                <CheckNotice danger>이메일 중복확인을 해주세요!</CheckNotice>
-              }
-            <IdCheckBtn onClick = {checkIdHandler}><FontAwesomeIcon icon = {faCheck}/></IdCheckBtn>
-          </IdBox>
-          <IdBox style = {{height : '205px'}}>
-            <SignUpTitles>비밀번호 입력</SignUpTitles>
-            <SignUpNotice>비밀번호는 6 - 12자리, 영문+숫자 조합하여 설정해주세요.</SignUpNotice>
-            <InputStyle
-              placeholder="비밀번호를 입력해주세요."
-              type = "password"
-              onChange = {setPw}
-              maxLength = "12"
-              />
-              { ( !checkPw ) ? 
-            <CheckNotice danger>비밀번호 양식을 지켜주세요!</CheckNotice>
-            :
-            <CheckNotice>안전한 비밀번호입니다.</CheckNotice>
-            }
-            <InputStyle
-              placeholder="비밀번호를 다시 입력해주세요."
-              type = "password"
-              onChange = {setPw2}
-              maxLength = "12"
-              />
-              { ( pw === pw2 ) ?
-              <CheckNotice>비밀번호가 일치합니다.</CheckNotice>
+    <>
+      { signUpReq?.success === true ? <Greetings></Greetings> : <></>}
+      { signUpReq?.error !== null ? <Error></Error> : <></>}
+      <BodyBox>
+        <LoginWrap>
+          <JoinWrap>
+            <JoinTitle>
+              <span>회원가입</span>
+            </JoinTitle>
+            <IdBox>
+              <SignUpTitles>이메일 아이디 입력</SignUpTitles>
+              <SignUpNotice>아이디로 사용할 이메일 주소를 입력해주세요.</SignUpNotice>
+              <InputStyle
+                placeholder="이메일 아이디"
+                type = "email"
+                onChange = {setId}
+                />
+                { (signUpReq.idCheck === true) ?
+                  <CheckNotice>사용할 수 있는 ID 입니다.</CheckNotice>
+                  :
+                  <CheckNotice danger>이메일 중복확인을 해주세요!</CheckNotice>
+                }
+              <IdCheckBtn onClick = {checkIdHandler}><FontAwesomeIcon icon = {faCheck}/></IdCheckBtn>
+            </IdBox>
+            <IdBox style = {{height : '205px'}}>
+              <SignUpTitles>비밀번호 입력</SignUpTitles>
+              <SignUpNotice>비밀번호는 6 - 12자리, 영문+숫자 조합하여 설정해주세요.</SignUpNotice>
+              <InputStyle
+                placeholder="비밀번호를 입력해주세요."
+                type = "password"
+                onChange = {setPw}
+                maxLength = "12"
+                />
+                { ( !checkPw ) ? 
+              <CheckNotice danger>비밀번호 양식을 지켜주세요!</CheckNotice>
               :
-              <CheckNotice danger>비밀번호가 일치하지 않습니다.</CheckNotice>
-               }
-          </IdBox>
-          <IdBox style = {{height : '102px', marginBottom : '96px'}}>
-            <SignUpTitles>이름 입력</SignUpTitles>
-            <SignUpNotice>실명을 작성해주세요.</SignUpNotice>
-            <InputStyle
-              type = "text"
-              onChange={setUserName}
-              maxLength = "5"/>
-          </IdBox>
-          <div>
-             <UserButton onClick = {signUpHandler}>다음</UserButton>
-          </div>
-        </JoinWrap>
-      </LoginWrap>
-    </BodyBox>
+              <CheckNotice>안전한 비밀번호입니다.</CheckNotice>
+              }
+              <InputStyle
+                placeholder="비밀번호를 다시 입력해주세요."
+                type = "password"
+                onChange = {setPw2}
+                maxLength = "12"
+                />
+                { ( pw === pw2 ) ?
+                <CheckNotice>비밀번호가 일치합니다.</CheckNotice>
+                :
+                <CheckNotice danger>비밀번호가 일치하지 않습니다.</CheckNotice>
+                }
+            </IdBox>
+            <IdBox style = {{height : '102px', marginBottom : '96px'}}>
+              <SignUpTitles>이름 입력</SignUpTitles>
+              <SignUpNotice>실명을 작성해주세요.</SignUpNotice>
+              <InputStyle
+                type = "text"
+                onChange={setUserName}
+                maxLength = "5"/>
+            </IdBox>
+            <div>
+              <UserButton onClick = {signUpHandler}>다음</UserButton>
+            </div>
+          </JoinWrap>
+        </LoginWrap>
+      </BodyBox>
+    </>
   );
 }
 
@@ -135,7 +141,7 @@ export const JoinWrap = styled.div`
   justify-content: flex-start;
 `;
 
-const JoinTitle = styled.div`
+export const JoinTitle = styled.div`
   color : var(--orange);
   height : 103px;
   display : flex;

@@ -72,11 +72,16 @@ const Login = () => {
 export const BodyBox = styled.div`
   ${flex({justify : 'center'})};
   width: 100%;
-`;
+  background-color: black;
+  position : ${props => props.greeting ? 'absolute' : 'static'};
+  display : ${props => props.greeting ? 'flex' : 'hidden'};
+  z-index : 2;
+  `;
 
 export const LoginWrap = styled.div`
   ${flex({direction : 'column', justify : 'center'})}
   width : calc(100vh - 55vh);
+  background-color: yellow;
 `
 const LoginLogo = styled.div`
   width : calc(100vh - 60vh);

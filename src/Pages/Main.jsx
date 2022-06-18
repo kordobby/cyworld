@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import Surfing from '../Components/Surfing';
 import { useState } from 'react';
 import { keyframes } from 'styled-components';
+import Footer from '../Components/UserComponents/Footer';
+
 const Main = ( {token} ) => {
 
   const [ active, setActive ] = useState(true);
@@ -71,7 +73,7 @@ const Main = ( {token} ) => {
            <FriendsImg official/><FriendsImg official/><FriendsImg official /><FriendsImg official/>
           </OfficialLists>
         </OfficialBox>
-        <MainFooter></MainFooter>
+        <Footer/>
       </LoginWrap>
     </BodyBox>
   );
@@ -116,7 +118,7 @@ const MenuBar = styled.div`
   top : 70px;
   left : 4px;
   z-index: 5;
-  left : ${props => props.active? '4px' : '200px'}; 
+  left : ${props => props.active? '4px' : '178px'}; 
 `
 
 const Followers = styled.div`
@@ -180,12 +182,12 @@ const OfficialLists = styled.div`
   box-sizing: border-box;
   ${flex({align : 'center', justify : 'space-around'})}
 `
-const MainFooter = styled.div`
-  height : 74px;
-  width : calc(100vh - 55vh);
-  background-color: var(--blue);
-  position : fixed;
-  bottom : 0;
-`
+// const MainFooter = styled.div`
+//   height : 74px;
+//   width : calc(100vh - 55vh);
+//   background-color: var(--blue);
+//   position : fixed;
+//   bottom : 0;
+// `
 
 export default Main;

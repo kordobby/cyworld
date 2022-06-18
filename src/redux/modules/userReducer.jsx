@@ -8,7 +8,8 @@ const initUser = {
   loading : false,
   error : null,
   idCheck : false,
-  isLogin : false
+  isLogin : false,
+  success : false
 }
 
 /* ACTION TYPE */
@@ -70,6 +71,7 @@ export const signUpDB = (payload) => {
         }
       })
       console.log(join);
+      dispatch(reqSuccessUser(true));
       alert('회원가입 성공!')
     } catch (error) {
       dispatch(reqErrorUser(error));
@@ -124,7 +126,7 @@ export default function userReducer( state = initUser, action ) {
       case SERVER_REQ_USER :
         return { ...state, loading : action.payload };
       case USER_SUCCESS :
-        return { ...state, login : action.payload, error : null };  
+        return { ...state, success : action.payload};  
       case USER_ERROR :
         return { ...state, login : false, error : action.payload }; 
 
