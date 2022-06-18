@@ -19,7 +19,6 @@ input:focus {
     box-shadow: none;
 }
 body {
-    background-color: var(--white);
     -ms-overflow-style: none;
     }
     ::-webkit-scrollbar {
@@ -33,7 +32,7 @@ body {
     --input-text : #A5A5A5;
     --disabled-grey : #E5E5E5;
     --notice-green : #49A780;
-    --notice-purple : #5749A7;
+    --notice-purple : #846eff;
     --black : #6E6E6E;
 }
 `;

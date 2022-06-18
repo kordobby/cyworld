@@ -51,7 +51,7 @@ const Login = () => {
           <span onClick = {()=> navigate('/signup')} style = {{cursor : 'pointer'}}>회원가입</span>
         </LoginOptions>
         <Advertisement>
-        <img src = {Ad} style = {{ width : 'calc(100vh - 60vh)', marginRight : '3px'}} alt = ""/>
+          <img className = 'join__ad-img'src = {Ad} alt = ""/>
         </Advertisement>
         <LoginFooter>
           <div style = {{ width : '100%', display : 'flex', justifyContent : 'space-between'}}>
@@ -72,22 +72,24 @@ const Login = () => {
 export const BodyBox = styled.div`
   ${flex({justify : 'center'})};
   width: 100%;
-  background-color: black;
+  height: 100vh;
   position : ${props => props.greeting ? 'absolute' : 'static'};
   display : ${props => props.greeting ? 'flex' : 'hidden'};
   z-index : 2;
+  background-color: ${props => props.theme.bgColor};
   `;
 
 export const LoginWrap = styled.div`
   ${flex({direction : 'column', justify : 'center'})}
   width : calc(100vh - 55vh);
-  background-color: yellow;
+  /* background-color : ${props => props.main ? 'var(--input-grey)' : 'white'}; */
+  background-color: ${props => props.theme.bgColor2};
 `
 const LoginLogo = styled.div`
   width : calc(100vh - 60vh);
   height : 254px;
   padding-bottom: 45px;
-  background-color: white;
+  background-color: ${props => props.theme.bgColor2};
   box-sizing : border-box;
   ${flex({align : 'flex-end', })}
 `
@@ -107,7 +109,7 @@ const UserInputBox = styled.div`
 `
 
 export const InputStyle = styled.input`
-  background-color: var(--input-grey);
+  background-color: ${props => props.theme.inputColor};
   border : none;
   height : 52px;
   width : calc(100vh - 60vh);
@@ -131,7 +133,7 @@ export const ButtonBox = styled.div`
 `
 
 export const UserButton = styled.button`
-  background-color: #E5E5E5;
+  background-color: ${props => props.theme.btnColor};
   border : none;
   height : 50px;
   width : calc(100vh - 60vh);
@@ -151,7 +153,7 @@ const LoginOptions = styled.div`
   height : 60px;
   color : var(--black);
   width : calc(100vh - 60vh);
-  background-color: white;
+  background-color: ${props => props.theme.bgColor2};
   display : flex;
   justify-content: space-between;
   padding-top : 15px;
@@ -160,15 +162,22 @@ const LoginOptions = styled.div`
 `
 
 const Advertisement = styled.div`
+  width : calc(100vh - 60vh);  
   height : 225px;
-  background-color: white;
+  background-color: ${props => props.theme.bgColor2};
+  & > .join__ad-img {
+    width : calc(100vh - 60vh);
+    margin-right : 3px;
+  }
 `
 
 const LoginFooter = styled.div`
   width : 311px;
+
   display : flex;
   flex-direction: column;
   font-size : 14px;
   color : var(--black);
+  margin-bottom : 91px;
 `
 export default Login;

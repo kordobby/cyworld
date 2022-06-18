@@ -27,8 +27,8 @@ root.render(
       <Provider store={store}>
           <BrowserRouter>
               {/* Global CSS */}
-              <GlobalStyled />
-              <App />
+                <GlobalStyled />
+                <App />
           </BrowserRouter>
       </Provider>
       </QueryClientProvider>

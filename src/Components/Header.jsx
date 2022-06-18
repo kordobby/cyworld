@@ -1,16 +1,21 @@
 /* Router */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 /* Style */
 import styled from 'styled-components';
-import CyLogo from '../Public/Images/CyLogoSmall.png';
 import flex from '../Components/GlobalStyled/flex';
+import Basic from '../Public/Images/header-logo.png';
+import DarkBasic from '../Public/Images/small-dark3.png';
 
-const Header = () => {
+const Header = ( {mode} ) => {
+  const navigate = useNavigate();
+
   return (
         <HeaderBox>
-          <Link to = '/login'><LOGO><img src = {CyLogo}/></LOGO></Link>
-          <UserBtn><Link to = '/login'>LOGIN</Link></UserBtn>
+          { !mode ? 
+            (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
+          : (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {DarkBasic}/></LOGO>)}
+          <UserBtn onClick = {()=> navigate('/login')}>LOGIN</UserBtn>
         </HeaderBox>
   )
 }
@@ -23,7 +28,7 @@ export const HeaderBox = styled.div`
   box-sizing: border-box;
   border-bottom: 5px solid var(--input-grey);
 
-  background-color: white;
+  background-color: ${props => props.theme.bgColor};
   position : fixed;
   top : 0;
 `
@@ -31,6 +36,10 @@ export const HeaderBox = styled.div`
 export const LOGO = styled.div`
   display : flex;
   align-items: flex-end;
+  cursor : pointer;
+  & > .basic-logo {
+    width : 200px
+  }
 `
 export const UserBtn = styled.div`
   color : var(--black);
@@ -39,6 +48,7 @@ export const UserBtn = styled.div`
   display : flex;
   justify-content : flex-end;
   margin :  0 15px 5px 0;
+  cursor : pointer;
 `
 
 export default Header;

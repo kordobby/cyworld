@@ -30,7 +30,6 @@ const Error = () => {
 
 }
 
-
 export const CommonWrap = styled.div`
   ${flex({justify : 'center'})};
   width: 100%;

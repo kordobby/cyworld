@@ -124,7 +124,7 @@ const Join = () => {
                 onChange={setUserName}
                 maxLength = "5"/>
             </IdBox>
-            <div>
+            <div style = {{marginBottom : '82px'}}>
               <UserButton onClick = {signUpHandler}>다음</UserButton>
             </div>
           </JoinWrap>
@@ -161,7 +161,7 @@ const CheckNotice = styled.span`
 `
 
 const SignUpNotice = styled.span`
-  color : var(--black);
+  color: ${props => props.theme.textColor};
   font-size: 11px;
 `
 

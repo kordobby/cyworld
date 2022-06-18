@@ -4,15 +4,14 @@ import flex from '../Components/GlobalStyled/flex';
 import Header from '../Components/Header';
 import HeaderIsLogin from '../Components/HeaderIsLogin';
 import { useSelector } from 'react-redux';
-import Surfing from '../Components/Surfing';
-import { useState } from 'react';
-import { keyframes } from 'styled-components';
+import Surfing from '../Components/MainComponents/Surfing';
+import { useEffect, useState } from 'react';
 import Footer from '../Components/UserComponents/Footer';
+import OfficialProfile from '../Components/MainComponents/OfficialProfile';
 
-const Main = ( {token} ) => {
+const Main = ( {token, mode} ) => {
 
   const [ active, setActive ] = useState(true);
-  
   const surfList = useSelector((state) => state.surfReducer?.list);
   console.log(surfList);
 
@@ -23,9 +22,11 @@ const Main = ( {token} ) => {
   console.log(active);
 
   return (
+    <>
+    {/* <Welcome/> */}
     <BodyBox>
-      <LoginWrap>
-        { token ? <HeaderIsLogin/> : <Header/>}
+      <LoginWrap main>
+        { token ? <HeaderIsLogin/> : <Header mode ={mode} />}
         <MenuBox>
           { active === true ?
           <>
@@ -48,34 +49,30 @@ const Main = ( {token} ) => {
         <MenuBar></MenuBar>
         </>
         }
-          {/* <MenuBar></MenuBar> */}
         </MenuBox>
+
         <Followers>
           <span>파도타기</span>
         </Followers>
         <FollowerList>
           <Surfing></Surfing>
-          <Surfing></Surfing>
-          <Surfing></Surfing>
-          <Surfing></Surfing>
-          <Surfing></Surfing>
-          { surfList?.map((value) => { 
+          {/* { surfList?.map((value) => { 
           return (
           <Surfing
             key = {value.postId}
-          ></Surfing> )})}
+          ></Surfing> )})} */}
         </FollowerList>
+        
         <OfficialBox>
           <OfficialTitle>
             <span>미니홈피 Official</span>
           </OfficialTitle>
-          <OfficialLists>
-           <FriendsImg official/><FriendsImg official/><FriendsImg official /><FriendsImg official/>
-          </OfficialLists>
+          <OfficialProfile/>
         </OfficialBox>
         <Footer/>
       </LoginWrap>
     </BodyBox>
+    </>
   );
 }
 
@@ -83,8 +80,8 @@ const MenuBox = styled.div`
   height : 76px;
   width : calc(100vh - 55vh);
   position : fixed;
-  top : 93px;
-  background-color: white;
+  top : 87px;
+  background-color: ${props => props.theme.bgColor};
   ${flex({justify : 'space-around'})};
 `
 const Menus = styled.div`
@@ -100,14 +97,6 @@ const Menus = styled.div`
 const MenuTitle = styled.span`
   color : ${props => props.active? 'var(--orange)' : 'var(--black)'};
 `
-const MenuMotion = keyframes`
-  from {
-    transform: scale(1.0);
-  }
-  to {
-    transform: scale(1.2);
-  }
-`
 
 const MenuBar = styled.div`
   height : 5px;
@@ -115,7 +104,7 @@ const MenuBar = styled.div`
   background-color: var(--orange);
   border-radius: 10px;
   position : absolute;
-  top : 70px;
+  top : 76px;
   left : 4px;
   z-index: 5;
   left : ${props => props.active? '4px' : '178px'}; 
@@ -124,7 +113,7 @@ const MenuBar = styled.div`
 const Followers = styled.div`
   height : 77px;
   width : calc(100vh - 55vh);
-  background-color: var(--input-grey);
+  background-color: ${props => props.theme.bgColor};
   color : var(--black);
   font-size: 19px;
   font-weight : 700;
@@ -137,17 +126,16 @@ const Followers = styled.div`
 
 const FollowerList = styled.div`
   margin-top: 245px;
-  margin-bottom: 210px;
+  margin-bottom: 270px;
   height : 100%;
   width : 100%;
-  background-color : var(--input-grey);
   box-sizing: border-box;
   padding-top : 5px;
   overflow: auto;
   ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})};
 `
 
-export const FriendsImg = styled.div`
+export const FriendsImg = styled.img`
   width : 80px;
   height: 80px;
   background-color: #C2E8F6;
@@ -163,7 +151,7 @@ const OfficialBox = styled.div`
   width : calc(100vh - 55vh);
   position : fixed;
   bottom : 74px;
-  background-color: var(--input-grey);
+  background-color: ${props => props.theme.bgColor};
 `
 const OfficialTitle = styled.div`
   width : calc(100vh - 55vh);
@@ -175,19 +163,4 @@ const OfficialTitle = styled.div`
   font-size: 19px;
   font-weight : 700;
 `
-
-const OfficialLists = styled.div`
-  height : 70%;
-  width : calc(100vh - 55vh);
-  box-sizing: border-box;
-  ${flex({align : 'center', justify : 'space-around'})}
-`
-// const MainFooter = styled.div`
-//   height : 74px;
-//   width : calc(100vh - 55vh);
-//   background-color: var(--blue);
-//   position : fixed;
-//   bottom : 0;
-// `
-
 export default Main;
