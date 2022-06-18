@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { BodyBox, LoginWrap, InputStyle, UserButton } from "./Login";
 
-
 const MyPage = () => {
   // console.log(props.children)
 

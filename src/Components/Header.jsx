@@ -23,6 +23,7 @@ export const HeaderBox = styled.div`
   box-sizing: border-box;
   border-bottom: 5px solid var(--input-grey);
 
+  background-color: white;
   position : fixed;
   top : 0;
 `
