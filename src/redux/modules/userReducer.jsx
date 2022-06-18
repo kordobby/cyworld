@@ -1,7 +1,3 @@
-// 회원가입  :     /api/signup
-// 로그인 :        /api/login
-// 중복확인 :      /api/duplicatesemail/:email
-
 import axios from 'axios';
 import { setCookie } from '../../Shared/Cookie';
 
@@ -35,19 +31,18 @@ const checkId = (payload) => ({ type : CHECK_ID, payload });
 
 /* THUNK */
 export const checkIdDB = (payload) => {
-  // payload : { email : #### }
+  console.log(payload);
+  // payload : { email : #### } => 확인완료!
   return async function(dispatch) {
     dispatch(serverReqUser(true));
     try {
       const idCheck = await axios({
         method : 'get',
-        url : `..../api/duplicatesemail/${payload.email}`,
-        data : {
-          email : payload.email
-        }
+        url : `/api/duplicatesEmail/${payload.email}` // => 확인완료!
       })
-      dispatch(checkId(false));
-      alert(idCheck.data);
+      /* 만약 성공한다면 checkId 를 true로 */
+      dispatch(checkId(true));
+      alert("사용 가능한 이메일 입니다!");
       }
       catch (error) {
         dispatch(checkId(false));
@@ -60,12 +55,13 @@ export const checkIdDB = (payload) => {
 };
 
 export const signUpDB = (payload) => {
-  return async function(dispatch, getState) {
+  console.log(payload) // => 잘 찍히는 것 확인!
+  return async function(dispatch) {
     dispatch(serverReqUser(true));
     try {
       const join = await axios({
         method : 'post',
-        url : '.../api/signup',
+        url : '/api/signUp',
         data : {
           email : payload.email,
           password : payload.password,
@@ -73,9 +69,11 @@ export const signUpDB = (payload) => {
           userName : payload.userName
         }
       })
+      console.log(join);
+      alert('회원가입 성공!')
     } catch (error) {
       dispatch(reqErrorUser(error));
-      alert(error.message);
+      alert('회원가입 실패!');
     } finally {
       dispatch(serverReqUser(false));
     }
@@ -83,6 +81,7 @@ export const signUpDB = (payload) => {
 }
 
 export const loginDB = (payload) => {
+  console.log(payload);
   return async function(dispatch) {
     dispatch(serverReqUser(true));
     try {
@@ -94,11 +93,14 @@ export const loginDB = (payload) => {
           password : payload.password
         }
       })
+      /* 아래는 받는 값에 따라서 수정 가능성 있음! */
       const accessToken = login.headers.authorization.split(" ")[1];
       setCookie('token', accessToken, {
         path : '/',
         expire : 'after60m'
       });
+      // userData 는 state 에 저장 (휘발 시 쿠키에 넣기)
+      // login State 관리
       const loginData = {
         isLogin : true,
         userName : login.data.userName,
@@ -108,7 +110,7 @@ export const loginDB = (payload) => {
       alert('로그인 성공!')
     } catch (error) {
       dispatch(reqErrorUser(error));
-      alert(error.message);
+      alert('이메일 또는 패스워드 확인해주세요.');
     } finally {
       dispatch(serverReqUser(false));
     }
