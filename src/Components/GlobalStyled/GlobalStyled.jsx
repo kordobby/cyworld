@@ -1,26 +1,30 @@
 /* GlobalStyle.jsx */
 import { createGlobalStyle } from 'styled-components';
-import '../GlobalStyled/GlobalStyled.module.css'
-import { normalize } from "styled-normalize";
+import '../GlobalStyled/GlobalStyled.module.css' // font
 
 /* Normalize :: 여러 브라우저마다 기본적으로 설치된 스타일을 지워줌 */
 import { reset } from "styled-reset";
 
-
 const GlobalStyle = createGlobalStyle `
-${reset}
-${normalize}
-
+${reset} // normalize
 * {
     margin: 0;
     padding: 0;
-    -ms-overflow-style: none;
+}
+a{
+    text-decoration: none;
+}
+input:focus {
+    outline: none;
+    box-shadow: none;
 }
 body {
-    background-color: white;
-    ::-webkit-scrollbar { 
-        display: none; /* Chrome, Safari, Opera*/
+    background-color: var(--white);
+    -ms-overflow-style: none;
     }
+    ::-webkit-scrollbar {
+    display: none;
+    
 }
 :root {
     --orange : #FF7330;

@@ -4,42 +4,40 @@ import { Link } from 'react-router-dom';
 /* Style */
 import styled from 'styled-components';
 import CyLogo from '../Public/Images/CyLogoSmall.png';
+import flex from '../Components/GlobalStyled/flex';
 
 const Header = () => {
   return (
-  <HeaderBox>
-    <Link to = '/login'><LOGO><img src = {CyLogo}/></LOGO></Link>
-    <UserBtn><Link to = '/login'>LOGIN</Link></UserBtn>
-  </HeaderBox>
+        <HeaderBox>
+          <Link to = '/login'><LOGO><img src = {CyLogo}/></LOGO></Link>
+          <UserBtn><Link to = '/login'>LOGIN</Link></UserBtn>
+        </HeaderBox>
   )
 }
 
 export const HeaderBox = styled.div`
-  width : 390px;  // 100%
+  width : calc(100vh - 55vh);
   height : 93px;
-  background-color: var(--blue);
 
-  display : flex;
-  align-items: flex-end;
+  ${flex({align : 'flex-end', justify : 'space-between'})};
   box-sizing: border-box;
+  border-bottom: 5px solid var(--input-grey);
 
   position : fixed;
   top : 0;
 `
 
 export const LOGO = styled.div`
-  width : 70%;
-  font-size: 40px;
   display : flex;
   align-items: flex-end;
 `
 export const UserBtn = styled.div`
   color : var(--black);
+  font-size: 18px;
   font-weight : 600;
-  width : 30%;
   display : flex;
   justify-content : flex-end;
-  margin-bottom: 5px;
+  margin :  0 15px 5px 0;
 `
 
 export default Header;

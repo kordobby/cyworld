@@ -11,23 +11,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { signUpDB, checkIdDB } from '../redux/modules/userReducer';
 import { useNavigate } from "react-router-dom";
 
+import useInput from "../Hooks/useInput";
+import { useCallback } from "react";
+
 const Join = () => {
 
-  const [ id, setId ] = useState('');
-  const [ pw, setPw ] = useState('');
-  const [ pw2, setPw2 ] = useState('');
-  const [ userName, setUserName ] = useState('');
-  const [ checkPw, setCheckPw ] = useState('');
-  // console.log( id + pw + pw2 + userName );
+  const [ id, setId ] = useInput('');
+  const [ pw, setPw ] = useInput('');
+  const [ pw2, setPw2 ] = useInput('');
+  const [ userName, setUserName ] = useInput('');
+  const [ checkPw, setCheckPw ] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUpReq = useSelector((state) => state.userReducer);
   // console.log(signUpReq.error);
+  // signUpReq.idCheck
 
   const num = pw.search(/[0-9]/g);
   const eng = pw.search(/[a-z]/ig);
   const spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
 
   useEffect(() => {
     if ( pw.length < 8 || pw.length > 12) {
@@ -43,26 +47,9 @@ const Join = () => {
     }
   }, [pw])
 
+
   /* SignUp Function */
   const signUpHandler = () => {
-    /* 훅으로 돌릴 수 있을까? */
-    // if ( !signUpReq.idCheck) {
-    //   alert ('아이디 중복검사를 해주세요!');
-    //   return ;
-    // } else if ( pw !== pw2 ){
-    //   alert('패스워드가 일치하지 않습니다!');
-    //   return ;
-    // } else if ( id === "" || pw === "" || pw2 === "" || userName === "" ) {
-    //   alert ('회원가입 양식은 빈칸없이 작성해주세요!')
-    // } else {
-    //   dispatch(signUpDB({
-    //     email : id,
-    //     password : pw,
-    //     confirmPassword : pw2,
-    //     userName : userName
-    //   }));
-    //   ( signUpReq.error === null ) ? navigate('/login') : navigate('/signup');
-    // }
     dispatch(signUpDB({
       email : id,
       password : pw,
@@ -90,10 +77,14 @@ const Join = () => {
             <InputStyle
               placeholder="이메일 아이디"
               type = "email"
-              onChange = {(event) => { setId(event.target.value); }}
+              onChange = {setId}
               />
-            <CheckNotice>사용할 수 있는 ID 입니다.</CheckNotice>
-            <IdCheckBtn onclick = {checkIdHandler}><FontAwesomeIcon icon = {faCheck}/></IdCheckBtn>
+              { (signUpReq.idCheck === true) ?
+                <CheckNotice>사용할 수 있는 ID 입니다.</CheckNotice>
+                :
+                <CheckNotice danger>이메일 중복확인을 해주세요!</CheckNotice>
+              }
+            <IdCheckBtn onClick = {checkIdHandler}><FontAwesomeIcon icon = {faCheck}/></IdCheckBtn>
           </IdBox>
           <IdBox style = {{height : '205px'}}>
             <SignUpTitles>비밀번호 입력</SignUpTitles>
@@ -101,24 +92,36 @@ const Join = () => {
             <InputStyle
               placeholder="비밀번호를 입력해주세요."
               type = "password"
-              onChange = {(event) => {setPw(event.target.value); }}
+              onChange = {setPw}
+              maxLength = "12"
               />
+              { ( !checkPw ) ? 
+            <CheckNotice danger>비밀번호 양식을 지켜주세요!</CheckNotice>
+            :
             <CheckNotice>안전한 비밀번호입니다.</CheckNotice>
+            }
             <InputStyle
               placeholder="비밀번호를 다시 입력해주세요."
               type = "password"
-              onChange = {(event) => {setPw2(event.target.value); }}/>
-            <CheckNotice>비밀번호가 일치합니다.</CheckNotice>
+              onChange = {setPw2}
+              maxLength = "12"
+              />
+              { ( pw === pw2 ) ?
+              <CheckNotice>비밀번호가 일치합니다.</CheckNotice>
+              :
+              <CheckNotice danger>비밀번호가 일치하지 않습니다.</CheckNotice>
+               }
           </IdBox>
           <IdBox style = {{height : '102px', marginBottom : '96px'}}>
             <SignUpTitles>이름 입력</SignUpTitles>
             <SignUpNotice>실명을 작성해주세요.</SignUpNotice>
             <InputStyle
               type = "text"
-              onChange={(event) => {setUserName(event.target.value); }}/>
+              onChange={setUserName}
+              maxLength = "5"/>
           </IdBox>
           <div>
-             <UserButton>다음</UserButton>
+             <UserButton onClick = {signUpHandler}>다음</UserButton>
           </div>
         </JoinWrap>
       </LoginWrap>
@@ -127,7 +130,7 @@ const Join = () => {
 }
 
 export const JoinWrap = styled.div`
-  width : 311px;
+  width : calc(100vh - 60vh);
   height : 100%;
   flex-direction: column;
   justify-content: flex-start;
@@ -147,7 +150,8 @@ const SignUpTitles = styled.span`
 `
 
 const CheckNotice = styled.span`
-  color : var(--notice-green);
+  color : ${props => props.danger ? 'var(--notice-purple)' : 'var(--notice-green)'};
+  /* color : var(--notice-green); */
   font-size: 11px;
 `
 
@@ -181,6 +185,7 @@ const IdCheckBtn = styled.button`
   display : flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--notice-green);
