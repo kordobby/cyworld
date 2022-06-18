@@ -9,7 +9,8 @@ const Modal = (props) => {
 
     return (
         <div className={open ? 'modal':'modal_close'}>
-            {open ? (
+            {props.children}
+            {/* {open ? (
                 <div>
                     <header>
                         {header}
@@ -18,8 +19,8 @@ const Modal = (props) => {
                         </button>
                     </header>
                 </div>
-            )
-            }
+            ) */}
+            
         </div>
     );
 };
