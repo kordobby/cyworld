@@ -12,7 +12,6 @@ import { signUpDB, checkIdDB } from '../redux/modules/userReducer';
 import { useNavigate } from "react-router-dom";
 
 import useInput from "../Hooks/useInput";
-import { useCallback } from "react";
 
 const Join = () => {
 

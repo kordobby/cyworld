@@ -81,7 +81,7 @@ export const signUpDB = (payload) => {
 }
 
 export const loginDB = (payload) => {
-  console.log(payload);
+  console.log(payload);  // payload 잘 찍히는지 확인 완료
   return async function(dispatch) {
     dispatch(serverReqUser(true));
     try {

@@ -7,10 +7,24 @@ import Ad from '../Public/Images/ad.png';
 import flex from '../Components/GlobalStyled/flex';
 /* Router setup */
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import useInput from "../Hooks/useInput";
+import { loginDB } from "../redux/modules/userReducer";
 
 const Login = () => {
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [ id, setId ] = useInput('');
+  const [ pw, setPw ] = useInput('');
+
+  const loginHandler = async() => {
+    dispatch(loginDB({
+      email : id,
+      password : pw
+    }))
+  }
 
   return (
     <BodyBox>
@@ -19,11 +33,17 @@ const Login = () => {
           <LogoImage src = {CyLogo} alt = ""/>
         </LoginLogo>
         <UserInputBox>
-          <InputStyle placeholder = {"이메일 아이디"}/>
-          <InputStyle placeholder = {"비밀번호"}/>
+          <InputStyle
+            type = "email"
+            onChange = {setId}
+            placeholder = {"이메일 아이디"}/>
+          <InputStyle
+            type = "password"
+            onChange = {setPw}
+            placeholder = {"비밀번호"}/>
         </UserInputBox>
         <ButtonBox>
-          <UserButton>로그인</UserButton>
+          <UserButton onClick = {loginHandler}>로그인</UserButton>
         </ButtonBox>
         <LoginOptions>
           <span>아이디찾기</span>
