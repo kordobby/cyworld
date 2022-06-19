@@ -127,6 +127,7 @@ export const InputStyle = styled.input`
   box-sizing: border-box;
   padding-top : 5px;
   padding-left: calc(100vh - 98vh);
+  margin-bottom : ${props => props.join ? '5px' : '0'};
   &::placeholder {
     color: ${props => props.theme.inputText};
     font-size: 18px;  // ????????????????
@@ -154,7 +155,7 @@ export const UserButton = styled.button`
   padding : 0px 15px;
   cursor : pointer;
   &:hover {
-    background-color: var(--orange);
+    background-color: ${props => props.disabled ? 'var(--input-grey)' : 'var(--notice-green)'};
     color : white;
   }
 `

@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main token={token} mode = {isDarkMode}/>}></Route>
         <Route path="/login" theme = {isDarkMode ? darkTheme : lightTheme} element={<Login mode = {isDarkMode}/>}></Route>
-        <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join />}></Route>
+        <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join mode = {isDarkMode}/>}></Route>
         <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>
         <Route path="/greetings" theme = {isDarkMode ? darkTheme : lightTheme} element={<Greetings />}></Route>
         <Route path="/error" theme = {isDarkMode ? darkTheme : lightTheme} element={<Error />}></Route>
