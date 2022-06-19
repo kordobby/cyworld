@@ -1,12 +1,10 @@
 /* React Settings */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /* import Styles */
-import styled from 'styled-components';
-import flex from '../Components/GlobalStyled/flex';
   // Components
   import { BodyBox } from '../Components/UserComponents/UserStyled';
-  import { MainWrap, MenuBox, Menus, MenuTitle, MenuBar, Followers, FollowerList, OfficialBox, OfficialTitle, FriendsImg } from '../Components/MainComponents/MainStyled';
+  import { MainWrap, MenuBox, Menus, MenuTitle, MenuBar, Followers, FollowerList, OfficialBox, OfficialTitle } from '../Components/MainComponents/MainStyled';
   import OfficialProfile from '../Components/MainComponents/OfficialProfile';
   import Header from '../Components/Common/Header';
   import HeaderIsLogin from '../Components/Common/HeaderIsLogin';
@@ -14,20 +12,32 @@ import flex from '../Components/GlobalStyled/flex';
   import Footer from '../Components/MainComponents/Footer';
 
 /* Redux settings */
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { loadPostDB } from '../redux/modules/surfReducer';
+import axios from 'axios';
+/* React-query */
+import { useQuery } from 'react-query';
 
 const Main = ( {token, themeMode} ) => {
-
+  const dispatch = useDispatch();
   const [ active, setActive ] = useState(true);
   const surfList = useSelector((state) => state.surfReducer?.list);
   console.log(surfList);
 
+  useEffect(() => {
+    dispatch(loadPostDB());
+  }, [dispatch]);
+
+  // const fetcher = async () => {
+  //   const usersData = await axios.get('url');
+  //   return usersData.data;
+  // }
+  // const { data, isLoading, error, isError } = useQuery('loginCheck', fetcher);
+  // console.log(data);
 
   const activeMenuHandler = () => {
     setActive(!active);
   }
-  console.log(active);
 
   return (
     <>

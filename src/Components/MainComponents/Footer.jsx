@@ -13,10 +13,6 @@ const Footer = () => {
      <>
     <FooterWrap>
       <FooterIcon>
-        <FontAwesomeIcon onClick = {()=> navigate('/home')}icon  = {faFaceLaugh}></FontAwesomeIcon>
-        <span className = "menu__title">홈</span>
-      </FooterIcon>
-      <FooterIcon>
         <FontAwesomeIcon onClick = {()=> navigate('/home')} icon  = {faHouseChimneyWindow}></FontAwesomeIcon>
         <span className = "menu__title">미니홈피</span>
       </FooterIcon>
@@ -26,7 +22,11 @@ const Footer = () => {
       </FooterIcon>
       <FooterIcon>
         <FontAwesomeIcon onClick = {()=> navigate('/home')} icon  = {faComments}></FontAwesomeIcon>
-        <span className = "menu__title">더보기</span>
+        <span className = "menu__title">와글와글</span>
+      </FooterIcon>
+      <FooterIcon>
+        <FontAwesomeIcon onClick = {()=> navigate('/home')}icon  = {faFaceLaugh}></FontAwesomeIcon>
+        <span className = "menu__title">마이 페이지</span>
       </FooterIcon>
     </FooterWrap>
     </>

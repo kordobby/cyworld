@@ -68,6 +68,7 @@ const OfficialWrap = styled.div`
 
 const OfficialProfiles = styled.div`
   position : relative;
+  cursor : pointer;
   & > .official {
     width : 70px;
     height: 70px;
