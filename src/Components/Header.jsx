@@ -7,12 +7,12 @@ import flex from '../Components/GlobalStyled/flex';
 import Basic from '../Public/Images/header-logo.png';
 import DarkBasic from '../Public/Images/small-dark3.png';
 
-const Header = ( {mode} ) => {
+const Header = ( {themeMode} ) => {
   const navigate = useNavigate();
 
   return (
         <HeaderBox>
-          { !mode ? 
+          { !themeMode ? 
             (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
           : (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {DarkBasic}/></LOGO>)}
           <UserBtn onClick = {()=> navigate('/login')}>LOGIN</UserBtn>

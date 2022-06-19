@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import flex from '../GlobalStyled/flex';
 
-function ThemeToggle( {mode, toggleDarkMode, theme} ) {
+function ThemeToggle( {themeMode, toggleDarkMode, theme} ) {
   return (
     <>
       <ToggleWrapper onClick = {toggleDarkMode} >
-        <ToggleBtn mode = {mode} theme = {theme}>
+        <ToggleBtn themeMode = {themeMode} theme = {theme}>
         </ToggleBtn>
       </ToggleWrapper>
     </>
@@ -36,7 +36,7 @@ const ToggleBtn = styled.div`
   margin-top: 3px;
   background-color: ${props => props.theme.switchColor2};
   border-radius: 50%;
-  transform: translate(${(props) => (props.mode ? "25px" : "1px")});
+  transform: translate(${(props) => (props.themeMode ? "25px" : "1px")});
   transition: transform 0.1s linear;
   ${flex({align : 'center', justify : 'center'})};
   font-size: 16px;

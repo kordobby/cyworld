@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BodyBox, LoginWrap } from '../Pages/Login';
+import { BodyBox, LogtinWrap } from '../Components/UserComponents/UserStyled';
 import flex from '../Components/GlobalStyled/flex';
 import Header from '../Components/Header';
 import HeaderIsLogin from '../Components/HeaderIsLogin';
@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import Footer from '../Components/UserComponents/Footer';
 import OfficialProfile from '../Components/MainComponents/OfficialProfile';
 
-const Main = ( {token, mode} ) => {
+const Main = ( {token, themeMode} ) => {
 
   const [ active, setActive ] = useState(true);
   const surfList = useSelector((state) => state.surfReducer?.list);
@@ -26,7 +26,7 @@ const Main = ( {token, mode} ) => {
     {/* <Welcome/> */}
     <BodyBox>
       <MainWrap>
-        { token ? <HeaderIsLogin/> : <Header mode ={mode} />}
+        { token ? <HeaderIsLogin/> : <Header themeMode ={themeMode} />}
         <MenuBox>
           { active === true ?
           <>

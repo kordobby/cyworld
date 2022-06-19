@@ -7,8 +7,6 @@ import { useState } from "react";
 
 const Error = () => {
 
-  const [ close, setClose ] = useState(false);
-
   const navigate = useNavigate();
 
   return (

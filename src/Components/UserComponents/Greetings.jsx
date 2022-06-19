@@ -1,9 +1,9 @@
-import { BodyBox, LoginWrap } from "../../Pages/Login";
-import { JoinWrap } from "../../Pages/Join";
+import { BodyBox, LoginWrap, JoinWrap } from './UserStyled';
+
 import styled from 'styled-components';
 import flex from "../GlobalStyled/flex";
 import G1 from '../../Public/Images/G1.png';
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Greetings = () => {
 

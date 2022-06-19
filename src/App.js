@@ -23,11 +23,11 @@ function App() {
   return (
     <>
       <ThemeProvider theme = {isDarkMode ? darkTheme : lightTheme}>
-      <ThemeToggle mode = {isDarkMode} toggleDarkMode = {toggleDarkMode} theme = {isDarkMode ? darkTheme : lightTheme}></ThemeToggle>
+      <ThemeToggle themeMode = {isDarkMode} toggleDarkMode = {toggleDarkMode} theme = {isDarkMode ? darkTheme : lightTheme}></ThemeToggle>
       <Routes>
-        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main token={token} mode = {isDarkMode}/>}></Route>
-        <Route path="/login" theme = {isDarkMode ? darkTheme : lightTheme} element={<Login mode = {isDarkMode}/>}></Route>
-        <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join mode = {isDarkMode}/>}></Route>
+        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main token={token} themeMode = {isDarkMode}/>}></Route>
+        <Route path="/login" theme = {isDarkMode ? darkTheme : lightTheme} element={<Login themeMode = {isDarkMode}/>}></Route>
+        <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join themeMode = {isDarkMode}/>}></Route>
         <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>
         <Route path="/greetings" theme = {isDarkMode ? darkTheme : lightTheme} element={<Greetings />}></Route>
         <Route path="/error" theme = {isDarkMode ? darkTheme : lightTheme} element={<Error />}></Route>

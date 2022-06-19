@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import flex from "../Components/GlobalStyled/flex";
   // Components
-  import { BodyBox, LoginWrap, InputStyle, UserButton } from "./Login";
+  import { BodyBox, LoginWrap, InputStyle, UserButton } from '../Components/UserComponents/UserStyled';
+  import { JoinWrap, JoinTitle, IdBox, SignUpTitles, SignUpNotice, CheckNotice, IdCheckBtn } from "../Components/UserComponents/UserStyled";
   // Icons
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -26,7 +27,7 @@ import useInput from "../Hooks/useInput";
 import Greetings from "../Components/UserComponents/Greetings";
 import Error from "../Components/Commom/Error";
 
-const Join = ( {mode} ) => {
+const Join = ( {themeMode} ) => {
 
   const [ id, setId ] = useInput('');
   const [ pw, setPw ] = useInput('');
@@ -82,7 +83,7 @@ const Join = ( {mode} ) => {
           <JoinWrap>
 
             {/* Title */}
-            { !mode ?
+            { !themeMode ?
              (<img onClick = {() => {navigate('/home')}} src = {SignUpLogo} style = {{cursor : 'pointer'}}alt = "" />)
              :
              (<img onClick = {() => {navigate('/home')}} src = {SignUpDark} style = {{cursor : 'pointer'}}alt = "" />)
@@ -168,68 +169,4 @@ const Join = ( {mode} ) => {
   );
 }
 
-/* padding 맞춰주는 Box */
-export const JoinWrap = styled.div`
-  width : calc(100vh - 60vh);
-  height : 100%;
-  padding-top : 75px;
-  ${flex({ direction : 'column', justify : 'flex-start'})}
-  position: relative;
-`;
-
-const IdBox = styled.div`
-  height : 100%;
-  box-sizing : border-box;
-${flex({align : 'flex-start', direction : 'column'})}
-  margin-bottom: 28px;
-  /* position: relative; */
-`
-
-export const JoinTitle = styled.div`
-  height : 86px;
-  width : calc(100vh - 60vh);
-  ${flex({ align : 'flex-end', justify : 'flex-start'})}
-  margin-bottom: 32px;
-  font-size : 25px;
-  color : var(--orange);
-`
-/* 섹션별 title */
-const SignUpTitles = styled.span`
-  margin-bottom: 7px;
-  font-size: 18px;
-  color : var(--orange);
-`
-const SignUpNotice = styled.span`
-  margin-bottom: 7px;
-  font-size: 11px;
-  color: ${props => props.theme.textColor};
-`
-const CheckNotice = styled.span`
-  margin : 5px 0 0 5px;
-  margin-bottom: ${props => props.password ? '14px' : '0'};
-  font-size: 11px;
-  color : ${props => props.danger ? 'var(--notice-purple)' : 'var(--notice-green)'};
-`
-
-const IdCheckBtn = styled.button`
-  width : 40px;
-  height: 40px;
-  ${flex({ align : 'center', justify : 'center'})}
-
-  position: absolute;
-  top : 310px;
-  right : 5px;
-
-  border : none;
-  border-radius: 24px;
-
-  background-color: ${props => props.disabled ? 'var(--input-text)' : 'var(--orange)'};
-  color : white;
-  font-size: 20px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${props => props.disabled ? 'var(--input-text)' : 'var(--notice-green)'};
-  }
-`
 export default Join;
