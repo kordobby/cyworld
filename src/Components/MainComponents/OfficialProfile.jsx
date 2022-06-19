@@ -54,13 +54,13 @@ const OfficialProfile = () => {
 
 const OfficialWrap = styled.div`
   height : 70%;
-  width : calc(100vh - 55vh);
+  width : calc(100vh - 53vh);
   box-sizing: border-box;
   ${flex({align : 'center', justify : 'center'})}
   background-color: ${props => props.theme.bgColor};
   & > .slider {
     height : 70%;
-    width : calc(100vh - 55vh);
+    width : calc(100vh - 53vh);
     box-sizing: border-box;
     ${flex({align : 'center', justify : 'center'})}
   }

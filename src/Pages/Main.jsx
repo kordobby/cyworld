@@ -25,7 +25,7 @@ const Main = ( {token, mode} ) => {
     <>
     {/* <Welcome/> */}
     <BodyBox>
-      <LoginWrap main>
+      <MainWrap>
         { token ? <HeaderIsLogin/> : <Header mode ={mode} />}
         <MenuBox>
           { active === true ?
@@ -55,7 +55,9 @@ const Main = ( {token, mode} ) => {
           <span>파도타기</span>
         </Followers>
         <FollowerList>
-          <Surfing></Surfing>
+          <Surfing/><Surfing/><Surfing/><Surfing/><Surfing/>
+          <Surfing/><Surfing/><Surfing/><Surfing/><Surfing/>
+          <div className = "blank"></div>
           {/* { surfList?.map((value) => { 
           return (
           <Surfing
@@ -70,18 +72,27 @@ const Main = ( {token, mode} ) => {
           <OfficialProfile/>
         </OfficialBox>
         <Footer/>
-      </LoginWrap>
+      </MainWrap>
     </BodyBox>
     </>
   );
 }
 
+export const MainWrap = styled.div`
+  ${flex({direction : 'column', justify : 'center'})}
+  width : calc(100vh - 53vh);
+  /* background-color : ${props => props.main ? 'var(--input-grey)' : 'white'}; */
+  background-color: ${props => props.theme.bgColor2};
+`
+
 const MenuBox = styled.div`
   height : 76px;
-  width : calc(100vh - 55vh);
+  width : calc(100vh - 53vh);
   position : fixed;
   top : 87px;
   background-color: ${props => props.theme.bgColor};
+  border-bottom: 5px solid;
+  border-color: ${props => props.theme.bgColor};;
   ${flex({justify : 'space-around'})};
 `
 const Menus = styled.div`
@@ -112,7 +123,7 @@ const MenuBar = styled.div`
 
 const Followers = styled.div`
   height : 77px;
-  width : calc(100vh - 55vh);
+  width : calc(100vh - 53vh);
   background-color: ${props => props.theme.bgColor};
   color : var(--black);
   font-size: 19px;
@@ -126,13 +137,16 @@ const Followers = styled.div`
 
 const FollowerList = styled.div`
   margin-top: 245px;
-  margin-bottom: 270px;
   height : 100%;
   width : 100%;
   box-sizing: border-box;
   padding-top : 5px;
   overflow: auto;
-  ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})};
+  ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})}
+  & > .blank {
+    height : 220px;
+    width : 100%;
+  };
 `
 
 export const FriendsImg = styled.img`
@@ -148,7 +162,7 @@ export const FriendsImg = styled.img`
 const OfficialBox = styled.div`
   ${flex({ direction : 'column'})}
   height : 136px;
-  width : calc(100vh - 55vh);
+  width : calc(100vh - 53vh);
   position : fixed;
   bottom : 74px;
   background-color: ${props => props.theme.bgColor};

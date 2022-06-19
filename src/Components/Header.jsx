@@ -21,7 +21,7 @@ const Header = ( {mode} ) => {
 }
 
 export const HeaderBox = styled.div`
-  width : calc(100vh - 55vh);
+  width : calc(100vh - 53vh);
   height : 93px;
 
   ${flex({align : 'flex-end', justify : 'space-between'})};

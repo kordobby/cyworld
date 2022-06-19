@@ -33,7 +33,7 @@ const Error = () => {
 export const CommonWrap = styled.div`
   ${flex({justify : 'center'})};
   width: 100%;
-  background-color: black;
+  background-color: ${props => props.theme.bgColor};
   position : ${props => props.visible ? 'absolute' : 'static'};
   display : ${props => props.visible ? 'flex' : 'hidden'};
   z-index : 2;
@@ -41,12 +41,12 @@ export const CommonWrap = styled.div`
 
 export const CommomBox = styled.div`
   ${flex({direction : 'column', justify : 'center'})}
-  width : calc(100vh - 55vh);
+  width : calc(100vh - 53vh);
   background-color: #f6f6f6;
 `;
 
 export const ErrorImgBox = styled.div`
-  width : calc(100vh - 55vh);
+  width : calc(100vh - 53vh);
   box-sizing : border-box;
   overflow: hidden;
   ${flex({})};
@@ -66,5 +66,6 @@ export const ErrorFooter = styled.div`
   box-sizing: border-box;
   padding-top: 35px;
   background-color: var(--input-grey);
+  margin-bottom : 88px;
 `
 export default Error;

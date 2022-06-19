@@ -124,7 +124,7 @@ const Join = () => {
                 onChange={setUserName}
                 maxLength = "5"/>
             </IdBox>
-            <div style = {{marginBottom : '82px'}}>
+            <div style = {{marginBottom : '165px'}}>
               <UserButton onClick = {signUpHandler}>다음</UserButton>
             </div>
           </JoinWrap>
