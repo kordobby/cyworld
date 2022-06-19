@@ -1,49 +1,80 @@
-import React, { useState } from "react";
-import Modal from "../Components/Modal";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import Modal from "../Components/Modal";
+import { loadMyDB } from "../redux/modules/myPageReducer";
+
 import styled from "styled-components";
 import { BodyBox, LoginWrap, InputStyle, UserButton } from "./Login";
+
 
 
 const MyPage = () => {
   // console.log(props.children)
 
-  // const { userId } = useParams();  userId 받을 떄 바꿀 것, App와 함께
+  // hooks
+  // const { userId } = useParams(); 
+  const dispatch = useDispatch()
+  const mypageData = useSelector((state) =>state.mypageReducer?.list);
 
-
+  // states
+  const [imageUrl,setFile] = useState(null)
+  const [introMessage,setMessage] = useState(null)
+  // console.log(imageUrl,introMessage)
   const [modalOpen, setModalOpen] = useState(false);
 
+  // events
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
   };
+  const onSubmit = (event) => {
+    event.preventDefault();
+    // console.log(imageUrl,introMessage)
+  };
+
+  // useEffect
+  useEffect(()=>{
+     dispatch(loadMyDB())
+  },[dispatch])
 
   return (
     <BodyBox>
-      {/* <HeaderBox>
-      설정, 메뉴, 홈 등의 버튼
-      </HeaderBox> */}
       <LoginWrap>
       <HeaderBox>
       설정, 메뉴, 홈 등의 버튼
       </HeaderBox>
     <Main_Div>
       <Div2>
+        <Div2_1>
       사이 좋은 사람들, 싸이월드 
-
-      
-      <React.Fragment>
       <button onClick={openModal} >EDIT</button>
-      <Modal open={modalOpen} close={closeModal} header="모달이 머리">
+        </Div2_1>
+      <React.Fragment>
+      <Modal width="100%" open={modalOpen} close={closeModal} header="모달이 머리">
         {/* 여기 아래 내용들 Modal.jsx의 <Main> {props.children} <Main>으로 들어감 
              children의 범위에 대해서 다른 HTML에서 콘솔로 확인해볼 것 !  */}
-       <> 
-        <span>왼쪽 imageUrl,  </span> 
-        <span>오른쪽 UserName</span>
-        <span>오른쪽 아래 introMessage</span>
-       </>
+       {/* <Modai_div1>  */}
+       <>
+        <Modal_div1 onSubmit={onSubmit}>
+
+        <Modal_div2>
+        <input type="file"  onChange={(event)=>{setFile(event.target.url)}}/> 
+        
+        <input type="text" placeholder="내 기분을 적어주세요"  onChange={(event)=>{setMessage(event.target.value)}}/>
+         
+
+       
+        
+        <button>
+              제출하기
+        </button>
+        </Modal_div2>
+        </Modal_div1>
+      </>
       </Modal>
       </React.Fragment>
       </Div2>
@@ -92,13 +123,24 @@ const Main_Div = styled.div`
   align-items: center;
   flex-direction: column;
   margin-bottom: 2px;
+  /* flex-direction: column; */
+
 `
 const Div2 = styled.div`
   width: 360px;
   position: absolute;
-  top: 100px
+  top: 100px;
+  /* display: flex; */
+  /* justify-content: space-between; */
  
 `
+
+const Div2_1 = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+`
+
 
 const Div3 = styled.div`
 width: 360px;
@@ -128,5 +170,22 @@ width: 360px;
 height : 80px;
 border: 1px solid black
 `
+
+//Modal
+const Modal_div1 = styled.form`
+display : flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+
+`
+const Modal_div2 = styled.form`
+display : flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+
+`
+
 
 export default MyPage;
