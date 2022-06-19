@@ -3,8 +3,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 /* import Styles */
-import styled from "styled-components";
-import flex from "../Components/GlobalStyled/flex";
   // Components
   import { BodyBox, LoginWrap, InputStyle, UserButton } from '../Components/UserComponents/UserStyled';
   import { JoinWrap, JoinTitle, IdBox, SignUpTitles, SignUpNotice, CheckNotice, IdCheckBtn } from "../Components/UserComponents/UserStyled";
@@ -82,7 +80,7 @@ const Join = ( {themeMode} ) => {
         <LoginWrap>
           <JoinWrap>
 
-            {/* Title */}
+            {/* Header Logo Part */}
             { !themeMode ?
              (<img onClick = {() => {navigate('/home')}} src = {SignUpLogo} style = {{cursor : 'pointer'}}alt = "" />)
              :
@@ -92,7 +90,7 @@ const Join = ( {themeMode} ) => {
               <span>회원가입</span>
             </JoinTitle>
 
-            {/* ID section */}
+            {/* Main - ID Input Form */}
             <IdBox>
               <SignUpTitles className = "email__title">이메일 아이디 입력</SignUpTitles>
               <SignUpNotice className = "email__title">아이디로 사용할 이메일 주소를 입력해주세요.</SignUpNotice>
@@ -116,7 +114,7 @@ const Join = ( {themeMode} ) => {
               <IdCheckBtn onClick = {checkIdHandler} disabled = {idCheckDisabled()}><FontAwesomeIcon icon = {faCheck}/></IdCheckBtn>
             </IdBox>
 
-            {/* PW section */}
+            {/* Main - PW Input Form */}
             <IdBox>
               <SignUpTitles>비밀번호 입력</SignUpTitles>
               <SignUpNotice>비밀번호는 6 - 12자리, 영문+숫자 조합하여 설정해주세요.</SignUpNotice>
@@ -145,6 +143,8 @@ const Join = ( {themeMode} ) => {
                 <CheckNotice danger>비밀번호가 일치하지 않습니다.</CheckNotice>
                 }
             </IdBox>
+
+            {/* Main - Name Input Form */}
             <IdBox>
               <SignUpTitles>이름 입력</SignUpTitles>
               <SignUpNotice>실명을 작성해주세요.</SignUpNotice>
@@ -159,6 +159,8 @@ const Join = ( {themeMode} ) => {
               <></>
               }
             </IdBox>
+
+            {/* Footer - Submit Btn */}
             <div style = {{marginTop : '97px', marginBottom : '78px'}}>
               <UserButton onClick = {signUpHandler} disabled = {disabledHandler()}>다음</UserButton>
             </div>

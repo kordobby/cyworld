@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { BodyBox, LogtinWrap } from '../Components/UserComponents/UserStyled';
+import { BodyBox } from '../Components/UserComponents/UserStyled';
 import flex from '../Components/GlobalStyled/flex';
 import Header from '../Components/Header';
 import HeaderIsLogin from '../Components/HeaderIsLogin';
 import { useSelector } from 'react-redux';
 import Surfing from '../Components/MainComponents/Surfing';
-import { useEffect, useState } from 'react';
-import Footer from '../Components/UserComponents/Footer';
+import { useState } from 'react';
+import Footer from '../Components/MainComponents/Footer';
 import OfficialProfile from '../Components/MainComponents/OfficialProfile';
 
 const Main = ( {token, themeMode} ) => {
@@ -118,7 +118,7 @@ const MenuBar = styled.div`
   top : 76px;
   left : 4px;
   z-index: 5;
-  left : ${props => props.active? '4px' : '178px'}; 
+  left : ${props => props.active? '4px' : null };
 `
 
 const Followers = styled.div`
