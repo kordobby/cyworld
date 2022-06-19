@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CyLogo from '../Public/Images/CyLogoSmall.png';
+import CyLogo from '../../Public/Images/CyLogoSmall.png';
 import { Link } from "react-router-dom";
 import { HeaderBox, LOGO, UserBtn } from "./Header";
 

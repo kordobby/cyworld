@@ -23,7 +23,7 @@ import useInput from "../Hooks/useInput";
 
 /* SeverReq Components */
 import Greetings from "../Components/UserComponents/Greetings";
-import Error from "../Components/Commom/Error";
+import Error from "../Components/Common/Error";
 
 const Join = ( {themeMode} ) => {
 

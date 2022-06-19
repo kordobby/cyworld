@@ -5,11 +5,11 @@ import Join from "./Pages/Join";
 import Login from "./Pages/Login";
 import Main from "./Pages/Main";
 import MyPage from "./Pages/MyPage";
-import Error from "./Components/Commom/Error";
+import Error from './Components/Common/Error';
 import Welcome from "./Components/MainComponents/Welcome";
 
 import { getCookie } from "./Shared/Cookie";
-import ThemeToggle from './Components/Commom/ThemeToggle';
+import ThemeToggle from './Components/Common/ThemeToggle';
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import { darkTheme, lightTheme } from "./theme/theme";

@@ -1,4 +1,4 @@
-import { FriendsImg } from "../../Pages/Main";
+import { FriendsImg } from './MainStyled';
 import flex from '../../Components/GlobalStyled/flex';
 import styled from 'styled-components';
 import none from '../../Public/Images/none.png';

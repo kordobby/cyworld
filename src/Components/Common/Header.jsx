@@ -1,11 +1,11 @@
 /* Router */
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 /* Style */
 import styled from 'styled-components';
-import flex from '../Components/GlobalStyled/flex';
-import Basic from '../Public/Images/header-logo.png';
-import DarkBasic from '../Public/Images/small-dark3.png';
+import flex from '../GlobalStyled/flex';
+import Basic from '../../Public/Images/header-logo.png';
+import DarkBasic from '../../Public/Images/small-dark3.png';
 
 const Header = ( {themeMode} ) => {
   const navigate = useNavigate();

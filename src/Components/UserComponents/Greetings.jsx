@@ -24,9 +24,9 @@ const Greetings = () => {
         <img src = {G1}></img>
         </GreetImgs>
         <GreetFooter>
-          <CommomBtn onClick = {() => navigete('/login')}>
+          <CommonBtn onClick = {() => navigete('/login')}>
             로그인
-          </CommomBtn>
+          </CommonBtn>
         </GreetFooter>
       </JoinWrap>
     </LoginWrap>
@@ -58,7 +58,7 @@ const GreetFooter = styled.div`
   background-color: white;
 `
 
-export const CommomBtn = styled.button`
+export const CommonBtn = styled.button`
   background-color: var(--orange);
   border : none;
   height : 50px;
