@@ -50,19 +50,27 @@ export const loadMyDB = (payload) => {
 // };
 
 export const patchMyDB = (payload) => {
-  return async function (dispatch) { }}
-//     try {
-//        const postMyData = await axios.patch(
-//          `/api/mypage`
-//          , {
-        
-//          }
-//          )
-//     }catch(error){
-//       console.log('마이페이지 수정 실패');
-//   }
-// }
-// }
+  return async function (dispatch) { 
+    // console.log("폼데이터", payload.formData.append, "메세지", payload.introMessage )
+  
+    try {
+       const postMyData = await axios({
+        method : "patch",
+        url: `http://3.38.151.80:3000 /api/mypage`,
+        data : { formData : payload.formData ,
+                  introMessage : payload.introMessage,
+                },
+        headers : {
+                "Content-Type" : "multipart/form-data",
+                Authorization : `Bearer ${payload.token}`,
+
+          }
+        })
+    }catch(error){
+      console.log('마이페이지 수정 실패');
+  }
+}
+}
 
 
 

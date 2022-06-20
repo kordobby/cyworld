@@ -7,6 +7,7 @@ import { loadMyDB, patchMyDB } from "../redux/modules/myPageReducer";
 
 import styled from "styled-components";
 import { BodyBox, LoginWrap, InputStyle, UserButton } from "./Login";
+import { getCookie } from "../Shared/Cookie";
 
 
 
@@ -17,7 +18,7 @@ const MyPage = () => {
   const { userId } = useParams(); 
   const dispatch = useDispatch()
   const mypageData = useSelector((state) =>state.mypageReducer?.list);
-
+  
   // states
   const [imageUrl,setFiles] = useState(null)
   const [introMessage,setMessage] = useState(null)
@@ -35,9 +36,12 @@ const MyPage = () => {
     event.preventDefault();
     console.log(imageUrl,introMessage)
     let formData = new FormData
-    formData.append('files',imageUrl)
-
-    dispatch(patchMyDB())
+    formData.append('image',imageUrl)
+    // console.log(formData.append)
+    
+    dispatch(patchMyDB({formData,
+                        introMessage,
+                        token: getCookie('token') }))
     // console.log(formData.getAll('files'))
     }
   //1. 위의 onSubmit에서 console.log(formData.getAll('files')) 이렇게 치면 formData 객체 안의 값을 확인 할 수 있다.
