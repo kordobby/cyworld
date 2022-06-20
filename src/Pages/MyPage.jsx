@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "../Components/Modal";
-import { loadMyDB } from "../redux/modules/myPageReducer";
+import { loadMyDB, patchMyDB } from "../redux/modules/myPageReducer";
 
 import styled from "styled-components";
 import { BodyBox, LoginWrap, InputStyle, UserButton } from "./Login";
@@ -14,14 +14,14 @@ const MyPage = () => {
   // console.log(props.children)
 
   // hooks
-  // const { userId } = useParams(); 
+  const { userId } = useParams(); 
   const dispatch = useDispatch()
   const mypageData = useSelector((state) =>state.mypageReducer?.list);
 
   // states
-  const [imageUrl,setFile] = useState(null)
+  const [imageUrl,setFiles] = useState(null)
   const [introMessage,setMessage] = useState(null)
-  // console.log(imageUrl,introMessage)
+  console.log(imageUrl,introMessage)
   const [modalOpen, setModalOpen] = useState(false);
 
   // events
@@ -33,8 +33,15 @@ const MyPage = () => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    // console.log(imageUrl,introMessage)
-  };
+    console.log(imageUrl,introMessage)
+    let formData = new FormData
+    formData.append('files',imageUrl)
+
+    dispatch(patchMyDB())
+    // console.log(formData.getAll('files'))
+    }
+  //1. 위의 onSubmit에서 console.log(formData.getAll('files')) 이렇게 치면 formData 객체 안의 값을 확인 할 수 있다.
+  //   위와 같은 방법으로 콘솔 확인을 안 하면 navtive code 라는 형식으로 안의 키와 값을 볼 수 없을 것.
 
   // useEffect
   useEffect(()=>{
@@ -57,12 +64,12 @@ const MyPage = () => {
       <Modal width="100%" open={modalOpen} close={closeModal} header="모달이 머리">
         {/* 여기 아래 내용들 Modal.jsx의 <Main> {props.children} <Main>으로 들어감 
              children의 범위에 대해서 다른 HTML에서 콘솔로 확인해볼 것 !  */}
-       {/* <Modai_div1>  */}
        <>
         <Modal_div1 onSubmit={onSubmit}>
 
-        <Modal_div2>
-        <input type="file"  onChange={(event)=>{setFile(event.target.url)}}/> 
+        <input type="file"  onChange={(event)=>{
+          event.preventDefault();
+          setFiles(event.target.files[0])}}/> 
         
         <input type="text" placeholder="내 기분을 적어주세요"  onChange={(event)=>{setMessage(event.target.value)}}/>
          
@@ -72,7 +79,6 @@ const MyPage = () => {
         <button>
               제출하기
         </button>
-        </Modal_div2>
         </Modal_div1>
       </>
       </Modal>
@@ -179,13 +185,7 @@ justify-content: center;
 flex-direction: column;
 
 `
-const Modal_div2 = styled.form`
-display : flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
 
-`
 
 
 export default MyPage;

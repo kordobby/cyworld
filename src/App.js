@@ -17,7 +17,7 @@ function App() {
         <Route path="/lobby" element={<Main token={token} />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Join />}></Route>
-        <Route path="/mypage" element={<MyPage />}></Route>
+        <Route path="/mypage/" element={<MyPage />}></Route>
       </Routes>
     </>
   );

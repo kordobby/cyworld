@@ -10,12 +10,15 @@ let intialstate = {
 
 /* ----------------- 액션 타입 ------------------ */
 
-const LOAD_MYPAGE = "Mypage_reducer/LOAD";
-
+const LOAD_MYPAGE = "mypageReducer/LOAD";
+const PATCH_MYPAGE = "mypageReducer/POST"
 
 /* ----------------- 액션 생성 함수 ------------------ */
 export function loadMyData(payload) {
   return { type: LOAD_MYPAGE, payload };
+}
+export function postMyData(payload) {
+  return { type: PATCH_MYPAGE, payload };
 }
 
 
@@ -27,15 +30,16 @@ export function loadMyData(payload) {
 
 /* ----------------- 미들웨어 ------------------ */
 export const loadMyDB = (payload) => {
-  return async function (dispatch) {
-  } }
+  return async function (dispatch) { }}
+  
 //     try {
 //         const mypageData = await axios.get(
-//             `${서버}/detail/${payload.userId}`
-//             , {
-//             headers: {
+//             `/api/mypage`
+//            , {
+//               headers: {
 //                 Authorization : `Bearer ${payload.token}`         
 //                      }
+//               ,user: {payload.userid}
 //              });
 //          console.log(mypageData.data);
 //          dispatch(loadMyData(mypageData.data));
@@ -44,6 +48,21 @@ export const loadMyDB = (payload) => {
 //     }
 //   };
 // };
+
+export const patchMyDB = (payload) => {
+  return async function (dispatch) { }}
+//     try {
+//        const postMyData = await axios.patch(
+//          `/api/mypage`
+//          , {
+        
+//          }
+//          )
+//     }catch(error){
+//       console.log('마이페이지 수정 실패');
+//   }
+// }
+// }
 
 
 
@@ -59,3 +78,4 @@ export default function mypageReducer(state = intialstate, action) {
       return state;
   }
 }
+
