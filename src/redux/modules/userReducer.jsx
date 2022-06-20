@@ -7,20 +7,21 @@ const initUser = {
   userId : "",
   loading : false,
   error : null,
-  idCheck : false,
-  isLogin : false,
-  success : false
+  success : false,
+  idCheck : false
+  // isLogin : false
 }
 
 /* ACTION TYPE */
 // [ server ]
 const SERVER_REQ_USER = 'userReducer/SERVER_REQ_USER';
-const USER_SUCCESS = 'userReducer/USER_SECCESS';
+const USER_SUCCESS = 'userReducer/USER_SUCCESS';
 const USER_ERROR = 'userReducer/USER_ERROR';
 
 // [ login & sign-up ]
 const LOGIN = 'userReducer/LOGIN';
 const CHECK_ID = 'userReducer/CHECK_ID';
+const LOGOUT = 'userReducer/LOGOUT';
 
 /* ACTION FUNC */
 const serverReqUser = (payload) => ({ type : SERVER_REQ_USER, payload });
@@ -29,6 +30,7 @@ const reqErrorUser = (payload) => ({ type : USER_ERROR, payload });
 
 const login = (payload) => ({ type : LOGIN, payload });
 const checkId = (payload) => ({ type : CHECK_ID, payload });
+const logout = (payload) => ({ type : LOGOUT, payload });
 
 /* THUNK */
 export const checkIdDB = (payload) => {
@@ -39,13 +41,15 @@ export const checkIdDB = (payload) => {
     try {
       const idCheck = await axios({
         method : 'get',
-        url : `/api/duplicatesEmail/${payload.email}` // => 확인완료!
+        url : `http://3.38.151.80:3000/api/duplicatesEmail/${payload.email}`, // => 확인완료!
       })
       /* 만약 성공한다면 checkId 를 true로 */
+      console.log(idCheck);
       dispatch(checkId(true));
       alert("사용 가능한 이메일 입니다!");
       }
       catch (error) {
+        console.log(error);
         dispatch(checkId(false));
         alert(error.message);
       }
@@ -62,7 +66,7 @@ export const signUpDB = (payload) => {
     try {
       const join = await axios({
         method : 'post',
-        url : '/api/signUp',
+        url : 'http://3.38.151.80:3000/api/signUp',
         data : {
           email : payload.email,
           password : payload.password,
@@ -89,7 +93,7 @@ export const loginDB = (payload) => {
     try {
       const login = await axios({
         method : 'post',
-        url : '/api/login',
+        url : 'http://3.38.151.80:3000/api/login',
         data : {
           email : payload.email,
           password : payload.password
@@ -138,6 +142,11 @@ export default function userReducer( state = initUser, action ) {
           login : action.payload.isLogin,
           userName : action.payload.userName,
           userId : action.payload.userId }; 
+      case LOGOUT :
+        return { ...state,
+          login : false,
+          userName : null,
+          userId : null }; 
     default :
       return state;
   }

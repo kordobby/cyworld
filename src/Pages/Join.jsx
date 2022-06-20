@@ -62,14 +62,14 @@ const Join = ( {themeMode} ) => {
 
   // #3. 조건에 따른 버튼 비활성화
   const disabledHandler = () => {
-    if ( emailCheck(id) === false ) return true;
-    else if ( pw !== pw2 ) return true;
-    else if ( idCheck === false ) return true;
-    else if ( passwordCheck(pw) === false ) return true;
-    else if ( passwordCheck(pw2) === false ) return true;
-    else if ( isNaN(userName) === false ) return true;
-    else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
-    else return false;
+    // if ( emailCheck(id) === false ) return true;
+    // else if ( pw !== pw2 ) return true;
+    // else if ( idCheck === false ) return true;
+    // else if ( passwordCheck(pw) === false ) return true;
+    // else if ( passwordCheck(pw2) === false ) return true;
+    // else if ( isNaN(userName) === false ) return true;
+    // else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
+    // else return false;
   }
 
   return (

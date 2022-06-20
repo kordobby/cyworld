@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
   import HeaderIsLogin from '../Components/Common/HeaderIsLogin';
   import Surfing from '../Components/MainComponents/Surfing';
   import Footer from '../Components/MainComponents/Footer';
+  import FooterIsLogin from '../Components/MainComponents/FooterIsLogin';
 
 /* Redux settings */
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,19 +22,19 @@ import { useQuery } from 'react-query';
 const Main = ( {token, themeMode} ) => {
   const dispatch = useDispatch();
   const [ active, setActive ] = useState(true);
-  const surfList = useSelector((state) => state.surfReducer?.list);
-  console.log(surfList);
+  // const surfList = useSelector((state) => state.surfReducer?.list);
+  // console.log(surfList);
 
-  useEffect(() => {
-    dispatch(loadPostDB());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(loadPostDB());
+  // }, [dispatch]);
 
-  // const fetcher = async () => {
-  //   const usersData = await axios.get('url');
-  //   return usersData.data;
-  // }
-  // const { data, isLoading, error, isError } = useQuery('loginCheck', fetcher);
-  // console.log(data);
+  const fetcher = async () => {
+    const usersData = await axios.get('http://3.38.151.80:3000/api/lobby');
+    return usersData?.data;
+  }
+ 
+  const { data, isLoading, error, isError } = useQuery('loginCheck', fetcher);
 
   const activeMenuHandler = () => {
     setActive(!active);
@@ -73,14 +74,15 @@ const Main = ( {token, themeMode} ) => {
           <span>파도타기</span>
         </Followers>
         <FollowerList>
-          <Surfing/><Surfing/><Surfing/><Surfing/><Surfing/>
-          <Surfing/><Surfing/><Surfing/><Surfing/><Surfing/>
           <div className = "blank"></div>
-          {/* { surfList?.map((value) => { 
+          { data?.allUsers.map((value) => { 
           return (
           <Surfing
-            key = {value.postId}
-          ></Surfing> )})} */}
+            key = {value.userId}
+            msg = {value.introMessage}
+            img = {value.imageUrl}
+            userName = {value.User.username}
+          ></Surfing> )})}
         </FollowerList>
         
         <OfficialBox>
@@ -89,7 +91,7 @@ const Main = ( {token, themeMode} ) => {
           </OfficialTitle>
           <OfficialProfile/>
         </OfficialBox>
-        <Footer/>
+        { token ? <FooterIsLogin themeMode ={themeMode}/> : <Footer themeMode ={themeMode} />}
       </MainWrap>
     </BodyBox>
     </>

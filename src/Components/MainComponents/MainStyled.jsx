@@ -60,7 +60,8 @@ ${flex({align : 'flex-end', justify : 'space-between'})};
 `
 
 export const FollowerList = styled.div`
-margin-top: 245px;
+margin-top: 25px;
+margin-bottom : 220px;
 height : 100%;
 width : 100%;
 box-sizing: border-box;
