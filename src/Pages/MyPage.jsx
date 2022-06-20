@@ -6,10 +6,9 @@ import Modal from "../Components/Modal";
 import { loadMyDB, patchMyDB } from "../redux/modules/myPageReducer";
 
 import styled from "styled-components";
-import { BodyBox, LoginWrap, InputStyle, UserButton } from "./Login";
 import { getCookie } from "../Shared/Cookie";
 
-
+import { BodyBox, LoginWrap, InputStyle, UserButton } from "../Components/UserComponents/UserStyled";
 
 const MyPage = () => {
   // console.log(props.children)
@@ -89,24 +88,24 @@ const MyPage = () => {
       </React.Fragment>
       </Div2>
     
-      <Div3>
-      <span>왼쪽 imageUrl,  </span> 
-      <span>오른쪽 UserName</span>
-      <span>오른쪽 아래 introMessage</span>
-      </Div3>
-      <Div4>
-      다이어리, 사진첩, 주크박스, 방명록
-      </Div4>
-      <Div5>
-      MINI ROOM
-      </Div5>
-    </Main_Div>
-    <Div6>
-        홈, 미니홈피, 파도타기, 더보기 
-      </Div6>
-     </LoginWrap>
+       <Div3>
+       <span>왼쪽 imageUrl,  </span> 
+       <span>오른쪽 UserName</span>
+       <span>오른쪽 아래 introMessage</span>
+       </Div3>
+       <Div4>
+       다이어리, 사진첩, 주크박스, 방명록
+       </Div4>
+       <Div5>
+       MINI ROOM
+       </Div5>
+     </Main_Div>
+     <Div6>
+         홈, 미니홈피, 파도타기, 더보기 
+       </Div6>
+      </LoginWrap>
     
-    </BodyBox>
+     </BodyBox>
   );
 }
 
