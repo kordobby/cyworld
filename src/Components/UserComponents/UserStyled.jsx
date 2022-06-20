@@ -7,6 +7,7 @@ export const BodyBox = styled.div`
   width: 100%;
   position : ${props => props.greeting ? 'absolute' : 'static'};
   display : ${props => props.greeting ? 'flex' : 'hidden'};
+  align-items: flex-start;
   z-index : 2;
   background-color: ${props => props.theme.bgColor};
   `;

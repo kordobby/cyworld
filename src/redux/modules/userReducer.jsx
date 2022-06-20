@@ -41,8 +41,8 @@ export const checkIdDB = (payload) => {
     try {
       const idCheck = await axios({
         method : 'get',
-        url : `http://3.38.151.80:3000/api/duplicatesEmail/${payload.email}`, // => 확인완료!
-      })
+        url : `http://3.39.161.93:3000/api/duplicatesEmail/${payload.email}`, // => 확인완료!
+      })                            ///api/duplicatesEmail/:email
       /* 만약 성공한다면 checkId 를 true로 */
       console.log(idCheck);
       dispatch(checkId(true));
@@ -66,7 +66,7 @@ export const signUpDB = (payload) => {
     try {
       const join = await axios({
         method : 'post',
-        url : 'http://3.38.151.80:3000/api/signUp',
+        url : 'http://3.39.161.93:3000/api/signUp',
         data : {
           email : payload.email,
           password : payload.password,
@@ -93,7 +93,7 @@ export const loginDB = (payload) => {
     try {
       const login = await axios({
         method : 'post',
-        url : 'http://3.38.151.80:3000/api/login',
+        url : 'http://3.39.161.93:3000/api/login',
         data : {
           email : payload.email,
           password : payload.password

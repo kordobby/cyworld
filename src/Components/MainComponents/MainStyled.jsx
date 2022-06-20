@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 import flex from '../GlobalStyled/flex';
 
+export const StWrap = styled.div`
+  width : 100vw;
+  height : 100vh;
+  background-color: ${props => props.theme.bgColor};
+`;
+
 export const MainWrap = styled.div`
   ${flex({direction : 'column', justify : 'center'})}
-  width : calc(100vh - 53vh);
+  width : calc(100vh - 54vh);
   /* background-color : ${props => props.main ? 'var(--input-grey)' : 'white'}; */
   background-color: ${props => props.theme.bgColor2};
 `
@@ -59,19 +65,23 @@ top : 168px;
 ${flex({align : 'flex-end', justify : 'space-between'})};
 `
 
-export const FollowerList = styled.div`
-margin-top: 25px;
-margin-bottom : 220px;
-height : 100%;
+export const FollowersWrap = styled.div`
 width : 100%;
-box-sizing: border-box;
-padding-top : 5px;
-overflow: auto;
-${flex({align : 'center', justify : 'flex-start' , direction : 'column'})}
-& > .blank {
-  height : 220px;
+height : 100%;
+padding-bottom: 220px;
+`
+
+export const FollowerList = styled.div`
+  height : 100%;
   width : 100%;
-};
+  padding-top : 250px;
+  box-sizing: border-box;
+  overflow: auto;
+  ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})}
+  & > .blank {
+    height : 220px;
+    width : 100%;
+  };
 `
 
 export const FriendsImg = styled.img`
@@ -84,6 +94,15 @@ margin-right: 18px; */
 margin : ${props => props.official? '0' : '0 18px 0 18px'}; 
 `
 
+export const MainMsg = styled.div`
+  height : 220px;
+  width : calc(100vh - 60vh);
+  ${flex({ justify : 'center', align : 'center'})};
+  & > .main__message {
+    font-family: 'DungGeunMo';
+    color: ${props => props.theme.textColor};;
+  }
+`
 export const OfficialBox = styled.div`
 ${flex({ direction : 'column'})}
 height : 136px;

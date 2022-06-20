@@ -3,7 +3,6 @@ import flex from "../GlobalStyled/flex";
 import E1 from '../../Public/Images/E1.png';
 import { GreetMsg, CommonBtn } from "../UserComponents/Greetings";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const Error = () => {
 
