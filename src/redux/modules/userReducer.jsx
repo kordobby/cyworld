@@ -3,13 +3,10 @@ import { setCookie } from '../../Shared/Cookie';
 
 /* Init State */
 const initUser = {
-  userName : "",
-  userId : "",
   loading : false,
   error : null,
   success : false,
   idCheck : false
-  // isLogin : false
 }
 
 /* ACTION TYPE */
@@ -19,7 +16,6 @@ const USER_SUCCESS = 'userReducer/USER_SUCCESS';
 const USER_ERROR = 'userReducer/USER_ERROR';
 
 // [ login & sign-up ]
-const LOGIN = 'userReducer/LOGIN';
 const CHECK_ID = 'userReducer/CHECK_ID';
 const LOGOUT = 'userReducer/LOGOUT';
 
@@ -27,10 +23,7 @@ const LOGOUT = 'userReducer/LOGOUT';
 const serverReqUser = (payload) => ({ type : SERVER_REQ_USER, payload });
 const reqSuccessUser = (payload) => ({ type : USER_SUCCESS, payload });
 const reqErrorUser = (payload) => ({ type : USER_ERROR, payload });
-
-const userLogin = (payload) => ({ type : LOGIN, payload });
 const checkId = (payload) => ({ type : CHECK_ID, payload });
-const userLogout = (payload) => ({ type : LOGOUT, payload });
 
 /* THUNK */
 export const checkIdDB = (payload) => {
@@ -113,13 +106,8 @@ export const loginDB = (payload) => {
       });
       // userData 는 state 에 저장 (휘발 시 쿠키에 넣기)
       // login State 관리
-      const loginData = {
-        isLogin : true,
-        userName : login.data.userName,
-        userId : login.data.userId
-      };
       
-      dispatch(userLogin(loginData));
+      // dispatch(userLogin(true));
       alert('로그인 성공!')
     } catch (error) {
       alert('실패!')
@@ -142,20 +130,9 @@ export default function userReducer( state = initUser, action ) {
         return { ...state, success : action.payload};  
       case USER_ERROR :
         return { ...state, login : false, error : action.payload }; 
-
       /* USER FEATURE */
       case CHECK_ID :
         return { ...state, idCheck : action.payload }; 
-      case LOGIN :
-        return { ...state,
-          login : action.payload.isLogin,
-          userName : action.payload.userName,
-          userId : action.payload.userId }; 
-      case LOGOUT :
-        return { ...state,
-          login : false,
-          userName : null,
-          userId : null }; 
     default :
       return state;
   }

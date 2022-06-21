@@ -17,6 +17,7 @@ import { emailCheck } from "../Hooks/useCheck";
 /* Redux setup */
 import { useDispatch } from "react-redux";
 import { loginDB } from "../redux/modules/userReducer";
+import { useMutation } from "react-query";
 
 const Login = ( { themeMode } ) => {
 
@@ -25,6 +26,30 @@ const Login = ( { themeMode } ) => {
 
   const [ id, setId ] = useInput('');
   const [ pw, setPw ] = useInput('');
+  const user = {email : id, password : pw};
+
+  const logined = async(user) => {
+    return client({
+      url : 'http://3.39.161.93:3000/api/login',
+      method : "post",
+      data : {
+        email : user.email,
+        password : user.password
+      }
+    })
+  }
+
+    const mutationLogin = useMutation((user) => logined(user));
+    const handleSubmit = () => {
+      mutationLogin.mutateAsync(user).then((res) => {
+        if(res.data.success) {
+          console.log(res.data.data);
+        }
+      })
+      .catch(() => {
+        console.log('error');
+      })
+    };
 
   const loginHandler = async() => {
     if (emailCheck(id) === true) return alert('가입하신 e-mail ID로 작성해주세요!')
@@ -60,7 +85,7 @@ const Login = ( { themeMode } ) => {
 
         {/* Main Submit Button */}
         <ButtonBox>
-          <UserButton onClick = {loginHandler}>로그인</UserButton>
+          <UserButton onClick = {handleSubmit}>로그인</UserButton>
         </ButtonBox>
         <LoginOptions>
           <span className = "login__options" onClick = {noServiceHandler} >아이디찾기</span>

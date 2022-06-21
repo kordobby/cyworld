@@ -14,21 +14,38 @@ import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import { darkTheme, lightTheme } from "./theme/theme";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { deleteCookie } from "./Shared/Cookie";
+
 function App() {
+  const [ loginState, setLoginState ] = useState(false);
+
   const token = getCookie("token");
-  console.log(token);
-  const loginUser = useSelector((state) => state.userReducer);
-  console.log(loginUser);
+  const isLoginUser = useSelector((state) => state.userReducer);
+  console.log(isLoginUser);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   }
-  return (
+
+ const logoutHandler = () => {
+  deleteCookie('token');
+  deleteCookie('email');
+  setLoginState(false);
+  alert('로그아웃 되었습니다!');
+};
+
+useEffect(()=>{
+  token ? setLoginState(true) : setLoginState(false)
+},[token])
+
+console.log(loginState);
+return (
     <>
       <ThemeProvider theme = {isDarkMode ? darkTheme : lightTheme}>
       <ThemeToggle themeMode = {isDarkMode} toggleDarkMode = {toggleDarkMode} theme = {isDarkMode ? darkTheme : lightTheme}></ThemeToggle>
       <Routes>
-        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main token={token} themeMode = {isDarkMode}/>}></Route>
+        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main loginState={loginState} logout = {logoutHandler} themeMode = {isDarkMode}/>}></Route>
         <Route path="/login" theme = {isDarkMode ? darkTheme : lightTheme} element={<Login themeMode = {isDarkMode}/>}></Route>
         <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join themeMode = {isDarkMode}/>}></Route>
         <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>

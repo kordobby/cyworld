@@ -19,15 +19,9 @@ import axios from 'axios';
 /* React-query */
 import { useQuery } from 'react-query';
 
-const Main = ( {token, themeMode} ) => {
+const Main = ( {token, themeMode, loginState, logout} ) => {
   const dispatch = useDispatch();
   const [ active, setActive ] = useState(true);
-  // const surfList = useSelector((state) => state.surfReducer?.list);
-  // console.log(surfList);
-
-  // useEffect(() => {
-  //   dispatch(loadPostDB());
-  // }, [dispatch]);
 
   const fetcher = async () => {
     const usersData = await axios.get('http://3.39.161.93:3000/api/lobby');
@@ -46,7 +40,7 @@ const Main = ( {token, themeMode} ) => {
     <StWrap>
       <BodyBox>
         <MainWrap>
-          { token ? <HeaderIsLogin/> : <Header themeMode ={themeMode} />}
+          { loginState ? <HeaderIsLogin logout = {logout}/> : <Header themeMode ={themeMode} />}
           <MenuBox>
             { active === true ?
             <>
