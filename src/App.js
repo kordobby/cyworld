@@ -7,6 +7,7 @@ import Main from "./Pages/Main";
 import MyPage from "./Pages/MyPage";
 import Error from "./Components/Common/Error";
 import Welcome from "./Components/MainComponents/Welcome";
+import DetailPage from "./Pages/DetailPage";
 
 import { getCookie } from "./Shared/Cookie";
 import ThemeToggle from "./Components/Common/ThemeToggle";
@@ -48,6 +49,11 @@ function App() {
             path="/mypage"
             theme={isDarkMode ? darkTheme : lightTheme}
             element={<MyPage />}
+          ></Route>
+          <Route
+            path="/page/:userid"
+            theme={isDarkMode ? darkTheme : lightTheme}
+            element={<DetailPage />}
           ></Route>
           <Route
             path="/greetings"

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "../Components/Modal";
@@ -14,7 +13,6 @@ const MyPage = () => {
   // console.log(props.children)
 
   // hooks
-  const { userId } = useParams(); 
   const dispatch = useDispatch()
   const mypageData = useSelector((state) =>state.mypageReducer?.list);
   
