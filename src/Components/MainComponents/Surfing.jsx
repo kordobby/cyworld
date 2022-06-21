@@ -20,8 +20,8 @@ const Surfing = ( {msg, img, userName} ) => {
 }
 
 const FriendBox = styled.div`
-  height : 111px;
-  width : 95%;
+  min-height : 120px;
+  width : calc(100vh - 58vh);
   background-color: ${props => props.theme.bgColor4};
   border-radius: 10px;
   margin: 5px 0 5px 0;

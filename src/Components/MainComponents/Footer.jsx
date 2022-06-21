@@ -38,8 +38,8 @@ export const FooterWrap = styled.div`
   height : 74px;
   width : calc(100vh - 53vh);
   background-color: ${props => props.theme.bgColor3};
-  position : fixed;
-  bottom : 0;  
+  /* position : fixed;
+  bottom : 0;   */
   ${flex({})}
 `
 

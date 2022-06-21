@@ -18,10 +18,7 @@ import axios from 'axios';
 /* React-query */
 import { useQuery } from 'react-query';
 
-/* import socket.io */
-import io from 'socket.io-client';
-
-const Main = ( {token, themeMode, loginState, logout} ) => {
+const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUser } ) => {
   const [ active, setActive ] = useState(true);
 
   const fetcher = async () => {
@@ -80,7 +77,7 @@ const Main = ( {token, themeMode, loginState, logout} ) => {
                 userName = {value.User.username}
               ></Surfing> )})}
               <MainMsg>
-                <span className = "main__message">내 일촌을 여기서 찾아봐요!</span>
+                <span className = "main__message">내 일촌을 찾으셨나요?</span>
               </MainMsg>
             </FollowerList>
           </FollowersWrap>
@@ -90,7 +87,8 @@ const Main = ( {token, themeMode, loginState, logout} ) => {
             </OfficialTitle>
             <OfficialProfile/>
           </OfficialBox>
-          { token ? <FooterIsLogin themeMode ={themeMode}/> : <Footer themeMode ={themeMode} />}
+          <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/>
+          {/* { token ? <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/> : <Footer themeMode ={themeMode} />} */}
         </MainWrap>
       </BodyBox>
     </StWrap>

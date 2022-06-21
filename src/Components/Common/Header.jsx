@@ -35,8 +35,9 @@ export const HeaderBox = styled.div`
   border-bottom: 5px solid var(--input-grey);
 
   background-color: ${props => props.theme.bgColor};
-  position : fixed;
+  /* position : fixed;
   top : 0;
+  z-index : 1; */
 `
 
 export const LOGO = styled.div`

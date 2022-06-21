@@ -17,8 +17,12 @@ import { darkTheme, lightTheme } from "./theme/theme";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteCookie } from "./Shared/Cookie";
+import io from 'socket.io-client';
 
 function App() {
+  const socket = io.connect('http://3.39.161.93:3000');
+  const loginUser = getCookie('userName');
+
   const [ loginState, setLoginState ] = useState(false);
 
   const token = getCookie("token");
@@ -45,13 +49,13 @@ return (
       <ThemeProvider theme = {isDarkMode ? darkTheme : lightTheme}>
       <ThemeToggle themeMode = {isDarkMode} toggleDarkMode = {toggleDarkMode} theme = {isDarkMode ? darkTheme : lightTheme}></ThemeToggle>
       <Routes>
-        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main loginState={loginState} logout = {logoutHandler} themeMode = {isDarkMode}/>}></Route>
+        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main socket = {socket} loginUser = {loginUser} loginState={loginState} logout = {logoutHandler} themeMode = {isDarkMode}/>}></Route>
         <Route path="/login" theme = {isDarkMode ? darkTheme : lightTheme} element={<Login themeMode = {isDarkMode} setLoginState = {setLoginState}/> }></Route>
         <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join themeMode = {isDarkMode}/>}></Route>
         <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>
         <Route path="/greetings" theme = {isDarkMode ? darkTheme : lightTheme} element={<Greetings />}></Route>
         <Route path="/error" theme = {isDarkMode ? darkTheme : lightTheme} element={<Error />}></Route>
-        <Route path="/chats" theme = {isDarkMode ? darkTheme : lightTheme} element={<Chat />}></Route>
+        <Route path="/chats" theme = {isDarkMode ? darkTheme : lightTheme} element={<Chat socket = {socket} loginUser = {loginUser}/>}></Route>
         <Route path="/" theme = {isDarkMode ? darkTheme : lightTheme} element={<Welcome />}></Route>
       </Routes>
       </ThemeProvider>

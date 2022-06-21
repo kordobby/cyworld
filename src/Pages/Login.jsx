@@ -42,6 +42,10 @@ const Login = ( { themeMode, setLoginState } ) => {
           path : '/',
           expire : 'after60m'
         });
+        setCookie('userName', res.data.userName, {
+          path : '/',
+          expire : 'after60m'
+        });
         navigate('/home');
         alert('어서오세요!');
         setLoginState(true);

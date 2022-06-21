@@ -17,12 +17,12 @@ export const MainWrap = styled.div`
 export const MenuBox = styled.div`
   height : 76px;
   width : calc(100vh - 53vh);
-  position : fixed;
-  top : 87px;
+  /* position : fixed; */
+  /* top : 87px; */
   background-color: ${props => props.theme.bgColor};
   border-bottom: 5px solid;
   border-color: ${props => props.theme.bgColor};;
-  ${flex({justify : 'space-around'})};
+  ${flex({justify : 'center'})};
 `
 
 export const Menus = styled.div`
@@ -32,6 +32,7 @@ export const Menus = styled.div`
   font-size: 20px;
   box-sizing: border-box;
   padding-bottom: 15px;
+  border-bottom : 5px solid var(--orange);
   cursor : pointer;
   color : ${props => props.active? 'var(--orange)' : 'var(--black)'};
 `
@@ -41,7 +42,7 @@ export const MenuTitle = styled.span`
 `
 
 export const MenuBar = styled.div`
-  height : 5px;
+  /* height : 5px;
   width : calc(100vh - 78vh);
   background-color: var(--orange);
   border-radius: 10px;
@@ -49,7 +50,7 @@ export const MenuBar = styled.div`
   top : 76px;
   left : 4px;
   z-index: 5;
-  left : ${props => props.active? '4px' : null };
+  left : ${props => props.active? '4px' : null }; */
 `
 
 export const Followers = styled.div`
@@ -61,7 +62,7 @@ export const Followers = styled.div`
   font-weight : 700;
   padding : 0 0 15px 15px;
   box-sizing: border-box;
-  position : fixed;
+  /* position : fixed; */
   top : 168px;
   ${flex({align : 'flex-end', justify : 'space-between'})};
 `
@@ -69,15 +70,12 @@ export const Followers = styled.div`
 export const FollowersWrap = styled.div`
   width : 100%;
   height : 100%;
-  padding-bottom: 220px;
 `
 
 export const FollowerList = styled.div`
-  height : 100%;
   width : 100%;
-  padding-top : 250px;
-  box-sizing: border-box;
-  overflow: auto;
+  height : 390px;
+  overflow: scroll;
   ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})}
   & > .blank {
     height : 220px;
@@ -96,7 +94,7 @@ export const FriendsImg = styled.img`
 `
 
 export const MainMsg = styled.div`
-  height : 220px;
+  min-height : 80px;
   width : calc(100vh - 60vh);
   ${flex({ justify : 'center', align : 'center'})};
   & > .main__message {
@@ -108,8 +106,8 @@ export const OfficialBox = styled.div`
   ${flex({ direction : 'column'})}
   height : 136px;
   width : calc(100vh - 53vh);
-  position : fixed;
-  bottom : 74px;
+  /* position : fixed; */
+  /* bottom : 74px; */
   background-color: ${props => props.theme.bgColor};
 `
 
