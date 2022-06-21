@@ -18,6 +18,7 @@ import { emailCheck } from "../Hooks/useCheck";
 import { useDispatch } from "react-redux";
 import { loginDB } from "../redux/modules/userReducer";
 import { useMutation } from "react-query";
+import axios from "axios";
 
 const Login = ( { themeMode } ) => {
 
@@ -26,20 +27,11 @@ const Login = ( { themeMode } ) => {
 
   const [ id, setId ] = useInput('');
   const [ pw, setPw ] = useInput('');
-  const user = {email : id, password : pw};
 
   const logined = async(user) => {
-    return client({
-      url : 'http://3.39.161.93:3000/api/login',
-      method : "post",
-      data : {
-        email : user.email,
-        password : user.password
-      }
-    })
-  }
+    const loginData = await axios.post('http://3.39.161.93:3000/api/login'), user}
 
-    const mutationLogin = useMutation((user) => logined(user));
+    const mutationLogin = useMutation((user) => logined);
     const handleSubmit = () => {
       mutationLogin.mutateAsync(user).then((res) => {
         if(res.data.success) {
