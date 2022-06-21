@@ -28,7 +28,7 @@ const Login = ( { themeMode } ) => {
 
   const loginHandler = async() => {
     if (emailCheck(id) === true) return alert('가입하신 e-mail ID로 작성해주세요!')
-    else dispatch(loginDB({ email : id,  password : pw }));
+    else dispatch(loginDB({ email : id,  password : pw })); navigate('/home');
   }
   console.log(emailCheck(id));
   const noServiceHandler = () => {

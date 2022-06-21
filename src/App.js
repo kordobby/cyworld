@@ -14,11 +14,12 @@ import ThemeToggle from "./Components/Common/ThemeToggle";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import { darkTheme, lightTheme } from "./theme/theme";
-
+import { useSelector } from "react-redux";
 function App() {
   const token = getCookie("token");
   console.log(token);
-
+  const loginUser = useSelector((state) => state.userReducer);
+  console.log(loginUser);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);

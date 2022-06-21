@@ -29,9 +29,9 @@ const serverReqUser = (payload) => ({ type : SERVER_REQ_USER, payload });
 const reqSuccessUser = (payload) => ({ type : USER_SUCCESS, payload });
 const reqErrorUser = (payload) => ({ type : USER_ERROR, payload });
 
-const login = (payload) => ({ type : LOGIN, payload });
+const userLogin = (payload) => ({ type : LOGIN, payload });
 const checkId = (payload) => ({ type : CHECK_ID, payload });
-const logout = (payload) => ({ type : LOGOUT, payload });
+const userLogout = (payload) => ({ type : LOGOUT, payload });
 
 /* THUNK */
 export const checkIdDB = (payload) => {
@@ -79,6 +79,7 @@ export const signUpDB = (payload) => {
       dispatch(reqSuccessUser(true));
       alert('회원가입 성공!')
     } catch (error) {
+      console.log(error);
       dispatch(reqErrorUser(error));
       alert('회원가입 실패!');
     } finally {
@@ -100,9 +101,14 @@ export const loginDB = (payload) => {
           password : payload.password
         }
       })
+      console.log(login);
       /* 아래는 받는 값에 따라서 수정 가능성 있음! */
-      const accessToken = login.headers.authorization.split(" ")[1];
+      const accessToken = login.data.token;
       setCookie('token', accessToken, {
+        path : '/',
+        expire : 'after60m'
+      });
+      setCookie('email', payload.email, {
         path : '/',
         expire : 'after60m'
       });
@@ -113,11 +119,13 @@ export const loginDB = (payload) => {
         userName : login.data.userName,
         userId : login.data.userId
       };
-      dispatch(login(loginData));
+      
+      dispatch(userLogin(loginData));
       alert('로그인 성공!')
     } catch (error) {
+      alert('실패!')
+      console.log(error);
       dispatch(reqErrorUser(error));
-      alert('이메일 또는 패스워드 확인해주세요.');
     } finally {
       dispatch(serverReqUser(false));
     }
@@ -126,6 +134,7 @@ export const loginDB = (payload) => {
 
 /* REDUCER */
 export default function userReducer( state = initUser, action ) {
+  console.log(action)
   switch (action.type) {
       /* SERVER REQUEST */
       case SERVER_REQ_USER :

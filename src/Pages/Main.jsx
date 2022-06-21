@@ -37,7 +37,7 @@ const Main = ( {token, themeMode} ) => {
   }
  
   const { data, isLoading, error, isError } = useQuery('loginCheck', fetcher);
-
+  console.log(data);
   const activeMenuHandler = () => {
     setActive(!active);
   }
