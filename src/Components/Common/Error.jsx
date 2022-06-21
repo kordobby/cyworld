@@ -19,7 +19,7 @@ const Error = () => {
         </ErrorMsg>
         <GreetMsg>서버에서 받은 에러메세지를 띄우면?</GreetMsg>
         <ErrorFooter>
-          <CommonBtn onClick = {() => navigate('/')}>홈 화면으로 돌아가기</CommonBtn>
+          <CommonBtn onClick = {() => navigate(-1)}>홈 화면으로 돌아가기</CommonBtn>
         </ErrorFooter>
       </CommonBox>
     </CommonWrap>
@@ -30,16 +30,19 @@ const Error = () => {
 export const CommonWrap = styled.div`
   ${flex({justify : 'center'})};
   width: 100%;
+  height : ${props => props.greeting ? '100vh' : '100%'};
   background-color: ${props => props.theme.bgColor};
   position : ${props => props.visible ? 'absolute' : 'static'};
   display : ${props => props.visible ? 'flex' : 'hidden'};
+  align-items : ${props => props.greeting ? 'flex-start' : null};
   z-index : 2;
 `;
 
 export const CommonBox = styled.div`
   ${flex({direction : 'column', justify : 'center'})}
+  height : ${props => props.greeting ? '100vh' : '100%'};
   width : calc(100vh - 53vh);
-  background-color: #f6f6f6;
+  background-color: ${props => props.greeting ? 'white' : '#f6f6f6'};
 `;
 
 export const ErrorImgBox = styled.div`

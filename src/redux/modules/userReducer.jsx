@@ -1,4 +1,5 @@
 import axios from 'axios';
+import apis from '../../Shared/api/apis';
 import { setCookie } from '../../Shared/Cookie';
 
 /* Init State */
@@ -17,7 +18,6 @@ const USER_ERROR = 'userReducer/USER_ERROR';
 
 // [ login & sign-up ]
 const CHECK_ID = 'userReducer/CHECK_ID';
-const LOGOUT = 'userReducer/LOGOUT';
 
 /* ACTION FUNC */
 const serverReqUser = (payload) => ({ type : SERVER_REQ_USER, payload });
@@ -84,15 +84,16 @@ export const loginDB = (payload) => {
   console.log(payload);  // payload 잘 찍히는지 확인 완료
   return async function(dispatch) {
     dispatch(serverReqUser(true));
-    try {
-      const login = await axios({
-        method : 'post',
-        url : 'http://3.39.161.93:3000/api/login',
-        data : {
-          email : payload.email,
-          password : payload.password
-        }
-      })
+    try { const login = await apis.login({ email : payload.email, password : payload.password});
+      // try {
+      // const login = await axios({
+      //   method : 'post',
+      //   url : 'http://3.39.161.93:3000/api/login',
+      //   data : {
+      //     email : payload.email,
+      //     password : payload.password
+      //   }
+      // })
       console.log(login);
       /* 아래는 받는 값에 따라서 수정 가능성 있음! */
       const accessToken = login.data.token;

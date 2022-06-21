@@ -15,15 +15,15 @@ import { useNavigate } from "react-router-dom";
 
 /* Redux-settings */
 import { useDispatch, useSelector } from "react-redux";
-import { signUpDB, checkIdDB } from '../redux/modules/userReducer';
+import { checkIdDB } from '../redux/modules/userReducer';
 
 /* Hooks */
 import { emailCheck, passwordCheck } from "../Hooks/useCheck";
 import useInput from "../Hooks/useInput";
 
 /* SeverReq Components */
-import Greetings from "../Components/UserComponents/Greetings";
-import Error from "../Components/Common/Error";
+import apis from "../Shared/api/apis";
+import { useMutation } from "react-query";
 
 const Join = ( {themeMode} ) => {
 
@@ -43,39 +43,50 @@ const Join = ( {themeMode} ) => {
   const idCheckDisabled = () => {
     if ( emailCheck(id) === true ) return true;
     if ( id === "" ) return true;
-    // if ( idCheck === true ) return false;  <= 서버 연결하고 살리기
+    if ( idCheck === true ) return false;  //<= 서버 연결하고 살리기
     else return false;
   }
 
   console.log(idCheckDisabled());
   const checkIdHandler = () => { dispatch(checkIdDB({ email : id })) }
 
-  // #2. 회원가입 요청
+  // #3. 조건에 따른 버튼 비활성화
+  const disabledHandler = () => {
+    if ( emailCheck(id) === true ) return true;
+    else if ( pw !== pw2 ) return true;
+    else if ( idCheck === false ) return true;
+    else if ( passwordCheck(pw) === false ) return true;
+    else if ( isNaN(userName) === false ) return true;
+    else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
+    else return false;
+  }
+
+  const joinTester = async(userData) => {
+    const userJoinReq = await apis.join(userData);
+    return userJoinReq;
+  }
+  const { mutate } = useMutation(joinTester, {
+    onSuccess : () => {
+      navigate('/greetings');
+      alert('가입환영!');
+    },
+    onError : (error) => {
+      navigate('/error');
+      alert('회원가입에 실패했습니다.');
+    }
+  })
+
   const signUpHandler = ( ) => {
-    dispatch(signUpDB({
+    mutate({
       email : id,
       password : pw,
       confirmPassword : pw2,
       userName
-    }))
+    })
   } 
-
-  // #3. 조건에 따른 버튼 비활성화
-  const disabledHandler = () => {
-    // if ( emailCheck(id) === false ) return true;
-    // else if ( pw !== pw2 ) return true;
-    // else if ( idCheck === false ) return true;
-    // else if ( passwordCheck(pw) === false ) return true;
-    // else if ( passwordCheck(pw2) === false ) return true;
-    // else if ( isNaN(userName) === false ) return true;
-    // else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
-    // else return false;
-  }
 
   return (
     <>
-      { success === true ? <Greetings></Greetings> : <></>}
-      { error !== null ? <Error></Error> : <></>}
       <BodyBox>
         <LoginWrap>
           <JoinWrap>
