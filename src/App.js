@@ -17,6 +17,8 @@ import { darkTheme, lightTheme } from "./theme/theme";
 
 function App() {
   const token = getCookie("token");
+  console.log(token);
+
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);

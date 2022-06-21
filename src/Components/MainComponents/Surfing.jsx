@@ -2,16 +2,19 @@ import { FriendsImg } from './MainStyled';
 import flex from '../../Components/GlobalStyled/flex';
 import styled from 'styled-components';
 import none from '../../Public/Images/none.png';
-const Surfing = () => {
 
+const Surfing = ( {msg, img, userName} ) => {
 
   return (
     <FriendBox>
-    <FriendsImg src = {none}></FriendsImg>
+      { img === "" ?
+         <FriendsImg src = {none}></FriendsImg>
+       : <FriendsImg src = {img}></FriendsImg>
+      }
     <FriendsProfile>
-      <span>이윤</span>
-      <span>인생은 쓰다</span>
-      <span>참말로</span>
+      <span>{userName}</span>
+      <span>msg : {msg}</span>
+      <span>img : {img}</span>
     </FriendsProfile>
   </FriendBox>
   );

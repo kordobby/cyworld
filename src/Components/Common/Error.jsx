@@ -3,7 +3,7 @@ import flex from "../GlobalStyled/flex";
 import E1 from '../../Public/Images/E1.png';
 import { GreetMsg, CommonBtn } from "../UserComponents/Greetings";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 
 const Error = () => {
 
@@ -64,6 +64,6 @@ export const ErrorFooter = styled.div`
   box-sizing: border-box;
   padding-top: 35px;
   background-color: var(--input-grey);
-  margin-bottom : 88px;
+  margin-bottom : 120px;
 `
 export default Error;

@@ -8,16 +8,17 @@ const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-        <CommonWrap className = "splash__msg">
+
+        <CommonWrap >
           <CommonBox>
-            <ErrorImgBox className = "splash__msg">
+            <ErrorImgBox>
               <img src = {E1} alt = ""/>
             </ErrorImgBox>
-            <ErrorMsg className = "splash__msg">
+            <ErrorMsg>
               <span>ㄷr시 만나서 반ㄱr워.</span>
             </ErrorMsg>
-            <GreetMsg className = "splash__msg">오랜만이야? 잘 지냈지?</GreetMsg>
-            <ErrorFooter className = "splash__msg">
+            <GreetMsg >오랜만이야? 잘 지냈지?</GreetMsg>
+            <ErrorFooter>
               <CommonBtn onClick = {()=> navigate('/home')}>싸이월드 들어가기</CommonBtn>
             </ErrorFooter>
           </CommonBox>

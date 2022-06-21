@@ -7,13 +7,20 @@ import flex from '../GlobalStyled/flex';
 import Basic from '../../Public/Images/header-logo.png';
 import DarkBasic from '../../Public/Images/small-dark3.png';
 
+import { setCookie } from '../../Shared/Cookie';
+
 const Header = ( {themeMode} ) => {
   const navigate = useNavigate();
-
+  const testCookie = () => {
+    setCookie('token', "1234", {
+     path : '/',
+     expire : 'after60m'
+   });
+ }
   return (
         <HeaderBox>
           { !themeMode ? 
-            (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
+            (<LOGO onClick = {testCookie}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
           : (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {DarkBasic}/></LOGO>)}
           <UserBtn onClick = {()=> navigate('/login')}>LOGIN</UserBtn>
         </HeaderBox>

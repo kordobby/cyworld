@@ -5,6 +5,7 @@ import Modal from "../Components/Modal";
 import { loadMyDB, patchMyDB } from "../redux/modules/myPageReducer";
 
 import styled from "styled-components";
+
 import { getCookie } from "../Shared/Cookie";
 
 import { BodyBox, LoginWrap, InputStyle, UserButton } from "../Components/UserComponents/UserStyled";

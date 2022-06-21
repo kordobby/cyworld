@@ -14,7 +14,8 @@ export const loadPostDB = ()=> {
     try {
       const loadedData = await axios({
         method : 'get',
-        url : "/api/lobby"
+
+        url : "http://3.38.151.80:3000/api/lobby"
       })
       console.log(loadedData);
       console.log(loadedData.data.allUsers);

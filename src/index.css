@@ -26,3 +26,11 @@ code {
   font-weight: normal;
   font-style: normal;
 }
+
+
+.blank {
+  height : 100px;
+  width : 100%;
+  background-color: white;
+  margin-top: 240px;
+}
