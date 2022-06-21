@@ -7,6 +7,7 @@ import Main from "./Pages/Main";
 import MyPage from "./Pages/MyPage";
 import Error from './Components/Common/Error';
 import Welcome from "./Components/MainComponents/Welcome";
+import Chat from "./Pages/Chat";
 
 import { getCookie } from "./Shared/Cookie";
 import ThemeToggle from './Components/Common/ThemeToggle';
@@ -50,6 +51,7 @@ return (
         <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>
         <Route path="/greetings" theme = {isDarkMode ? darkTheme : lightTheme} element={<Greetings />}></Route>
         <Route path="/error" theme = {isDarkMode ? darkTheme : lightTheme} element={<Error />}></Route>
+        <Route path="/chats" theme = {isDarkMode ? darkTheme : lightTheme} element={<Chat />}></Route>
         <Route path="/" theme = {isDarkMode ? darkTheme : lightTheme} element={<Welcome />}></Route>
       </Routes>
       </ThemeProvider>

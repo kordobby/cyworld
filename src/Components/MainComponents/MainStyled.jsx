@@ -2,14 +2,15 @@ import styled from 'styled-components';
 import flex from '../GlobalStyled/flex';
 
 export const StWrap = styled.div`
-  width : 100vw;
+  width : 100%;
   height : 100vh;
   background-color: ${props => props.theme.bgColor};
+  z-index: -5;
 `;
 
 export const MainWrap = styled.div`
   ${flex({direction : 'column', justify : 'center'})}
-  width : calc(100vh - 54vh);
+  width : calc(100vh - 53vh);
   /* background-color : ${props => props.main ? 'var(--input-grey)' : 'white'}; */
   background-color: ${props => props.theme.bgColor2};
 `

@@ -4,23 +4,24 @@ import { useEffect, useState } from 'react';
 /* import Styles */
   // Components
   import { BodyBox } from '../Components/UserComponents/UserStyled';
-  import { MainWrap, MenuBox, Menus, MenuTitle, MenuBar, Followers, FollowerList, OfficialBox, OfficialTitle } from '../Components/MainComponents/MainStyled';
+  import { MainWrap, MenuBox, Menus, MenuTitle, MenuBar, Followers, FollowerList, OfficialBox, OfficialTitle, FollowersWrap, StWrap, MainMsg } from '../Components/MainComponents/MainStyled';
   import OfficialProfile from '../Components/MainComponents/OfficialProfile';
   import Header from '../Components/Common/Header';
   import HeaderIsLogin from '../Components/Common/HeaderIsLogin';
   import Surfing from '../Components/MainComponents/Surfing';
   import Footer from '../Components/MainComponents/Footer';
   import FooterIsLogin from '../Components/MainComponents/FooterIsLogin';
- import { FollowersWrap, StWrap, MainMsg } from '../Components/MainComponents/MainStyled';
+
 /* Redux settings */
-import { useDispatch, useSelector } from 'react-redux';
-import { loadPostDB } from '../redux/modules/surfReducer';
 import axios from 'axios';
+
 /* React-query */
 import { useQuery } from 'react-query';
 
+/* import socket.io */
+import io from 'socket.io-client';
+
 const Main = ( {token, themeMode, loginState, logout} ) => {
-  const dispatch = useDispatch();
   const [ active, setActive ] = useState(true);
 
   const fetcher = async () => {
@@ -28,7 +29,7 @@ const Main = ( {token, themeMode, loginState, logout} ) => {
     return usersData?.data;
   }
  
-  const { data, isLoading, error, isError } = useQuery('loginCheck', fetcher);
+  const { data } = useQuery('loginCheck', fetcher);
   console.log(data);
   const activeMenuHandler = () => {
     setActive(!active);
