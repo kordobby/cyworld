@@ -13,9 +13,8 @@ const HeaderIsLogin = () => {
 
   const logoutHandler = () => {
     deleteCookie('token');
-    dispatch(logout());
+    deleteCookie('email');
     alert('로그아웃 되었습니다!');
-    navigate('/');
   };
 
   return (
