@@ -8,7 +8,7 @@ export const emailCheck = (username) => {
 
 // 비밀번호 체크
 export const passwordCheck = (passwordcheck) => {
-  let regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{6,12}$/;
+  let regPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
   return regPass.test(passwordcheck);
 };
 

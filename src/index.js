@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import store from './redux/configStore';
 
 /* react-query */
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { useMutate, QueryClient, QueryClientProvider } from 'react-query';
 
 /* Router settings */
 import { BrowserRouter } from 'react-router-dom';

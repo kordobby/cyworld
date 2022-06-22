@@ -27,10 +27,85 @@ code {
   font-style: normal;
 }
 
-
-.blank {
-  height : 100px;
+.chat-body {
   width : 100%;
-  background-color: white;
-  margin-top: 240px;
+  height: 521px;
+  /* background: #fff; */
+  overflow: scroll;
+  /* position: relative; */
+}
+.chat-body .message-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.chat-body .message-container::-webkit-scrollbar {
+  display: none;
+}
+.chat-body .message {
+  height: auto;
+  padding: 10px;
+  display: flex;
+}
+
+.chat-body .message .message-content {
+  width: auto;
+  height: auto;
+  min-height: 40px;
+  max-width: 120px;
+  background-color: var(--blue);
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom : 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+#you {
+  justify-content: flex-start;
+}
+
+#you .message-content {
+  justify-content: flex-start;
+}
+
+#you .message-meta {
+  justify-content: flex-start;
+  margin-left: 5px;
+}
+
+#other {
+  justify-content: flex-end;
+}
+
+#other .message-content {
+  justify-content: flex-end;
+  background-color: var(--orange);
+}
+
+#other .message-meta {
+  justify-content: flex-end;
+  margin-right: 5px;
+}
+
+.message-meta #author {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.chat-body .message .message-meta {
+  display: flex;
+  font-size: 12px;
+}
+
+.message-meta {
+  color : var(--input-text);
 }

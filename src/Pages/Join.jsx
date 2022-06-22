@@ -15,15 +15,15 @@ import { useNavigate } from "react-router-dom";
 
 /* Redux-settings */
 import { useDispatch, useSelector } from "react-redux";
-import { signUpDB, checkIdDB } from '../redux/modules/userReducer';
+import { checkIdDB } from '../redux/modules/userReducer';
 
 /* Hooks */
 import { emailCheck, passwordCheck } from "../Hooks/useCheck";
 import useInput from "../Hooks/useInput";
 
 /* SeverReq Components */
-import Greetings from "../Components/UserComponents/Greetings";
-import Error from "../Components/Common/Error";
+import apis from "../Shared/api/apis";
+import { useMutation } from "react-query";
 
 const Join = ( {themeMode} ) => {
 
@@ -34,49 +34,59 @@ const Join = ( {themeMode} ) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { idCheck, error, success } = useSelector((state) => state.userReducer);
+  const { idCheck } = useSelector((state) => state.userReducer);
 
   /* Server Request */
   // #1. ID 중복 확인
 
-  // 안먹히고있음. 이유는 모르겟다 도대체가
   const idCheckDisabled = () => {
     if ( emailCheck(id) === true ) return true;
     if ( id === "" ) return true;
-    // if ( idCheck === true ) return false;  <= 서버 연결하고 살리기
+    if ( idCheck === true ) return false;  
     else return false;
   }
 
   console.log(idCheckDisabled());
   const checkIdHandler = () => { dispatch(checkIdDB({ email : id })) }
 
-  // #2. 회원가입 요청
+  // #3. 조건에 따른 버튼 비활성화
+  const disabledHandler = () => {
+    if ( emailCheck(id) === true ) return true;
+    else if ( userName.length < 3 ) return true;
+    else if ( pw !== pw2 ) return true;
+    else if ( idCheck === false ) return true;
+    else if ( passwordCheck(pw) === false ) return true;
+    else if ( isNaN(userName) === false ) return true;
+    else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
+    else return false;
+  }
+
+  const joinTester = async(userData) => {
+    const userJoinReq = await apis.join(userData);
+    return userJoinReq;
+  }
+  const { mutate } = useMutation(joinTester, {
+    onSuccess : () => {
+      navigate('/greetings');
+      alert('가입환영!');
+    },
+    onError : (error) => {
+      navigate('/error');
+      alert('회원가입에 실패했습니다.');
+    }
+  })
+
   const signUpHandler = ( ) => {
-    dispatch(signUpDB({
+    mutate({
       email : id,
       password : pw,
       confirmPassword : pw2,
       userName
-    }))
+    })
   } 
-
-  // #3. 조건에 따른 버튼 비활성화
-  const disabledHandler = () => {
-
-    // if ( emailCheck(id) === false ) return true;
-    // else if ( pw !== pw2 ) return true;
-    // else if ( idCheck === false ) return true;
-    // else if ( passwordCheck(pw) === false ) return true;
-    // else if ( passwordCheck(pw2) === false ) return true;
-    // else if ( isNaN(userName) === false ) return true;
-    // else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
-    // else return false;
-  }
 
   return (
     <>
-      { success === true ? <Greetings></Greetings> : <></>}
-      { error !== null ? <Error></Error> : <></>}
       <BodyBox>
         <LoginWrap>
           <JoinWrap>
@@ -94,7 +104,7 @@ const Join = ( {themeMode} ) => {
             {/* Main - ID Input Form */}
             <IdBox>
               <SignUpTitles className = "email__title">이메일 아이디 입력</SignUpTitles>
-              <SignUpNotice className = "email__title">아이디로 사용할 이메일 주소를 입력해주세요.</SignUpNotice>
+              <SignUpNotice className = "email__title">비밀번호 찾기에도 이용되니 사용하시는 이메일을 작성해주세요!</SignUpNotice>
               <InputStyle
                 join
                 className = "email__title"
@@ -148,7 +158,7 @@ const Join = ( {themeMode} ) => {
             {/* Main - Name Input Form */}
             <IdBox>
               <SignUpTitles>이름 입력</SignUpTitles>
-              <SignUpNotice>실명을 작성해주세요.</SignUpNotice>
+              <SignUpNotice>이름은 3글자 이상 5글자 이하만 가능합니다.</SignUpNotice>
               <InputStyle
                 join
                 type = "text"

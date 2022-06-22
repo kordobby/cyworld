@@ -1,5 +1,5 @@
 import { BodyBox, LoginWrap, JoinWrap } from './UserStyled';
-
+import { CommonWrap, CommonBox } from '../Common/Error';
 import styled from 'styled-components';
 import flex from "../GlobalStyled/flex";
 import G1 from '../../Public/Images/G1.png';
@@ -10,8 +10,8 @@ const Greetings = () => {
   const navigete = useNavigate();
 
   return (
-  <BodyBox greeting>
-    <LoginWrap>
+  <CommonWrap greeting>
+    <CommonBox greeting>
       <JoinWrap>
         <GreetTitle>
           <span>회원가입 완료</span>
@@ -29,8 +29,8 @@ const Greetings = () => {
           </CommonBtn>
         </GreetFooter>
       </JoinWrap>
-    </LoginWrap>
-  </BodyBox> );   
+    </CommonBox>
+  </CommonWrap> );   
 }
 
 
