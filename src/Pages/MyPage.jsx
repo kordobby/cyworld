@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery, useMutation } from "react-query";
 
 import Modal from "../Components/Modal";
-import { loadMyDB, patchMyDB } from "../redux/modules/myPageReducer";
+import { patchMyDB, loadMyDB } from "../redux/modules/myPageReducer";
 
 import styled from "styled-components";
+import axios from "axios";
 
-import { getCookie } from "../Shared/Cookie";
+// import { getCookie } from "../Shared/Cookie";
 
 import { BodyBox, LoginWrap, InputStyle, UserButton } from "../Components/UserComponents/UserStyled";
 
-const MyPage = () => {
+import { StWrap , MainWrap } from "../Components/MainComponents/MainStyled";
+import FooterIsLogin from "../Components/MainComponents/FooterIsLogin";
+import { useNavigate } from "react-router-dom";
+
+
+
+const MyPage = ({token}) => {
   // console.log(props.children)
 
   // hooks
   const dispatch = useDispatch()
-  const mypageData = useSelector((state) =>state.mypageReducer?.list);
-  
+  const navigate = useNavigate();
+  const mypageData = useSelector((state) =>state.mypageReducer.intialstate);
+  // console.log(mypageData)
   // states
   const [imageUrl,setFiles] = useState(null)
   const [introMessage,setMessage] = useState(null)
-  console.log(imageUrl,introMessage)
+  // console.log(imageUrl,introMessage)
   const [modalOpen, setModalOpen] = useState(false);
+
+  // useEffect
+    useEffect(()=>{
+      dispatch(loadMyDB(token))
+   },[dispatch,mypageData?.imageUrl,mypageData?.introMessage])
+  
+  
 
   // events
   const openModal = () => {
@@ -30,31 +46,57 @@ const MyPage = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const onSubmit = (event) => {
+  const onClick = async (event) => {
     event.preventDefault();
     console.log(imageUrl,introMessage)
+
     let formData = new FormData
     formData.append('image',imageUrl)
-    // console.log(formData.append)
+    // console.log(formData.getAll('image'))
     
-    dispatch(patchMyDB({formData,
-                        introMessage,
-                        token: getCookie('token') }))
-    // console.log(formData.getAll('files'))
-    }
-  //1. 위의 onSubmit에서 console.log(formData.getAll('files')) 이렇게 치면 formData 객체 안의 값을 확인 할 수 있다.
-  //   위와 같은 방법으로 콘솔 확인을 안 하면 navtive code 라는 형식으로 안의 키와 값을 볼 수 없을 것.
+    formData.append("introMessage", introMessage)
+    // console.log(formData.getAll('introMessage'))
 
-  // useEffect
-  useEffect(()=>{
-     dispatch(loadMyDB())
-  },[dispatch])
+   const patchData = await axios({
+    method : "patch",
+    url : "http://3.39.161.93:3000/api/mypage",
+    data : formData,
+    headers : {
+      "Content-Type" : "multipart/form-data",
+      Authorization : `Bearer ${token}`
+    }})
+    // console.log(mypageData)
+    dispatch(patchMyDB({patchData}))
+    navigate('/mypage')
+  }
+  //   console.log(formData.getAll('image'))
 
+  // console.log(mypageData?.playlist)
+
+
+  // useQuery data - get 
+  const Playlistfetcher = async () => {
+    const PlayData = await axios.get('http://3.39.161.93:3000/api/playlists/BOUNCE!%20(feat.%20Nieko).mp3');
+    console.log(PlayData)
+    return PlayData?.data;
+  }
+ 
+  const { data, isLoading, isSuccess, isError } = useQuery('data', Playlistfetcher);
+  console.log(data)
+  
+ 
   return (
+    <>
+    <StWrap>
     <BodyBox>
-      <LoginWrap>
+      <MainWrap>
+      
       <HeaderBox>
-      설정, 메뉴, 홈 등의 버튼
+        
+        <Circle/>
+        <Circle/>
+        <Circle/>
+      
       </HeaderBox>
     <Main_Div>
       <Div2>
@@ -67,18 +109,20 @@ const MyPage = () => {
         {/* 여기 아래 내용들 Modal.jsx의 <Main> {props.children} <Main>으로 들어감 
              children의 범위에 대해서 다른 HTML에서 콘솔로 확인해볼 것 !  */}
        <>
-        <Modal_div1 onSubmit={onSubmit}>
+        <Modal_div1>
 
         <input type="file"  onChange={(event)=>{
           event.preventDefault();
           setFiles(event.target.files[0])}}/> 
         
-        <input type="text" placeholder="내 기분을 적어주세요"  onChange={(event)=>{setMessage(event.target.value)}}/>
+        <input type="text" placeholder="내 기분을 적어주세요"  onChange={(event)=>{
+           event.preventDefault();
+          setMessage(event.target.value)}}/>
          
 
        
         
-        <button>
+        <button onClick={onClick} >
               제출하기
         </button>
         </Modal_div1>
@@ -86,30 +130,38 @@ const MyPage = () => {
       </Modal>
       </React.Fragment>
       </Div2>
-    
        <Div3>
-       <span>왼쪽 imageUrl,  </span> 
-       <span>오른쪽 UserName</span>
-       <span>오른쪽 아래 introMessage</span>
+         <img src={
+          `https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${mypageData?.imageUrl}`
+         } ></img>  
+       <p>{mypageData?.User.username}</p>
+       <p>{mypageData?.introMessage}</p>   
        </Div3>
-       <Div4>
-       다이어리, 사진첩, 주크박스, 방명록
-       </Div4>
+
+       <MusicDiv>
+       뮤직 데이터 값은 여기 있습니다
+       {/* <div>{mypageData?.user.playlist}</div> */}
+       {/* <button onClick={start} >play</button> */}
+       <audio src="http://3.39.161.93:3000/api/playlists/BOUNCE!%20(feat.%20Nieko).mp3" controls />
+       </MusicDiv>
+
        <Div5>
        MINI ROOM
        </Div5>
-     </Main_Div>
-     <Div6>
-         홈, 미니홈피, 파도타기, 더보기 
+      </Main_Div>
+      <Div6>     
+     <FooterIsLogin/>
        </Div6>
-      </LoginWrap>
-    
+      
+      </MainWrap>
      </BodyBox>
+     </StWrap>
+     </>
   );
 }
 
 const HeaderBox = styled.div`
-  width : 360px;
+  width : calc(100vh - 53vh);
   height : 90px;
   background-color: var(--blue);
 
@@ -118,6 +170,17 @@ const HeaderBox = styled.div`
   box-sizing: border-box;
 
   position : fixed;
+  top : 0;
+`
+
+const Circle = styled.div`
+  width : 10px;
+  height: 10px;
+  border: 1px solid white;
+  background-color: #FFFFFF ;
+  z-index: 1;
+
+  position: absolute;
   top : 0;
 `
 
@@ -159,7 +222,7 @@ position: absolute;
 
 
 `
-const Div4 = styled.div`
+const MusicDiv = styled.div`
 width: 360px;
 border: 1px solid black;
 height : 105px;
@@ -187,6 +250,7 @@ justify-content: center;
 flex-direction: column;
 
 `
+
 
 
 

@@ -22,6 +22,7 @@ import { useQuery } from 'react-query';
 
 const Main = ( {token, themeMode} ) => {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const [ active, setActive ] = useState(true);
 
   // const surfList = useSelector((state) => state.surfReducer?.list);
@@ -41,6 +42,7 @@ const Main = ( {token, themeMode} ) => {
   const activeMenuHandler = () => {
     setActive(!active);
   }
+
 
   return (
     <>
@@ -83,9 +85,10 @@ const Main = ( {token, themeMode} ) => {
               return (
               <Surfing
                 key = {value.userId}
+                userId = {value.userId}
                 msg = {value.introMessage}
                 img = {value.imageUrl}
-                userName = {value.User.username}
+                userName = {value.User.username}   
               ></Surfing> )})}
               <MainMsg>
                 <span className = "main__message">내 일촌을 여기서 찾아봐요!</span>

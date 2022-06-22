@@ -3,22 +3,42 @@ import flex from '../../Components/GlobalStyled/flex';
 import styled from 'styled-components';
 import none from '../../Public/Images/none.png';
 
-const Surfing = ( {msg, img, userName} ) => {
+import { useNavigate } from 'react-router-dom';
 
+const Surfing = ( {userId, msg, img, userName} ) => {
+  const navigate = useNavigate()
+  // const onClick = (e)=> {
+  //   e.preventDefault();
+  //   navigate('`/page/${key}`')
+  // }
+  //navigate 안에 params를 써서 옮기는 방법은 없는 건가?
+  //1. 하... 바보 같은 짓으로 시간 너무 많이 뺏김. 바보 같은 짓 결과의 정확한 이유를 알아내자...
+  //2. 위 {userId, msg, img, userName} 여기에 key를 넣고 key에 적힌 userId를 가져오려고 했었음... 그러면 안 돼.... 저건 고유 값을 지정한 거야
   return (
-    <FriendBox>
+    <FriendBox style={{cursor:"pointer"}} onClick={()=>{navigate(`/page/${userId}`)}}>
       { img === "" ?
-         <FriendsImg src = {none}></FriendsImg>
-       : <FriendsImg src = {img}></FriendsImg>
+       <FriendsImg src = {none}></FriendsImg>
+       :
+       <FriendsImg src = {img}></FriendsImg>
       }
     <FriendsProfile>
       <span>{userName}</span>
       <span>msg : {msg}</span>
-      <span>img : {img}</span>
+      <span>img : {img}</span> 
     </FriendsProfile>
   </FriendBox>
   );
 }
+
+// { img === "" ?
+// //  <Link to={`/page/${key}`} style={{ textDecoration: "none" }}> 
+//  <FriendsImg userId={key} src = {none}></FriendsImg>
+//  {/* </Link> */}
+//  :
+// //  <Link to={`/page/${key}`} style={{ textDecoration: "none" }}> 
+//  <FriendsImg userId={key} src = {img}></FriendsImg>
+//  {/* </Link> */}
+// }
 
 const FriendBox = styled.div`
   height : 111px;

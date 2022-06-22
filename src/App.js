@@ -51,10 +51,10 @@ function App() {
           <Route
             path="/mypage"
             theme={isDarkMode ? darkTheme : lightTheme}
-            element={<MyPage />}
+            element={<MyPage token={token} />}
           ></Route>
           <Route
-            path="/page/:userid"
+            path="/page/:userId"
             theme={isDarkMode ? darkTheme : lightTheme}
             element={<DetailPage />}
           ></Route>
