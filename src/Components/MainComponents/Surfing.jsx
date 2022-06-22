@@ -7,13 +7,14 @@ const Surfing = ( {msg, img, userName} ) => {
   return (
     <FriendBox>
       { img === "" ?
-         <FriendsImg src = {none}></FriendsImg>
-       : <FriendsImg src = {img}></FriendsImg>
+         <FriendsImg src = {none} alt = ""></FriendsImg>
+       : <FriendsImg src = {img} alt = ""></FriendsImg>
       }
     <FriendsProfile>
-      <span>{userName}</span>
-      <span>msg : {msg}</span>
-      <span>img : {img}</span>
+      <span className = "profile_msg" >{userName}</span>
+      { img === "" ?
+         <span>{userName}님의 미니홈피</span> : <span>{msg}</span>
+      }
     </FriendsProfile>
   </FriendBox>
   );
@@ -32,6 +33,9 @@ const FriendsProfile = styled.div`
   height: 80px;
   width : 60%;
   ${flex({ direction : 'column', justify : 'center', align : 'flex-start'})}
+  & > .profile_msg {
+    margin-bottom : 10px;
+  }
 `
 
 export default Surfing;

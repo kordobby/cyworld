@@ -1,20 +1,22 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import CyLogo from '../../Public/Images/CyLogoSmall.png';
-import { Link } from "react-router-dom";
+import Basic from '../../Public/Images/header-logo.png';
+import DarkBasic from '../../Public/Images/small-dark3.png';
 import { HeaderBox, LOGO, UserBtn } from "./Header";
-import { deleteCookie } from "../../Shared/Cookie";
-import { useDispatch } from "react-redux";
 
-const HeaderIsLogin = ({logout}) => {
-  const dispatch = useDispatch();
+const HeaderIsLogin = ({logout, themeMode}) => {
   const navigate = useNavigate();
-
+  const logoutHandler = () => {
+    logout();
+    navigate('/home');
+  }
 
   return (
   <HeaderBox>
-    <Link to = '/login'><LOGO><img src = {CyLogo}/></LOGO></Link>
-    <UserBtn onClick = {logout}>Logout</UserBtn>
+    { !themeMode ? 
+      (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
+      : (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {DarkBasic}/></LOGO>)}
+    <UserBtn onClick = {logoutHandler}>Logout</UserBtn>
   </HeaderBox>
   )
 }

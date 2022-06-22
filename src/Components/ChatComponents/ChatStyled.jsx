@@ -37,16 +37,36 @@ export const ChatTitle = styled.span`
   color : ${props => props.active? 'var(--orange)' : 'var(--black)'};
 `
 export const ChatBox = styled.div`
-    height : 513px;
-    width : 100%;
-    padding-top : 15px;
-    /* width : calc(100vh - 53vh); */
-    ${flex({align : 'flex-start', justify : 'flex-start' , direction : 'column'})}
+    /* height : 513px;
     overflow: scroll;
+    font-size : 14px;
+    box-sizing: content-box;
+    ${flex({align : 'flex-start', justify : 'flex-end' , direction : 'column'})}
+    & > .message {
+      width : calc(100vh - 55vh);
+      margin-bottom : 15px;
+      & > .message-meta {
+      font-size : 15px;
+      margin-top : 5px;
+      margin-left : 5px;
+      color : #6E6E6E;
+     }
+    }
+    & > #you {
+      display : flex;
+      justify-content: flex-end;
+      margin-left: 15px;
+     }
+    & > #other {
+      display : flex;
+      justify-content: flex-start;
+      margin-right: 15px;
+     } */
 `
 
 export const ChatInputBox = styled.div`
   height : 80px;
+  position: relative;
   width : calc(100vh - 53vh);
   ${flex({justify : 'center'})};
   background-color: ${props => props.theme.bgColor3};

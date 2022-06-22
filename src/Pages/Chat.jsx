@@ -4,17 +4,19 @@ import FooterIsLogin from "../Components/MainComponents/FooterIsLogin";
 import { BodyBox, InputStyle } from "../Components/UserComponents/UserStyled";
 import { StWrap, MainWrap } from "../Components/MainComponents/MainStyled";
 import { ChatBox, ChatInputBox, ChatHeader, ChatHeaderWrap, ChatTitle } from "../Components/ChatComponents/ChatStyled";
-import ScrollToBottom from 'react-scroll-to-bottom';
 import flex from "../Components/GlobalStyled/flex";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import { getCookie } from "../Shared/Cookie";
+import { useNavigate } from "react-router-dom";
 
-const Chat = ( {socket, room} ) => {
+const Chat = ( {socket, room, themeMode, logoutHandler} ) => {
+  const navigate = useNavigate();
   const [ currentMsg, setCurrentMsg ] = useState('');
   const [ msgList, setMsgList ] = useState([]);
+  console.log(msgList);
   const inputRef = useRef();
   const loginUser = getCookie('userName');
 
@@ -29,63 +31,80 @@ const Chat = ( {socket, room} ) => {
   const sendChat = async() => {
     console.log('hi')
     if (currentMsg !== "") {
-      const msgData = {
-        room : room,
-        author : loginUser,
-        message : currentMsg,
-        time : 
-        new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
-      };
+      const msgData = currentMsg;
       await socket.emit('message', msgData);
-      setMsgList((list) => [...list, msgData]);
-      inputRef.current.value = "";
+      setMsgList((list) => [...list]);
     }
   }
 
+  // useEffect(() => {
+  //   socket.on('search', (data) => {
+  //     console.log(data);
+  //   })
+  // }, [socket]);
+
   useEffect(() => {
-    scrollToMyRef();
-    socket.on('chat', (data) => {
+    socket.on('update', (data) => {
+      console.log(data);
       setMsgList((list) => [...list, data]);
     })
-  }, [socket, scrollToMyRef]);
+  }, [socket]);
+
+  useEffect(() => {
+    scrollToMyRef();
+  }, [scrollToMyRef]);
+
+  const leaveChat = (event) => {
+    socket.disconnect('disconnect');
+    console.log('나가기');
+  };
+
+  const leaveChatHandler = (event) => {
+    console.log('bye');
+    navigate('/home');
+    leaveChat(event);
+  }
 
   return (
     <>
     <StWrap>
       <BodyBox>
        <MainWrap>
-          <HeaderIsLogin/>
+          <HeaderIsLogin themeMode ={themeMode} logout ={logoutHandler}/>
           <ChatHeaderWrap>
             <ChatHeader>
               <ChatTitle>와글와글!</ChatTitle>
             </ChatHeader>
           </ChatHeaderWrap>
-          <ChatBox ref = {scrollRef}>
-            { msgList.map((value, index) => {
-            return (
-              <div key = {index}>
-                <div
-                  className = 'message'
-                  id = {loginUser === value.author ? 'others' : 'user'}
-                  key = {index}>
-                </div>
-
-                <div className = 'message-content'>
-                  <p>{value.message}</p>
-                </div>
-                
-                <div className = 'message-meta'>
-                  <p id = 'time'>{value.time}</p>
-                  <p id = 'author'>{value.author}</p>
-                </div>
+          <ChatBox className ="chat-body">
+            <div className = "message-container" ref = {scrollRef}>
+          { msgList &&
+            msgList.map((messageContent, i)=>{
+        return (
+          !messageContent.message ? (<div key = {i}></div>) : 
+          <div 
+          className='message'
+          id={loginUser === messageContent.name ? "other" : "you"}
+          key={i}
+          >
+          <div>
+              <div className='message-content'>
+                  <p>{messageContent.message}</p>
               </div>
-            );
-          })}
+              <div className='message-meta'>
+                  <p id="time">{messageContent.time}</p>
+                  <p id="author">{messageContent.name}</p>
+              </div>
+          </div>
+      </div>
+  );
+})}
+          </div>
           </ChatBox>
           <ChatInputBox
             type = 'text'
             placeholder='대화입력'
-            onChange = { (event) => {setCurrentMsg(event.target.value); console.log(currentMsg)}}
+            onChange = { (event) => {setCurrentMsg(event.target.value)}}
             onKeyDown = { (event) => {
               event.key === 'Enter' && sendChat();
             }}
@@ -94,7 +113,7 @@ const Chat = ( {socket, room} ) => {
            <InputStyle></InputStyle>
            <ChatBtn onClick = {sendChat}><FontAwesomeIcon icon = {faPaperPlane}/></ChatBtn>
           </ChatInputBox>
-          <FooterIsLogin/>
+          <FooterIsLogin leaveChatHandler = {leaveChatHandler}/>
         </MainWrap>
       </BodyBox>
     </StWrap>
@@ -115,7 +134,7 @@ right : 37px;
 border : none;
 border-radius: 24px;
 
-background-color: var(--blue);
+background-color: ${props => props.theme.bgColor3};
 color : white;
 font-size: 20px;
 cursor: pointer;
@@ -123,46 +142,4 @@ cursor: pointer;
 &:hover {
   background-color: ${props => props.disabled ? 'var(--input-text)' : 'var(--notice-green)'};
 }
-`
-
-const MyChatBox = styled.div`
-  ${flex({justify : 'flex-end'})};
-  margin-right : 15px;
-  width : 100%;
-  box-sizing : border-box;
-
-  & > .myChat {
-    ${flex({justify : 'flex-start', align : 'center'})};
-    min-height : 50px;
-    width : 100%;
-    background-color: var(--orange); 
-    border-radius: 10px;
-    box-sizing : border-box;
-    margin-left: 15px;
-    padding-left: 15px;
-    padding-right : 15px;  
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
-`
-
-const OthersChatBox = styled.div`
-  ${flex({justify : 'flex-start'})};
-  margin-right : 15px;
-  width : 100%;
-  box-sizing : border-box;
-
-  & > .myChat {
-    ${flex({justify : 'flex-start', align : 'center'})};
-    min-height : 50px;
-    width : 100%;
-    background-color: var(--orange); 
-    border-radius: 10px;
-    box-sizing : border-box;
-    margin-left: 15px;
-    padding-left: 15px;
-    padding-right : 15px;  
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
 `

@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import flex from '../GlobalStyled/flex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import React, { useRef, useState } from "react";
+import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

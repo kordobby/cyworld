@@ -38,7 +38,7 @@ const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUse
     <StWrap>
       <BodyBox>
         <MainWrap>
-          { loginState ? <HeaderIsLogin logout = {logout}/> : <Header themeMode ={themeMode} />}
+          { loginState ? <HeaderIsLogin themeMode ={themeMode} logout = {logout}/> : <Header themeMode ={themeMode} />}
           <MenuBox>
             { active === true ?
             <>
@@ -87,8 +87,7 @@ const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUse
             </OfficialTitle>
             <OfficialProfile/>
           </OfficialBox>
-          <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/>
-          {/* { token ? <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/> : <Footer themeMode ={themeMode} />} */}
+          { token ? <Footer themeMode ={themeMode}/> : <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/> }
         </MainWrap>
       </BodyBox>
     </StWrap>

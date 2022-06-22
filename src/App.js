@@ -14,13 +14,12 @@ import ThemeToggle from './Components/Common/ThemeToggle';
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import { darkTheme, lightTheme } from "./theme/theme";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteCookie } from "./Shared/Cookie";
 import io from 'socket.io-client';
 
 function App() {
-  const socket = io.connect('http://3.39.161.93:3000');
+  const socket = io.connect('ws://3.39.161.93:3000');
   const loginUser = getCookie('userName');
 
   const [ loginState, setLoginState ] = useState(false);
@@ -55,7 +54,7 @@ return (
         <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>
         <Route path="/greetings" theme = {isDarkMode ? darkTheme : lightTheme} element={<Greetings />}></Route>
         <Route path="/error" theme = {isDarkMode ? darkTheme : lightTheme} element={<Error />}></Route>
-        <Route path="/chats" theme = {isDarkMode ? darkTheme : lightTheme} element={<Chat socket = {socket} loginUser = {loginUser}/>}></Route>
+        <Route path="/chats" theme = {isDarkMode ? darkTheme : lightTheme} element={<Chat logoutHandler = {logoutHandler} socket = {socket} themeMode = {isDarkMode} loginUser = {loginUser}/>}></Route>
         <Route path="/" theme = {isDarkMode ? darkTheme : lightTheme} element={<Welcome />}></Route>
       </Routes>
       </ThemeProvider>

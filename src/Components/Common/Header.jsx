@@ -19,7 +19,7 @@ const Header = ( {themeMode} ) => {
   return (
         <HeaderBox>
           { !themeMode ? 
-            (<LOGO onClick = {testCookie}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
+            (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
           : (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {DarkBasic}/></LOGO>)}
           <UserBtn onClick = {()=> navigate('/login')}>LOGIN</UserBtn>
         </HeaderBox>
