@@ -28,7 +28,7 @@ export const MenuBox = styled.div`
 
 export const Menus = styled.div`
   height : 100%;
-  width : calc(100vh - 79vh);
+  width : calc(100vh - 77vh);
   ${flex({justify : 'center', align : 'flex-end'})};
   font-size: 20px;
   box-sizing: border-box;
@@ -76,7 +76,8 @@ export const FollowersWrap = styled.div`
 
 export const FollowerList = styled.div`
   width : 100%;
-  height: 383px;
+  height: 373px;
+  padding-top : 10px;
   overflow: scroll;
   ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})}
   & > .blank {

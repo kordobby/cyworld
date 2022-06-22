@@ -11,8 +11,9 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import { getCookie } from "../Shared/Cookie";
 import { useNavigate } from "react-router-dom";
+import { socket } from "../App";
 
-const Chat = ( {socket, room, themeMode, logoutHandler} ) => {
+const Chat = ( {themeMode, logoutHandler} ) => {
   const navigate = useNavigate();
   const [ currentMsg, setCurrentMsg ] = useState('');
   const [ msgList, setMsgList ] = useState([]);
@@ -56,7 +57,7 @@ const Chat = ( {socket, room, themeMode, logoutHandler} ) => {
     console.log('나가기');
   };
 
-  const leaveChatHandler = (event) => {
+  const leaveChatHandler = () => {
     console.log('bye');
     navigate('/home');
     // leaveChat(event);
@@ -106,7 +107,7 @@ const Chat = ( {socket, room, themeMode, logoutHandler} ) => {
               onKeyDown = { (event) => { event.key === 'Enter' && sendChat(); }}  ref = {inputRef}/>
            <ChatBtn onClick = {sendChat}><FontAwesomeIcon icon = {faPaperPlane}/></ChatBtn>
           </ChatInputBox>
-          <FooterIsLogin leaveChatHandler = {leaveChatHandler}/>
+          <FooterIsLogin leaveChatHandler = {leaveChatHandler} />
         </MainWrap>
       </BodyBox>
     </StWrap>

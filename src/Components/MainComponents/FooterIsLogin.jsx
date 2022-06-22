@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { FooterWrap, FooterIcon } from "./Footer";
 import { useState, useEffect } from "react";
 import { getCookie } from "../../Shared/Cookie";
+import { socket } from "../../App";
 
-const FooterIsLogin = ({socket, leaveChatHandler}) => {
+const FooterIsLogin = ({leaveChatHandler}) => {
+  console.log(socket);
   const navigate = useNavigate();
   const [ room, setRoom ] = useState('');
   const loginUser = getCookie('userName');
@@ -45,7 +47,7 @@ const FooterIsLogin = ({socket, leaveChatHandler}) => {
         <span className = "menu__title">와글와글</span>
       </FooterIcon>
       <FooterIcon onClick = {()=> navigate('/home')}>
-        <FontAwesomeIcon icon  = {faFaceLaugh}></FontAwesomeIcon>
+        <FontAwesomeIcon onClick = {()=> navigate('/home')} icon  = {faFaceLaugh}></FontAwesomeIcon>
         <span className = "menu__title">마이 페이지</span>
       </FooterIcon>
     </FooterWrap>

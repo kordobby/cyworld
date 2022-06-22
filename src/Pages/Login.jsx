@@ -97,7 +97,7 @@ const Login = ( { themeMode, setLoginState } ) => {
         </ButtonBox>
         <LoginOptions>
           <span className = "login__options" onClick = {noServiceHandler} >아이디찾기</span>
-          <span className = "login__options" onClick = {noServiceHandler} >비밀번호 재설정</span>
+          <span className = "login__options" onClick = {()=> navigate('/help')} >비밀번호 재설정</span>
           <span className = "login__options" onClick = {()=> navigate('/signup')} >회원가입</span>
         </LoginOptions>
         <Advertisement onClick = {() => alert('광고문의는 항해99로...!')}>

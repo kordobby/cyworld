@@ -4,8 +4,8 @@ import axios from "axios";
 
 /* ----------------- 모듈의 초기 상태 ------------------ */
 let intialstate = {
-  list: [],
-  // detail_list: [],
+  
+  
 };
 
 /* ----------------- 액션 타입 ------------------ */
@@ -18,7 +18,9 @@ const LOAD_DETAILPAGE = "mypageReducer/LOAD"
 export function loadMyData(payload) {
   return { type: LOAD_MYPAGE, payload };
 }
-export function postMyData(payload) {
+export function patchMyData(payload) {
+  console.log(payload)
+
   return { type: PATCH_MYPAGE, payload };
 }
 // export function loadDetailData(payload) {
@@ -34,18 +36,18 @@ export function postMyData(payload) {
 /* ----------------- 미들웨어 ------------------ */
 export const loadMyDB = (payload) => {
   return async function (dispatch) { 
-  
+  console.log(payload)
     try {
         const mypageData = await axios({
             method : "get",
             url: ` http://3.39.161.93:3000/api/mypage`,
-            data: {headers: {
-                Authorization : `Bearer ${payload.token}`         
+            headers: {
+                Authorization : `Bearer ${payload}`         
                      }
               
-             }});
-         console.log(mypageData.data);
-         dispatch(loadMyData(mypageData.data));
+             });
+         console.log(mypageData.data.user);
+         dispatch(loadMyData(mypageData.data.user));
     }catch(error){
          console.log('마이페이지 로드 실패');
     }
@@ -55,24 +57,10 @@ export const loadMyDB = (payload) => {
 
 export const patchMyDB = (payload) => {
   return async function (dispatch) { 
-    // console.log("폼데이터", payload.formData.append, "메세지", payload.introMessage )
-  
-    try {
-       const postMyData = await axios({
-        method : "patch",
-        url: ` http://3.39.161.93:3000/api/mypage`,
-        data : { formData : payload.formData ,
-                  introMessage : payload.introMessage,
-                },
-        headers : {
-                "Content-Type" : "multipart/form-data",
-                Authorization : `Bearer ${payload.token}`,
-
-          }
-        })
-    }catch(error){
-      console.log('마이페이지 수정 실패');
-  }
+    console.log(payload)
+    dispatch(patchMyData(payload.patchData.data))
+    // dispatch(loadMyData());
+    //1. ?? 윤님꺼에서 여기 부분 여쭙기
 }
 }
 
@@ -103,11 +91,12 @@ export default function mypageReducer(state = intialstate, action) {
   // 새로운 액션 타입 추가시 case 추가한다.   
   switch (action.type) {
     case LOAD_MYPAGE: {
-      return { list: action.payload };
+      return { intialstate: action.payload };
     }
-    
+    case PATCH_MYPAGE: {
+      return { ...intialstate, introMessage: action.payload.introMessage, imageUrl: action.payload.imageUrl } ;
+    }
     default:
       return state;
   }
 }
-
