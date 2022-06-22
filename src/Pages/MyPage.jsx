@@ -29,12 +29,14 @@ const MyPage = ({token}) => {
   // states
   const [imageUrl,setFiles] = useState(null)
   const [introMessage,setMessage] = useState(null)
+  const [music, setMusic] = useState(null)
   // console.log(imageUrl,introMessage)
   const [modalOpen, setModalOpen] = useState(false);
 
   // useEffect
     useEffect(()=>{
       dispatch(loadMyDB(token))
+      dispatch(Playlistfetcher(mypageData?.playlist))
    },[dispatch,mypageData?.imageUrl,mypageData?.introMessage])
   
   
@@ -67,7 +69,7 @@ const MyPage = ({token}) => {
     }})
     // console.log(mypageData)
     dispatch(patchMyDB({patchData}))
-    navigate('/mypage')
+    setModalOpen(false)
   }
   //   console.log(formData.getAll('image'))
 
@@ -75,14 +77,16 @@ const MyPage = ({token}) => {
 
 
   // useQuery data - get 
-  const Playlistfetcher = async () => {
-    const PlayData = await axios.get('http://3.39.161.93:3000/api/playlists/BOUNCE!%20(feat.%20Nieko).mp3');
-    console.log(PlayData)
-    return PlayData?.data;
+  const Playlistfetcher = (payload) => {
+    return async function (dispatch) { 
+    const PlayData = await axios.get(`http://3.39.161.93:3000/api/playlists/${payload}`);
+    // console.log(payload)
+    // console.log(PlayData.config.url)
+    setMusic(PlayData?.config.url)
   }
- 
-  const { data, isLoading, isSuccess, isError } = useQuery('data', Playlistfetcher);
-  console.log(data)
+}
+  // const { data, isLoading, isSuccess, isError } = useQuery('data', Playlistfetcher);
+  // console.log(data)
   
  
   return (
@@ -122,7 +126,7 @@ const MyPage = ({token}) => {
 
        
         
-        <button onClick={onClick} >
+        <button onClick={onClick}>
               제출하기
         </button>
         </Modal_div1>
@@ -131,7 +135,7 @@ const MyPage = ({token}) => {
       </React.Fragment>
       </Div2>
        <Div3>
-         <img src={
+         <img  style={{width: '350px', height: '220px' }} src={
           `https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${mypageData?.imageUrl}`
          } ></img>  
        <p>{mypageData?.User.username}</p>
@@ -139,10 +143,8 @@ const MyPage = ({token}) => {
        </Div3>
 
        <MusicDiv>
-       뮤직 데이터 값은 여기 있습니다
-       {/* <div>{mypageData?.user.playlist}</div> */}
-       {/* <button onClick={start} >play</button> */}
-       <audio src="http://3.39.161.93:3000/api/playlists/BOUNCE!%20(feat.%20Nieko).mp3" controls />
+       <audio src={music} controls  />
+       
        </MusicDiv>
 
        <Div5>
@@ -251,6 +253,13 @@ flex-direction: column;
 
 `
 
+/* const Audio = styled.audio`
+
+    filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+    width: 200px;
+    height: 25px;
+
+` */
 
 
 
