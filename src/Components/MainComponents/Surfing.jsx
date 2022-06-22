@@ -8,7 +8,7 @@ const Surfing = ( {msg, img, userName} ) => {
     <FriendBox>
       { img === "" ?
          <FriendsImg src = {none} alt = ""></FriendsImg>
-       : <FriendsImg src = {img} alt = ""></FriendsImg>
+       : <FriendsImg src = {`https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${img}`} alt = ""></FriendsImg>
       }
     <FriendsProfile>
       <span className = "profile_msg" >{userName}</span>

@@ -70,4 +70,7 @@ export const ChatInputBox = styled.div`
   width : calc(100vh - 53vh);
   ${flex({justify : 'center'})};
   background-color: ${props => props.theme.bgColor3};
+  &::placeholder {
+    color : var(--black);
+  }
 `

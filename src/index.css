@@ -28,7 +28,7 @@ code {
 }
 .chat-body {
   width : 100%;
-  height: calc(642px - (45px + 70px));
+  height: 521px;
   /* background: #fff; */
   overflow: scroll;
   /* position: relative; */

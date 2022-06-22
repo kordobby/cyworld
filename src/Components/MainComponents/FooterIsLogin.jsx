@@ -32,20 +32,20 @@ const FooterIsLogin = ({socket, leaveChatHandler}) => {
   return (
      <>
     <FooterWrap>
-      <FooterIcon>
+      <FooterIcon onClick = {()=> navigate('/mypage')} >
         <FontAwesomeIcon icon  = {faHouseChimneyWindow}></FontAwesomeIcon>
         <span className = "menu__title">내 홈피</span>
       </FooterIcon>
-      <FooterIcon>
-        <FontAwesomeIcon onClick = {leaveChatHandler} icon  = {faWind}></FontAwesomeIcon>
+      <FooterIcon onClick = {leaveChatHandler} >
+        <FontAwesomeIcon icon  = {faWind}></FontAwesomeIcon>
         <span className = "menu__title">파도타기</span>
       </FooterIcon>
       <FooterIcon onClick = {(e) => {joinChatHandler(e)}}>
         <FontAwesomeIcon icon  = {faComments}></FontAwesomeIcon>
         <span className = "menu__title">와글와글</span>
       </FooterIcon>
-      <FooterIcon>
-        <FontAwesomeIcon onClick = {()=> navigate('/home')}icon  = {faFaceLaugh}></FontAwesomeIcon>
+      <FooterIcon onClick = {()=> navigate('/home')}>
+        <FontAwesomeIcon icon  = {faFaceLaugh}></FontAwesomeIcon>
         <span className = "menu__title">마이 페이지</span>
       </FooterIcon>
     </FooterWrap>

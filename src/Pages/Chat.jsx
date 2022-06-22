@@ -28,27 +28,24 @@ const Chat = ( {socket, room, themeMode, logoutHandler} ) => {
       scrollRef.current.scrollTo(0, scroll);
   };
 
-  const sendChat = async() => {
+  const sendChat = async(event) => {
+    event.preventDefault();
     console.log('hi')
     if (currentMsg !== "") {
       const msgData = currentMsg;
       await socket.emit('message', msgData);
       setMsgList((list) => [...list]);
+      inputRef.current.value = "";
     }
   }
-
-  // useEffect(() => {
-  //   socket.on('search', (data) => {
-  //     console.log(data);
-  //   })
-  // }, [socket]);
 
   useEffect(() => {
     socket.on('update', (data) => {
       console.log(data);
       setMsgList((list) => [...list, data]);
-    })
+  })
   }, [socket]);
+
 
   useEffect(() => {
     scrollToMyRef();
@@ -62,7 +59,7 @@ const Chat = ( {socket, room, themeMode, logoutHandler} ) => {
   const leaveChatHandler = (event) => {
     console.log('bye');
     navigate('/home');
-    leaveChat(event);
+    // leaveChat(event);
   }
 
   return (
@@ -101,16 +98,12 @@ const Chat = ( {socket, room, themeMode, logoutHandler} ) => {
 })}
           </div>
           </ChatBox>
-          <ChatInputBox
-            type = 'text'
-            placeholder='대화입력'
-            onChange = { (event) => {setCurrentMsg(event.target.value)}}
-            onKeyDown = { (event) => {
-              event.key === 'Enter' && sendChat();
-            }}
-            ref = {inputRef}
-            >
-           <InputStyle></InputStyle>
+          <ChatInputBox>
+           <InputStyle
+              defaultValue = {currentMsg}
+              placeholder='대화입력'
+              onChange = { (event) => {setCurrentMsg(event.target.value)}}
+              onKeyDown = { (event) => { event.key === 'Enter' && sendChat(); }}  ref = {inputRef}/>
            <ChatBtn onClick = {sendChat}><FontAwesomeIcon icon = {faPaperPlane}/></ChatBtn>
           </ChatInputBox>
           <FooterIsLogin leaveChatHandler = {leaveChatHandler}/>

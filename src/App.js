@@ -48,7 +48,7 @@ return (
       <ThemeProvider theme = {isDarkMode ? darkTheme : lightTheme}>
       <ThemeToggle themeMode = {isDarkMode} toggleDarkMode = {toggleDarkMode} theme = {isDarkMode ? darkTheme : lightTheme}></ThemeToggle>
       <Routes>
-        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main socket = {socket} loginUser = {loginUser} loginState={loginState} logout = {logoutHandler} themeMode = {isDarkMode}/>}></Route>
+        <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main socket = {socket} loginUser = {loginUser} loginState={loginState} logout = {logoutHandler} token = {token} themeMode = {isDarkMode}/>}></Route>
         <Route path="/login" theme = {isDarkMode ? darkTheme : lightTheme} element={<Login themeMode = {isDarkMode} setLoginState = {setLoginState}/> }></Route>
         <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join themeMode = {isDarkMode}/>}></Route>
         <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>

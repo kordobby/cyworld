@@ -34,7 +34,7 @@ const Join = ( {themeMode} ) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { idCheck, error, success } = useSelector((state) => state.userReducer);
+  const { idCheck } = useSelector((state) => state.userReducer);
 
   /* Server Request */
   // #1. ID 중복 확인
@@ -55,7 +55,7 @@ const Join = ( {themeMode} ) => {
     if ( emailCheck(id) === true ) return true;
     else if ( pw !== pw2 ) return true;
     else if ( idCheck === false ) return true;
-    else if ( passwordCheck(pw) === false ) return true;
+    // else if ( passwordCheck(pw) === false ) return true;
     else if ( isNaN(userName) === false ) return true;
     else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
     else return false;

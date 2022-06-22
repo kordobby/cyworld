@@ -1,5 +1,5 @@
 /* React Settings */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 /* import Styles */
   // Components
@@ -87,7 +87,7 @@ const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUse
             </OfficialTitle>
             <OfficialProfile/>
           </OfficialBox>
-          { token ? <Footer themeMode ={themeMode}/> : <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/> }
+          { !token ? <Footer themeMode ={themeMode}/> : <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/> }
         </MainWrap>
       </BodyBox>
     </StWrap>
