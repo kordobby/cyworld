@@ -15,14 +15,7 @@ import FooterIsLogin from "../Components/MainComponents/FooterIsLogin";
 import { BodyBox } from "../Components/UserComponents/UserStyled";
 import {
   MainWrap,
-  MenuBox,
-  Menus,
-  MenuTitle,
-  MenuBar,
-  Followers,
   FollowerList,
-  OfficialBox,
-  OfficialTitle,
   FollowersWrap,
   StWrap,
   FriendsImg,
@@ -32,6 +25,7 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { faShareFromSquare } from "@fortawesome/free-regular-svg-icons";
 import { faWind } from "@fortawesome/free-solid-svg-icons";
 import none from "../Public/Images/none.png";
+import upload from "../Public/Images/Upload_real.png";
 
 const MyPage = ({
   leaveChatHandler,
@@ -66,6 +60,7 @@ const MyPage = ({
     setModalOpen(true);
   };
   const closeModal = () => {
+    console.log("hello");
     setModalOpen(false);
   };
   const onClick = async (event) => {
@@ -137,38 +132,63 @@ const MyPage = ({
                     }}
                     open={modalOpen}
                     close={closeModal}
-                    header="모달이 머리"
                   >
                     {/* 여기 아래 내용들 Modal.jsx의 <Main> {props.children} <Main>으로 들어감 
                           children의 범위에 대해서 다른 HTML에서 콘솔로 확인해볼 것 !  */}
                     <>
-                      <Modal_div1>
+                      <div
+                        style={{
+                          display: "flex",
+                          align_items: "center",
+                          position: "relative",
+                          right: "-40px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <img
+                          src={upload}
+                          style={{
+                            width: "140px",
+                            height: "100px",
+                          }}
+                        />
+
                         <input
+                          style={{
+                            opacity: "0",
+                            width: "75px",
+                            height: "30px",
+                            position: "relative",
+                            right: "105px",
+                            top: "40px",
+                            cursor: "pointer",
+                          }}
                           type="file"
+                          id="files"
+                          accept={"image/*"}
                           onChange={(event) => {
                             event.preventDefault();
                             setFiles(event.target.files[0]);
                           }}
                         />
+                      </div>
+                      <Input_context
+                        type="text"
+                        placeholder="            오늘의 기분을 적어주세요"
+                        onChange={(event) => {
+                          event.preventDefault();
+                          setMessage(event.target.value);
+                        }}
+                      />
 
-                        <input
-                          type="text"
-                          placeholder="내 기분을 적어주세요"
-                          onChange={(event) => {
-                            event.preventDefault();
-                            setMessage(event.target.value);
-                          }}
-                        />
-
-                        <button onClick={onClick}>제출하기</button>
-                      </Modal_div1>
+                      <Button onClick={onClick}>추가하기</Button>
                     </>
                   </Modal>
                 </React.Fragment>
 
                 <MyHomeBox>
                   <div className="profile__header">
-                    {imageUrl === "" ? (
+                    {mypageData?.imageUrl === "" ? (
                       <FriendsImg src={none} alt=""></FriendsImg>
                     ) : (
                       <FriendsImg
@@ -309,21 +329,23 @@ const MyHomeSmall = styled.div`
   margin-top: 15px;
 `;
 
-//Modal;
-const Modal_div1 = styled.form`
-  width: 100%;
-  /* height: 60px; */
+//Modal 안의 내용들
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+const Input_context = styled.input`
+  background: #ffffff;
+  border: 2px solid #90c8f7;
+  border-radius: 10px;
+  width: calc(60vh - 33vh);
+  height: 25px;
+  margin-bottom: 10px;
 `;
 
-/* const Audio = styled.audio`
-    filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
-    width: 200px;
-    height: 25px;
-` */
+const Button = styled.div`
+  font-size: small;
+  font-weight: bold;
+  color: #1896c5;
+  opacity: 0.8;
+  cursor: pointer;
+`;
 
 export default MyPage;

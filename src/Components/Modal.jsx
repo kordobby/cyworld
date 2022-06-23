@@ -2,11 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { MainWrap } from "./MainComponents/MainStyled";
 
-// style
-
 const Modal = (props) => {
   // console.log(props.children)
-  const { open, close, header } = props;
+  const { open, close } = props;
 
   return (
     <>
@@ -14,10 +12,7 @@ const Modal = (props) => {
         <MainWrap>
           <ModalBox>
             <Header>
-              {header}
-              <button className="close" onClick={close}>
-                &times;
-              </button>
+              <X_button onClick={close}>&times;</X_button>
             </Header>
 
             <Main>{props.children}</Main>
@@ -29,35 +24,39 @@ const Modal = (props) => {
 };
 
 const ModalBox = styled.div`
-  border: 5px solid black;
+  border: 1px solid #1896c5;
   width: calc(100vh - 57vh);
-  height: 170px;
+  height: 173px;
   z-index: 99;
   position: fixed;
-  top: 130px;
-  //
+  top: 137px;
   background-color: ${(props) => props.theme.bgColor};
   border-radius: 8px;
   box-sizing: border-box;
-  //
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const Header = styled.div`
   display: flex;
-  /* justify-content: center; */
-  flex-direction: column;
+  justify-content: flex-end;
+  height: 10px;
+  margin-left: 330px;
 `;
 
 const Main = styled.div`
-  /* width: 100%; */
-
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column; */
+  justify-content: space-around;
+  flex-direction: column;
 `;
+
+const X_button = styled.div`
+  font-size: x-large;
+  color: #1896c5;
+  cursor: pointer;
+`;
+
 export default Modal;
