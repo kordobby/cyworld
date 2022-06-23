@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import store from './redux/configStore';
 
 /* react-query */
-import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from 'react-query';
+import { useMutate, QueryClient, QueryClientProvider } from 'react-query';
 
 /* Router settings */
 import { BrowserRouter } from 'react-router-dom';
@@ -27,8 +27,8 @@ root.render(
       <Provider store={store}>
           <BrowserRouter>
               {/* Global CSS */}
-              <GlobalStyled />
-              <App />
+                <GlobalStyled />
+                <App />
           </BrowserRouter>
       </Provider>
       </QueryClientProvider>
