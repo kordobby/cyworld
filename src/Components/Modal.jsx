@@ -1,53 +1,63 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
+import { MainWrap } from "./MainComponents/MainStyled";
 
-
+// style
 
 const Modal = (props) => {
-    // console.log(props.children) 
-    const { open, close, header } = props;
-    
-    return (
-        <>
-        {open ? ( <ModalBox>
+  // console.log(props.children)
+  const { open, close, header } = props;
+
+  return (
+    <>
+      {open ? (
+        <MainWrap>
+          <ModalBox>
             <Header>
-                {header}
-                <button className="close" onClick={close}>
+              {header}
+              <button className="close" onClick={close}>
                 &times;
-                </button>
+              </button>
             </Header>
 
-            <main>
-                {props.children}
-            </main>
-         
-        </ModalBox>):(null)}
-       
-        </>
-        );
+            <Main>{props.children}</Main>
+          </ModalBox>
+        </MainWrap>
+      ) : null}
+    </>
+  );
 };
 
 const ModalBox = styled.div`
-    border: 5px solid black;
-    width: 360px;
-    height: 540px;
-    z-index: 99;
-    position:relative;
-    background-color: aliceblue;
-    /* display : flex;
-    justify-content: center;
-    align-items: center; */
-    /* flex-direction: column; */
-`
+  border: 5px solid black;
+  width: calc(100vh - 57vh);
+  height: 170px;
+  z-index: 99;
+  position: fixed;
+  top: 130px;
+  //
+  background-color: ${(props) => props.theme.bgColor};
+  border-radius: 8px;
+  box-sizing: border-box;
+  //
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const Header = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
-`
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+`;
 
-// const Main = styled.div`
-//     display: flex;
-//     justify-content: space-between;
-// `
+const Main = styled.div`
+  /* width: 100%; */
+
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; */
+`;
 export default Modal;

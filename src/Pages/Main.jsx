@@ -18,6 +18,7 @@ import axios from 'axios';
 /* React-query */
 import { useQuery } from 'react-query';
 
+
 const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUser } ) => {
   const [ active, setActive ] = useState(true);
 
@@ -31,6 +32,7 @@ const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUse
   const activeMenuHandler = () => {
     setActive(!active);
   }
+
 
   return (
     <>
@@ -73,9 +75,10 @@ const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUse
               return (
               <Surfing
                 key = {value.userId}
+                userId = {value.userId}
                 msg = {value.introMessage}
                 img = {value.imageUrl}
-                userName = {value.User.username}
+                userName = {value.User.username}   
               ></Surfing> )})}
               <MainMsg>
                 <span className = "main__message">내 일촌을 찾으셨나요?</span>
