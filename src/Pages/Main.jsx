@@ -1,114 +1,102 @@
-import styled from 'styled-components';
-import { BodyBox, LoginWrap } from '../Pages/Login';
-import flex from '../Components/GlobalStyled/flex';
-import Header from '../Components/Header';
-import HeaderIsLogin from '../Components/HeaderIsLogin';
-const Main = ( {token} ) => {
+/* React Settings */
+import { useState } from 'react';
+
+/* import Styles */
+  // Components
+  import { BodyBox } from '../Components/UserComponents/UserStyled';
+  import { MainWrap, MenuBox, Menus, MenuTitle, MenuBar, Followers, FollowerList, OfficialBox, OfficialTitle, FollowersWrap, StWrap, MainMsg } from '../Components/MainComponents/MainStyled';
+  import OfficialProfile from '../Components/MainComponents/OfficialProfile';
+  import Header from '../Components/Common/Header';
+  import HeaderIsLogin from '../Components/Common/HeaderIsLogin';
+  import Surfing from '../Components/MainComponents/Surfing';
+  import Footer from '../Components/MainComponents/Footer';
+  import FooterIsLogin from '../Components/MainComponents/FooterIsLogin';
+
+/* Redux settings */
+import axios from 'axios';
+
+/* React-query */
+import { useQuery } from 'react-query';
+
+
+const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUser } ) => {
+  const [ active, setActive ] = useState(true);
+
+  const fetcher = async () => {
+    const usersData = await axios.get('http://3.39.161.93:3000/api/lobby');
+    return usersData?.data;
+  }
+ 
+  const { data } = useQuery('loginCheck', fetcher);
+  console.log(data);
+  const activeMenuHandler = () => {
+    setActive(!active);
+  }
+
 
   return (
-    <BodyBox>
-      <LoginWrap>
-        { token ? <HeaderIsLogin/> : <Header/>}
-        <MenuBar>
-        </MenuBar>
-        <Followers>
-          <span>파도타기</span>
-        </Followers>
-        <FollowerList>
-          <FriendBox>
-            <FriendsImg></FriendsImg>
-            <FriendsProfile>
-              <span>이윤</span>
-              <span>인생은 쓰다</span>
-              <span>참말로</span>
-            </FriendsProfile>
-          </FriendBox>
-          <FriendBox/>
-          <FriendBox/>
-          <FriendBox/>
-          <FriendBox/>
-          <FriendBox/>
-          <FriendBox/>
-          <FriendBox/>
-        </FollowerList>
-        <OfficalBox>
-        </OfficalBox>
-        <MainFooter></MainFooter>
-      </LoginWrap>
-    </BodyBox>
+    <>
+    {/* <Welcome/> */}
+
+    <StWrap>
+      <BodyBox>
+        <MainWrap>
+          { loginState ? <HeaderIsLogin themeMode ={themeMode} logout = {logout}/> : <Header themeMode ={themeMode} />}
+          <MenuBox>
+            { active === true ?
+            <>
+            <Menus onClick = {activeMenuHandler}>
+              <MenuTitle active>홈</MenuTitle>
+            </Menus>
+            <Menus onClick = {activeMenuHandler}>
+              <MenuTitle>뮤직파도</MenuTitle>
+            </Menus>
+            <MenuBar active></MenuBar>
+            </>
+          :
+          <>
+          <Menus onClick = {activeMenuHandler}>
+            <MenuTitle>홈</MenuTitle>
+          </Menus>
+          <Menus onClick = {activeMenuHandler}>
+            <MenuTitle active>뮤직파도</MenuTitle>
+          </Menus>
+          <MenuBar></MenuBar>
+          </>
+          }
+          </MenuBox>
+
+          <Followers>
+            <span>파도타기</span>
+          </Followers>
+          <FollowersWrap>
+            <FollowerList>
+              { data?.allUsers.map((value) => { 
+              return (
+              <Surfing
+                key = {value.userId}
+                userId = {value.userId}
+                msg = {value.introMessage}
+                img = {value.imageUrl}
+                userName = {value.User.username}   
+              ></Surfing> )})}
+              <MainMsg>
+                <span className = "main__message">내 일촌을 찾으셨나요?</span>
+              </MainMsg>
+            </FollowerList>
+          </FollowersWrap>
+          <OfficialBox>
+            <OfficialTitle>
+              <span>미니홈피 Official</span>
+            </OfficialTitle>
+            <OfficialProfile/>
+          </OfficialBox>
+          { !token ? <Footer themeMode ={themeMode}/> : <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/> }
+        </MainWrap>
+      </BodyBox>
+    </StWrap>
+    </>
   );
 }
-
-const MenuBar = styled.div`
-  height : 76px;
-  width : calc(100vh - 55vh);
-  position : fixed;
-  top : 93px;
-`
-const Followers = styled.div`
-  height : 77px;
-  width : calc(100vh - 55vh);
-  background-color: var(--input-grey);
-  color : var(--black);
-  font-size: 19px;
-  font-weight : 700;
-  padding : 0 0 15px 15px;
-  box-sizing: border-box;
-  position : fixed;
-  top : 168px;
-  ${flex({align : 'flex-end', justify : 'space-between'})};
-`
-
-const FollowerList = styled.div`
-  margin-top: 245px;
-  margin-bottom: 217px;
-  height : 100%;
-  width : 100%;
-  background-color : var(--input-grey);
-  box-sizing: border-box;
-  padding-top : 5px;
-  overflow: auto;
-  ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})};
-`
-
-const FriendBox = styled.div`
-  height : 111px;
-  width : 95%;
-  background-color: white;
-  border-radius: 10px;
-  margin: 5px 0 5px 0;
-  ${flex({})}
-`
-
-const FriendsImg = styled.div`
-  width : 80px;
-  height: 80px;
-  background-color: #C2E8F6;
-  border-radius: 30px;
-  margin-left: 18px;
-  margin-right: 18px;
-`
-
-const FriendsProfile = styled.div`
-  height: 80px;
-  width : 60%;
-  ${flex({ direction : 'column', justify : 'center', align : 'flex-start'})}
-`
-const OfficalBox = styled.div`
-  ${flex({justify : 'center'})}
-  height : 136px;
-  width : calc(100vh - 55vh);
-  position : fixed;
-  bottom : 74px;
-  background-color: white;
-`
-
-const MainFooter = styled.div`
-  height : 74px;
-  width : calc(100vh - 55vh);
-  background-color: white;
-  position : fixed;
-  bottom : 0;
-`
 
 export default Main;
