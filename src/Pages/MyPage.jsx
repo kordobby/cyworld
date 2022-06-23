@@ -210,7 +210,6 @@ const MyPage = ({
                       <span className="profile__header--state">
                         {mypageData?.introMessage}
                       </span>
-                      <span className="profile__header--state">싸이월드</span>
                     </div>
                   </div>
                   <div className="profile__footer">

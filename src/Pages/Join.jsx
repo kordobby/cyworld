@@ -48,6 +48,8 @@ const Join = ( {themeMode} ) => {
 
   const checkIdHandler = () => { dispatch(checkIdDB({ email : id })) }
 
+  const reg = /[\s]/g;
+
   // #3. 조건에 따른 버튼 비활성화
   const disabledHandler = () => {
     if ( emailCheck(id) === true ) return true;
@@ -55,6 +57,7 @@ const Join = ( {themeMode} ) => {
     else if ( pw !== pw2 ) return true;
     else if ( idCheck === false ) return true;
     else if ( passwordCheck(pw) === false ) return true;
+    else if ( !reg.test(userName) === false ) return true;
     else if ( isNaN(userName) === false ) return true;
     else if ( id === "" || pw === "" || pw2 === "" || userName === "") return true;
     else return false;
