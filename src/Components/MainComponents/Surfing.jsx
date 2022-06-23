@@ -17,32 +17,24 @@ const Surfing = ( {userId, msg, img, userName} ) => {
   return (
     <FriendBox style={{cursor:"pointer"}} onClick={()=>{navigate(`/page/${userId}`)}}>
       { img === "" ?
-       <FriendsImg src = {none}></FriendsImg>
-       :
-       <FriendsImg src = {img}></FriendsImg>
+
+         <FriendsImg src = {none} alt = ""></FriendsImg>
+       : <FriendsImg src = {`https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${img}`} alt = ""></FriendsImg>
       }
     <FriendsProfile>
-      <span>{userName}</span>
-      <span>msg : {msg}</span>
-      <span>img : {img}</span> 
+      <span className = "profile_msg" >{userName}</span>
+      { img === "" ?
+         <span>{userName}님의 미니홈피</span> : <span>{msg}</span>
+      }
     </FriendsProfile>
   </FriendBox>
   );
 }
 
-// { img === "" ?
-// //  <Link to={`/page/${key}`} style={{ textDecoration: "none" }}> 
-//  <FriendsImg userId={key} src = {none}></FriendsImg>
-//  {/* </Link> */}
-//  :
-// //  <Link to={`/page/${key}`} style={{ textDecoration: "none" }}> 
-//  <FriendsImg userId={key} src = {img}></FriendsImg>
-//  {/* </Link> */}
-// }
 
 const FriendBox = styled.div`
-  height : 111px;
-  width : 95%;
+  min-height : 120px;
+  width : calc(100vh - 58vh);
   background-color: ${props => props.theme.bgColor4};
   border-radius: 10px;
   margin: 5px 0 5px 0;
@@ -53,6 +45,9 @@ const FriendsProfile = styled.div`
   height: 80px;
   width : 60%;
   ${flex({ direction : 'column', justify : 'center', align : 'flex-start'})}
+  & > .profile_msg {
+    margin-bottom : 10px;
+  }
 `
 
 export default Surfing;

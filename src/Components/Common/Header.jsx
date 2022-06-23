@@ -20,7 +20,7 @@ const Header = ( {themeMode} ) => {
   return (
         <HeaderBox>
           { !themeMode ? 
-            (<LOGO onClick = {testCookie}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
+            (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {Basic}/></LOGO>)
           : (<LOGO onClick = {()=> navigate('/home')}><img alt = "" className = "basic-logo" src = {DarkBasic}/></LOGO>)}
           <UserBtn onClick = {()=> navigate('/login')}>LOGIN</UserBtn>
         </HeaderBox>
@@ -36,8 +36,9 @@ export const HeaderBox = styled.div`
   border-bottom: 5px solid var(--input-grey);
 
   background-color: ${props => props.theme.bgColor};
-  position : fixed;
+  /* position : fixed;
   top : 0;
+  z-index : 1; */
 `
 
 export const LOGO = styled.div`

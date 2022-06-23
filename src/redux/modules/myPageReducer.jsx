@@ -100,4 +100,3 @@ export default function mypageReducer(state = intialstate, action) {
       return state;
   }
 }
-

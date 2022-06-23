@@ -1,43 +1,33 @@
 /* React Settings */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 /* import Styles */
   // Components
   import { BodyBox } from '../Components/UserComponents/UserStyled';
-  import { MainWrap, MenuBox, Menus, MenuTitle, MenuBar, Followers, FollowerList, OfficialBox, OfficialTitle } from '../Components/MainComponents/MainStyled';
+  import { MainWrap, MenuBox, Menus, MenuTitle, MenuBar, Followers, FollowerList, OfficialBox, OfficialTitle, FollowersWrap, StWrap, MainMsg } from '../Components/MainComponents/MainStyled';
   import OfficialProfile from '../Components/MainComponents/OfficialProfile';
   import Header from '../Components/Common/Header';
   import HeaderIsLogin from '../Components/Common/HeaderIsLogin';
   import Surfing from '../Components/MainComponents/Surfing';
   import Footer from '../Components/MainComponents/Footer';
+  import FooterIsLogin from '../Components/MainComponents/FooterIsLogin';
 
- import FooterIsLogin from '../Components/MainComponents/FooterIsLogin';
- import { FollowersWrap, StWrap, MainMsg } from '../Components/MainComponents/MainStyled';
 /* Redux settings */
-import { useDispatch, useSelector } from 'react-redux';
-import { loadPostDB } from '../redux/modules/surfReducer';
 import axios from 'axios';
+
 /* React-query */
 import { useQuery } from 'react-query';
 
-const Main = ( {token, themeMode} ) => {
-  const dispatch = useDispatch();
-  // const navigate = useNavigate();
+
+const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUser } ) => {
   const [ active, setActive ] = useState(true);
-
-  // const surfList = useSelector((state) => state.surfReducer?.list);
-  // console.log(surfList);
-
-  // useEffect(() => {
-  //   dispatch(loadPostDB());
-  // }, [dispatch]);
 
   const fetcher = async () => {
     const usersData = await axios.get('http://3.39.161.93:3000/api/lobby');
     return usersData?.data;
   }
  
-  const { data, isLoading, error, isError } = useQuery('loginCheck', fetcher);
+  const { data } = useQuery('loginCheck', fetcher);
   console.log(data);
   const activeMenuHandler = () => {
     setActive(!active);
@@ -51,7 +41,7 @@ const Main = ( {token, themeMode} ) => {
     <StWrap>
       <BodyBox>
         <MainWrap>
-          { token ? <HeaderIsLogin/> : <Header themeMode ={themeMode} />}
+          { loginState ? <HeaderIsLogin themeMode ={themeMode} logout = {logout}/> : <Header themeMode ={themeMode} />}
           <MenuBox>
             { active === true ?
             <>
@@ -91,7 +81,7 @@ const Main = ( {token, themeMode} ) => {
                 userName = {value.User.username}   
               ></Surfing> )})}
               <MainMsg>
-                <span className = "main__message">내 일촌을 여기서 찾아봐요!</span>
+                <span className = "main__message">내 일촌을 찾으셨나요?</span>
               </MainMsg>
             </FollowerList>
           </FollowersWrap>
@@ -101,7 +91,7 @@ const Main = ( {token, themeMode} ) => {
             </OfficialTitle>
             <OfficialProfile/>
           </OfficialBox>
-          { token ? <FooterIsLogin themeMode ={themeMode}/> : <Footer themeMode ={themeMode} />}
+          { !token ? <Footer themeMode ={themeMode}/> : <FooterIsLogin socket = {socket} joinChat = {joinChat} themeMode ={themeMode}/> }
         </MainWrap>
       </BodyBox>
     </StWrap>

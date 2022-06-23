@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Greetings from "./Components/UserComponents/Greetings";
 
 import Join from "./Pages/Join";
@@ -8,22 +8,50 @@ import MyPage from "./Pages/MyPage";
 import Error from "./Components/Common/Error";
 import Welcome from "./Components/MainComponents/Welcome";
 import DetailPage from "./Pages/DetailPage";
+import Chat from "./Pages/Chat";
+import Help from "./Pages/Help";
+import MyPage2 from "./Pages/MyPage2";
 
 import { getCookie } from "./Shared/Cookie";
 import ThemeToggle from "./Components/Common/ThemeToggle";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import { darkTheme, lightTheme } from "./theme/theme";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { deleteCookie } from "./Shared/Cookie";
+import io from "socket.io-client";
+
+export const socket = io.connect("ws://3.39.161.93:3000");
+export const initSocketConnection = () => {
+  if (socket) return;
+  socket.connect();
+};
+
 function App() {
+  const navigate = useNavigate();
+  const loginUser = getCookie("userName");
+
+  const [loginState, setLoginState] = useState(false);
+
   const token = getCookie("token");
-  console.log(token);
-  const loginUser = useSelector((state) => state.userReducer);
-  console.log(loginUser);
   const [isDarkMode, setIsDarkMode] = useState(false);
+
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
+
+  const logoutHandler = () => {
+    deleteCookie("token");
+    deleteCookie("userId");
+    setLoginState(false);
+    alert("로그아웃 되었습니다!");
+  };
+
+  useEffect(() => {
+    token ? setLoginState(true) : setLoginState(false);
+  }, [token]);
+
+  console.log(loginState);
   return (
     <>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
@@ -36,12 +64,22 @@ function App() {
           <Route
             path="/home"
             theme={isDarkMode ? darkTheme : lightTheme}
-            element={<Main token={token} themeMode={isDarkMode} />}
+            element={
+              <Main
+                loginUser={loginUser}
+                loginState={loginState}
+                logout={logoutHandler}
+                token={token}
+                themeMode={isDarkMode}
+              />
+            }
           ></Route>
           <Route
             path="/login"
             theme={isDarkMode ? darkTheme : lightTheme}
-            element={<Login themeMode={isDarkMode} />}
+            element={
+              <Login themeMode={isDarkMode} setLoginState={setLoginState} />
+            }
           ></Route>
           <Route
             path="/signup"
@@ -51,12 +89,15 @@ function App() {
           <Route
             path="/mypage"
             theme={isDarkMode ? darkTheme : lightTheme}
-            element={<MyPage token={token} />}
-          ></Route>
-          <Route
-            path="/page/:userId"
-            theme={isDarkMode ? darkTheme : lightTheme}
-            element={<DetailPage />}
+            element={
+              <MyPage
+                loginUser={loginUser}
+                loginState={loginState}
+                logout={logoutHandler}
+                token={token}
+                themeMode={isDarkMode}
+              />
+            }
           ></Route>
           <Route
             path="/greetings"
@@ -69,9 +110,39 @@ function App() {
             element={<Error />}
           ></Route>
           <Route
+            path="/chats"
+            theme={isDarkMode ? darkTheme : lightTheme}
+            element={
+              <Chat
+                logoutHandler={logoutHandler}
+                themeMode={isDarkMode}
+                loginUser={loginUser}
+              />
+            }
+          ></Route>
+          <Route
             path="/"
             theme={isDarkMode ? darkTheme : lightTheme}
             element={<Welcome />}
+          ></Route>
+          {/* <Route path="/mypage2" theme={isDarkMode ? darkTheme : lightTheme} element={<MyPage2 loginUser = {loginUser} loginState={loginState} logout = {logoutHandler} token = {token} themeMode = {isDarkMode}/>} ></Route> */}
+          <Route
+            path="/help"
+            theme={isDarkMode ? darkTheme : lightTheme}
+            element={<Help themeMode={isDarkMode} />}
+          ></Route>
+          <Route
+            path="/page/:userId"
+            theme={isDarkMode ? darkTheme : lightTheme}
+            element={
+              <DetailPage
+                loginUser={loginUser}
+                loginState={loginState}
+                logout={logoutHandler}
+                token={token}
+                themeMode={isDarkMode}
+              />
+            }
           ></Route>
         </Routes>
       </ThemeProvider>
