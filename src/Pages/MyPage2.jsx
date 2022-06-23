@@ -29,7 +29,7 @@ const MyPage2 = ( {leaveChatHandler, joinChat, token, themeMode, loginState, log
             </div>
           </MyHomeHeader>
           <FollowersWrap>
-            <FollowerList style = {{height : '650px'}}>
+            <FollowerList style = {{height : '672px'}}>
               <MyHomeTitle>
                 <span className = "mini-hp__title">사이좋은 사람들, 싸이월드</span>
                 <button className = "mini-hp__btn">EDIT</button>

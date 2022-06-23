@@ -61,12 +61,12 @@ return (
         <Route path="/home" theme = {isDarkMode ? darkTheme : lightTheme} element={<Main loginUser = {loginUser} loginState={loginState} logout = {logoutHandler} token = {token} themeMode = {isDarkMode}/>}></Route>
         <Route path="/login" theme = {isDarkMode ? darkTheme : lightTheme} element={<Login themeMode = {isDarkMode} setLoginState = {setLoginState}/> }></Route>
         <Route path="/signup" theme = {isDarkMode ? darkTheme : lightTheme} element={<Join themeMode = {isDarkMode}/>}></Route>
-        {/* <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route> */}
+        <Route path="/mypage" theme = {isDarkMode ? darkTheme : lightTheme} element={<MyPage />}></Route>
         <Route path="/greetings" theme = {isDarkMode ? darkTheme : lightTheme} element={<Greetings />}></Route>
         <Route path="/error" theme = {isDarkMode ? darkTheme : lightTheme} element={<Error />}></Route>
         <Route path="/chats" theme = {isDarkMode ? darkTheme : lightTheme} element={<Chat logoutHandler = {logoutHandler} themeMode = {isDarkMode} loginUser = {loginUser}/>}></Route>
         <Route path="/" theme = {isDarkMode ? darkTheme : lightTheme} element={<Welcome />}></Route>
-        <Route path="/mypage" theme={isDarkMode ? darkTheme : lightTheme} element={<MyPage2 loginUser = {loginUser} loginState={loginState} logout = {logoutHandler} token = {token} themeMode = {isDarkMode}/>} ></Route>
+        {/* <Route path="/mypage2" theme={isDarkMode ? darkTheme : lightTheme} element={<MyPage2 loginUser = {loginUser} loginState={loginState} logout = {logoutHandler} token = {token} themeMode = {isDarkMode}/>} ></Route> */}
         <Route path="/help" theme={isDarkMode ? darkTheme : lightTheme} element={<Help themeMode = {isDarkMode}/>} ></Route>
         <Route path="/page/:userid" theme={isDarkMode ? darkTheme : lightTheme} element={<DetailPage />} ></Route>
       </Routes>

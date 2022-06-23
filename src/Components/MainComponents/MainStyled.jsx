@@ -76,7 +76,7 @@ export const FollowersWrap = styled.div`
 
 export const FollowerList = styled.div`
   width : 100%;
-  height: 373px;
+  height: 378px;
   padding-top : 10px;
   overflow: scroll;
   ${flex({align : 'center', justify : 'flex-start' , direction : 'column'})}
