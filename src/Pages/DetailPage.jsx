@@ -12,6 +12,7 @@ import styled from "styled-components";
 import flex from "../Components/GlobalStyled/flex";
 import M1 from "../Public/Images/M1.png";
 
+import { Audio } from "./MyPage";
 import FooterIsLogin from "../Components/MainComponents/FooterIsLogin";
 import { BodyBox } from "../Components/UserComponents/UserStyled";
 import {
@@ -37,7 +38,6 @@ import none from "../Public/Images/none.png";
 const DetailPage = ({
   leaveChatHandler,
   joinChat,
-  token,
   themeMode,
   loginState,
   logout,
@@ -144,7 +144,7 @@ const DetailPage = ({
                   </div>
                 </MyHomeBox>
                 <MyHomeSmall>
-                  <audio src={playlistdata} controls />
+                  <Audio src={playlistdata} controls />
                 </MyHomeSmall>
                 <MyHomeSmall>
                   <div className="menu__elem">
@@ -181,7 +181,7 @@ const DetailPage = ({
               </FollowerList>
             </FollowersWrap>
             <FooterIsLogin
-              leaveChatHandler={leaveChatHandler}
+              leaveChatHandler ={leaveChatHandler}
               socket={socket}
               joinChat={joinChat}
               themeMode={themeMode}
@@ -215,6 +215,7 @@ const MyHomeTitle = styled.div`
   ${flex({ justify: "space-between" })};
   & > .mini-hp__title {
     font-size: 16px;
+    color: ${props => props.theme.textColor3};
   }
   & > .mini-hp__btn {
     font-size: 3px;
@@ -227,21 +228,26 @@ const MyHomeTitle = styled.div`
 `;
 
 const MyHomeBox = styled.div`
+  color: ${props => props.theme.textColor2};
   width: calc(100vh - 57vh);
   height: 170px;
-  ${flex({ direction: "column", justify: "center" })};
+  ${flex({ direction: "column", justify: "center", align : "center" })};
   border-radius: 10px;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor5};
+  & > .mini_room {
+    width: calc(100vh - 60vh);
+  }
 `;
 
 const MyHomeSmall = styled.div`
+  color: ${props => props.theme.bgColor4};
   width: calc(100vh - 57vh);
   height: 60px;
   ${flex({ align: "center" })};
   padding: 0 20px 0 20px;
   box-sizing: border-box;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor5};
   margin-top: 15px;
 `;
 

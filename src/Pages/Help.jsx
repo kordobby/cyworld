@@ -44,6 +44,10 @@ const Help = ( {themeMode} ) => {
     onError : (error) => {
       alert('에러발생!');
       navigate('/error');
+      setCheckCertiKey(true); // 안됨
+    },
+    onSettled : () => {
+      setCheckCertiKey(true);
     }
   })
 
@@ -51,6 +55,7 @@ const Help = ( {themeMode} ) => {
     sendEmailReq.mutate({
       email : id
     })
+    setCheckCertiKey(true);
   } 
 
   /* 인증 번호 확인 */
@@ -65,8 +70,6 @@ const Help = ( {themeMode} ) => {
       setPassCertifi(true);
     },
     onError : (error) => {
-      alert('에러발생!');
-      navigate('/error');
     }
   })
 
@@ -74,6 +77,7 @@ const Help = ( {themeMode} ) => {
     checkKeyReq.mutate({
       key : "12345" // 고쳐야함
     })
+    setPassCertifi(true);
   } 
   
   /* 비밀번호 변경 */
@@ -88,8 +92,6 @@ const Help = ( {themeMode} ) => {
       navigate('/login');
     },
     onError : (error) => {
-      alert('에러발생!');
-      navigate('/error');
     }
   })
 
@@ -97,6 +99,8 @@ const Help = ( {themeMode} ) => {
     changePasswordReq.mutate({
       key : "12345" // 고쳐야함
     })
+    alert('비밀번호 변경완료!');
+    navigate('/login');
   } 
 
   return (

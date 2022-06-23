@@ -40,6 +40,11 @@ function App() {
     setIsDarkMode((prev) => !prev);
   };
 
+  const joinChatHandler = (event) => {
+    navigate('/chats');
+    // joinChat(event);    
+  }
+
   const logoutHandler = () => {
     deleteCookie("token");
     deleteCookie("userId");
@@ -47,6 +52,12 @@ function App() {
     setLoginState(false);
     alert("로그아웃 되었습니다!");
   };
+
+
+  const leaveChatHandler = () => {
+    navigate('/home');
+    // leaveChat(event);
+  }
 
   useEffect(() => {
     token ? setLoginState(true) : setLoginState(false);
@@ -91,6 +102,7 @@ function App() {
             theme={isDarkMode ? darkTheme : lightTheme}
             element={
               <MyPage
+              leaveChatHandler ={leaveChatHandler}
                 loginUser={loginUser}
                 loginState={loginState}
                 logout={logoutHandler}
@@ -114,6 +126,7 @@ function App() {
             theme={isDarkMode ? darkTheme : lightTheme}
             element={
               <Chat
+                leaveChatHandler ={leaveChatHandler}
                 logoutHandler={logoutHandler}
                 themeMode={isDarkMode}
                 loginUser={loginUser}
@@ -136,6 +149,7 @@ function App() {
             theme={isDarkMode ? darkTheme : lightTheme}
             element={
               <DetailPage
+                leaveChatHandler = {leaveChatHandler}
                 loginUser={loginUser}
                 loginState={loginState}
                 logout={logoutHandler}
