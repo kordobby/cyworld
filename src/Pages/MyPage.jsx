@@ -168,7 +168,7 @@ const MyPage = ({
 
                 <MyHomeBox>
                   <div className="profile__header">
-                    {imageUrl === "" ? (
+                    {mypageData?.imageUrl === "" ? (
                       <FriendsImg src={none} alt=""></FriendsImg>
                     ) : (
                       <FriendsImg
@@ -208,7 +208,7 @@ const MyPage = ({
                   </div>
                 </MyHomeBox>
                 <MyHomeSmall>
-                  <audio src={music} controls />
+                  <Audio src={music} controls />
                 </MyHomeSmall>
                 <MyHomeSmall>
                   <div className="menu__elem">
@@ -225,7 +225,7 @@ const MyPage = ({
                 <MyHomeBox
                   style={{
                     marginTop: "15px",
-                    height: "250px",
+                    height: "270px",
                     alignItems: "flex-start",
                     paddingLeft: "19px",
                     boxSizing: "border-box",
@@ -240,7 +240,7 @@ const MyPage = ({
                   >
                     MINIROOM
                   </span>
-                  <img src={M1} alt=""></img>
+                  <img className = "mini_room" src={M1} alt=""></img>
                 </MyHomeBox>
               </FollowerList>
             </FollowersWrap>
@@ -256,6 +256,30 @@ const MyPage = ({
     </>
   );
 };
+
+const Audio = styled.audio`
+  color: white;
+  &::-webkit-media-controls-enclosure {
+    border : none;
+    border-radius: 5px;
+    padding: 0;
+    background-color: ${(props) => props.theme.bgColor5};
+    display : flex;
+    justify-content: center;
+    
+  }
+  &::-webkit-media-controls-play-button,
+  &::-webkit-media-controls-overlay-play-button {
+    color: ${props => props.theme.textColor};
+  }
+  &::-webkit-media-controls-timeline-container,
+  &::-webkit-media-controls-current-time-display,
+  &::-webkit-media-controls-time-remaining-display,
+  &::-webkit-media-controls-timeline,
+  &::-webkit-media-controls-toggle-closed-captions-button {
+    display: none;
+  }
+`;
 
 const MyHomeHeader = styled.div`
   width: calc(100vh - 53vh);
@@ -279,6 +303,7 @@ const MyHomeTitle = styled.div`
   ${flex({ justify: "space-between" })};
   & > .mini-hp__title {
     font-size: 16px;
+    color: ${props => props.theme.textColor3};
   }
   & > .mini-hp__btn {
     font-size: 3px;
@@ -291,21 +316,26 @@ const MyHomeTitle = styled.div`
 `;
 
 const MyHomeBox = styled.div`
+  color: ${props => props.theme.textColor2};
   width: calc(100vh - 57vh);
   height: 170px;
-  ${flex({ direction: "column", justify: "center" })};
+  ${flex({ direction: "column", justify: "center", align : "center" })};
   border-radius: 10px;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor5};
+  & > .mini_room {
+    width: calc(100vh - 60vh);
+  }
 `;
 
 const MyHomeSmall = styled.div`
+  color: ${props => props.theme.bgColor4};
   width: calc(100vh - 57vh);
   height: 60px;
   ${flex({ align: "center" })};
   padding: 0 20px 0 20px;
   box-sizing: border-box;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor5};
   margin-top: 15px;
 `;
 

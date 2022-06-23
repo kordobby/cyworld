@@ -46,7 +46,6 @@ const Join = ( {themeMode} ) => {
     else return false;
   }
 
-  console.log(idCheckDisabled());
   const checkIdHandler = () => { dispatch(checkIdDB({ email : id })) }
 
   // #3. 조건에 따른 버튼 비활성화

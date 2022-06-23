@@ -8,7 +8,6 @@ import { getCookie } from "../../Shared/Cookie";
 import { socket } from "../../App";
 
 const FooterIsLogin = ({leaveChatHandler}) => {
-  console.log(socket);
   const navigate = useNavigate();
   const [ room, setRoom ] = useState('');
   const loginUser = getCookie('userName');
@@ -22,11 +21,9 @@ const FooterIsLogin = ({leaveChatHandler}) => {
       name : loginUser,
       room : room
     });
-    console.log( `${loginUser}께서 ${room}채팅방에 입장하셨습니다.`)
   };
 
   const joinChatHandler = (event) => {
-    console.log('hello')
     navigate('/chats');
     joinChat(event);    
   }
@@ -46,7 +43,7 @@ const FooterIsLogin = ({leaveChatHandler}) => {
         <FontAwesomeIcon icon  = {faComments}></FontAwesomeIcon>
         <span className = "menu__title">와글와글</span>
       </FooterIcon>
-      <FooterIcon onClick = {()=> navigate('/home')}>
+      <FooterIcon onClick = {()=> alert('준비중인 서비스입니다!')}>
         <FontAwesomeIcon onClick = {()=> navigate('/home')} icon  = {faFaceLaugh}></FontAwesomeIcon>
         <span className = "menu__title">마이 페이지</span>
       </FooterIcon>

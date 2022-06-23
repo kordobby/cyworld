@@ -43,6 +43,7 @@ function App() {
   const logoutHandler = () => {
     deleteCookie("token");
     deleteCookie("userId");
+    deleteCookie("userName");
     setLoginState(false);
     alert("로그아웃 되었습니다!");
   };
@@ -51,7 +52,6 @@ function App() {
     token ? setLoginState(true) : setLoginState(false);
   }, [token]);
 
-  console.log(loginState);
   return (
     <>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>

@@ -33,7 +33,6 @@ const Login = ( { themeMode, setLoginState } ) => {
 
   const { mutate } = useMutation(loginTester,{
       onSuccess : (res) => {
-        console.log(res);
         setCookie('token', res.data.token, {
           path : '/',
           expire : 'after60m'
@@ -52,7 +51,6 @@ const Login = ( { themeMode, setLoginState } ) => {
       },
       onError : (error) => {
         navigate('/login');
-        console.log(error);
         alert('아이디와 비밀번호를 다시 확인해주세요!');
         setLoginState(false);
       }

@@ -28,7 +28,6 @@ const Main = ( {joinChat, token, themeMode, loginState, logout, socket, loginUse
   }
  
   const { data } = useQuery('loginCheck', fetcher);
-  console.log(data);
   const activeMenuHandler = () => {
     setActive(!active);
   }

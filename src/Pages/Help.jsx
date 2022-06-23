@@ -11,6 +11,7 @@ import { useState } from 'react';
 import apis from '../Shared/api/apis';
 import { useMutation } from 'react-query';
 import axios from 'axios';
+import { passwordCheck } from '../Hooks/useCheck';
 
 const Help = ( {themeMode} ) => {
 
@@ -19,6 +20,15 @@ const Help = ( {themeMode} ) => {
   const [ pw, setPw ] = useInput('');
   const [ checkCertiKey, setCheckCertiKey ] = useState(false);
   const [ passCertifi, setPassCertifi ] = useState(false);
+
+  /* 버튼 비활성화 */
+  const disabledHandler = () => {
+    if ( passCertifi === false ) return true;
+    else if ( checkCertiKey === false ) return true;
+    else if ( passwordCheck(pw) === false ) return true;
+    else if ( pw === "" ) return true;
+    else return false;
+  }
 
   /* 인증 비밀번호 보내기 */
   const sendEmail = async(userEmail) => {
@@ -112,6 +122,7 @@ const Help = ( {themeMode} ) => {
         </UserInputBox>
 
         {/* 인증번호 확인하기 */}
+        { checkCertiKey === true ? 
         <UserInputBox style = {{ position : 'relative', margin : '0'}}>
           <InputStyle
             style = {{ margin : '0' }}
@@ -120,8 +131,11 @@ const Help = ( {themeMode} ) => {
             placeholder = {"인증번호를 입력해주세요."}/>
           <HelpBtn onClick = {checkKeyHandler}><FontAwesomeIcon icon = {faCheck} /></HelpBtn>
         </UserInputBox>
-
+        : <></> }
         {/* 비밀번호 변경하기 */}
+
+        { passCertifi === true ? 
+        <>
         <JoinTitle style = {{display : 'flex', flexDirection :'column', alignItems : 'flex-start', justifyContent : 'flex-end', margin : '0'}}>
             <span style = {{marginBottom : '8px'}}>비밀번호 변경</span>
             <SignUpNotice className = "email__title">변경하실 비밀번호를 작성해주세요!</SignUpNotice>
@@ -129,11 +143,12 @@ const Help = ( {themeMode} ) => {
         <UserInputBox style = {{ position : 'relative' }}>
           <InputStyle
             style = {{ margin : '0' }}
-            type = "number"
+            type = "password"
             onChange = {setPw}
             placeholder = {"인증번호를 입력해주세요."}/>
-          <HelpBtn onClick = {changePwHandler}><FontAwesomeIcon icon = {faCheck} /></HelpBtn>
-        </UserInputBox>
+          <HelpBtn disabled = {disabledHandler()} onClick = {changePwHandler}><FontAwesomeIcon icon = {faCheck} /></HelpBtn>
+        </UserInputBox> </>
+        : <></> }
       </LoginWrap>
     </BodyBox>
   );

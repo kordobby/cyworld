@@ -19,7 +19,6 @@ export function loadMyData(payload) {
   return { type: LOAD_MYPAGE, payload };
 }
 export function patchMyData(payload) {
-  console.log(payload)
 
   return { type: PATCH_MYPAGE, payload };
 }
@@ -36,7 +35,6 @@ export function patchMyData(payload) {
 /* ----------------- 미들웨어 ------------------ */
 export const loadMyDB = (payload) => {
   return async function (dispatch) { 
-  console.log(payload)
     try {
         const mypageData = await axios({
             method : "get",
@@ -46,10 +44,8 @@ export const loadMyDB = (payload) => {
                      }
               
              });
-         console.log(mypageData.data.user);
          dispatch(loadMyData(mypageData.data.user));
     }catch(error){
-         console.log('마이페이지 로드 실패');
     }
   };
 };
@@ -57,7 +53,6 @@ export const loadMyDB = (payload) => {
 
 export const patchMyDB = (payload) => {
   return async function (dispatch) { 
-    console.log(payload)
     dispatch(patchMyData(payload.patchData.data))
     // dispatch(loadMyData());
     //1. ?? 윤님꺼에서 여기 부분 여쭙기

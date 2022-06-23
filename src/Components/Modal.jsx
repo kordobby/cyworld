@@ -5,7 +5,6 @@ import { MainWrap } from "./MainComponents/MainStyled";
 // style
 
 const Modal = (props) => {
-  // console.log(props.children)
   const { open, close, header } = props;
 
   return (

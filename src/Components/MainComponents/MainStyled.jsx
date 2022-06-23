@@ -102,7 +102,7 @@ export const MainMsg = styled.div`
   ${flex({ justify : 'center', align : 'center'})};
   & > .main__message {
     font-family: 'DungGeunMo';
-    color: ${props => props.theme.textColor};;
+    color: ${props => props.theme.textColor};
   }
 `
 export const OfficialBox = styled.div`

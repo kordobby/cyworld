@@ -17,7 +17,6 @@ const Chat = ( {themeMode, logoutHandler} ) => {
   const navigate = useNavigate();
   const [ currentMsg, setCurrentMsg ] = useState('');
   const [ msgList, setMsgList ] = useState([]);
-  console.log(msgList);
   const inputRef = useRef();
   const loginUser = getCookie('userName');
 
@@ -30,8 +29,6 @@ const Chat = ( {themeMode, logoutHandler} ) => {
   };
 
   const sendChat = async(event) => {
-    event.preventDefault();
-    console.log('hi')
     if (currentMsg !== "") {
       const msgData = currentMsg;
       await socket.emit('message', msgData);
@@ -42,7 +39,6 @@ const Chat = ( {themeMode, logoutHandler} ) => {
 
   useEffect(() => {
     socket.on('update', (data) => {
-      console.log(data);
       setMsgList((list) => [...list, data]);
   })
   }, [socket]);
@@ -54,11 +50,9 @@ const Chat = ( {themeMode, logoutHandler} ) => {
 
   const leaveChat = (event) => {
     socket.disconnect('disconnect');
-    console.log('나가기');
   };
 
   const leaveChatHandler = () => {
-    console.log('bye');
     navigate('/home');
     // leaveChat(event);
   }
@@ -104,7 +98,7 @@ const Chat = ( {themeMode, logoutHandler} ) => {
               defaultValue = {currentMsg}
               placeholder='대화입력'
               onChange = { (event) => {setCurrentMsg(event.target.value)}}
-              onKeyDown = { (event) => { event.key === 'Enter' && sendChat(); }}  ref = {inputRef}/>
+              onKeyPress = { (event) => { event.key === 'Enter' && sendChat(); }}  ref = {inputRef}/>
            <ChatBtn onClick = {sendChat}><FontAwesomeIcon icon = {faPaperPlane}/></ChatBtn>
           </ChatInputBox>
           <FooterIsLogin leaveChatHandler = {leaveChatHandler} />

@@ -28,7 +28,6 @@ const checkId = (payload) => ({ type : CHECK_ID, payload });
 
 /* THUNK */
 export const checkIdDB = (payload) => {
-  console.log(payload);
   // payload : { email : #### } => 확인완료!
   return async function(dispatch) {
     dispatch(serverReqUser(true));
@@ -38,12 +37,10 @@ export const checkIdDB = (payload) => {
         url : `http://3.39.161.93:3000/api/duplicatesEmail/${payload.email}`, // => 확인완료!
       })                            ///api/duplicatesEmail/:email
       /* 만약 성공한다면 checkId 를 true로 */
-      console.log(idCheck);
       dispatch(checkId(true));
       alert("사용 가능한 이메일 입니다!");
       }
       catch (error) {
-        console.log(error);
         dispatch(checkId(false));
         alert(error.message);
       }
@@ -54,7 +51,6 @@ export const checkIdDB = (payload) => {
 };
 
 export const signUpDB = (payload) => {
-  console.log(payload) // => 잘 찍히는 것 확인!
   return async function(dispatch) {
     dispatch(serverReqUser(true));
     try {
@@ -68,11 +64,9 @@ export const signUpDB = (payload) => {
           userName : payload.userName
         }
       })
-      console.log(join);
       dispatch(reqSuccessUser(true));
       alert('회원가입 성공!')
     } catch (error) {
-      console.log(error);
       dispatch(reqErrorUser(error));
       alert('회원가입 실패!');
     } finally {
@@ -82,7 +76,6 @@ export const signUpDB = (payload) => {
 }
 
 export const loginDB = (payload) => {
-  console.log(payload);  // payload 잘 찍히는지 확인 완료
   return async function(dispatch) {
     dispatch(serverReqUser(true));
     try { const login = await apis.login({ email : payload.email, password : payload.password});
@@ -94,8 +87,6 @@ export const loginDB = (payload) => {
       //     email : payload.email,
       //     password : payload.password
       //   }
-      // })
-      console.log(login);
       /* 아래는 받는 값에 따라서 수정 가능성 있음! */
       const accessToken = login.data.token;
       setCookie('token', accessToken, {
@@ -113,7 +104,6 @@ export const loginDB = (payload) => {
       alert('로그인 성공!')
     } catch (error) {
       alert('실패!')
-      console.log(error);
       dispatch(reqErrorUser(error));
     } finally {
       dispatch(serverReqUser(false));
@@ -123,7 +113,6 @@ export const loginDB = (payload) => {
 
 /* REDUCER */
 export default function userReducer( state = initUser, action ) {
-  console.log(action)
   switch (action.type) {
       /* SERVER REQUEST */
       case SERVER_REQ_USER :
